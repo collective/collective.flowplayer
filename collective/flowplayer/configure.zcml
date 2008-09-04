@@ -1,0 +1,27 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="collective.flowplayer">
+
+	<include package=".browser" />
+	
+	<subscriber
+		for="Products.ATContentTypes.interface.IATFile
+			 Products.Archetypes.interfaces.IObjectInitializedEvent"
+		handler=".events.change_file_view"
+		/>
+	<subscriber
+		for="Products.ATContentTypes.interface.IATFile
+			 Products.Archetypes.interfaces.IObjectEditedEvent"
+		handler=".events.change_file_view"
+		/>
+		
+	<genericsetup:registerProfile
+		name="default"
+		title="Flash video support"
+		directory="profiles/default"
+		provides="Products.GenericSetup.interfaces.EXTENSION"
+		/>
+
+</configure>
