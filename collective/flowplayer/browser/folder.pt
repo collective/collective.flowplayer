@@ -6,10 +6,6 @@
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="collective.flowplayer">
 
-<head metal:fill-slot="javascript_head_slot">
-<script type="text/javascript" tal:content="view/js" />
-</head>
-
 <body>
 
 <div metal:fill-slot="main">
@@ -33,28 +29,27 @@
 
         <div tal:replace="structure provider:plone.abovecontentbody" />
 
-		<tal:block condition="videos">
+        <tal:block condition="videos">
 
-			<div id="playerBox">
-				<h3 id="playerTitle" tal:content="python:videos[0].Title" />
-				<a id="player" tal:attributes="href python:videos[0].getURL() + '/download'"> 
-					If your video does not begin to play shortly, make sure you have Adobe
-		  			Flash installed. 
-				</a>
-			</div>
-			
-			<ul id="playlist"> 
-			    <li tal:repeat="video videos">
-			    	<a tal:attributes="href string:${video/getURL}/download"
-			    	   tal:content="video/Title" /> 
-			    </li> 
-			</ul> 
-		
-		</tal:block>
-
-        <div metal:use-macro="context/document_relateditems/macros/relatedItems">
-            show related items if they exist
-        </div>
+            <div class="playListFlowPlayer" style="display: none;">
+                <a class="playListItem"
+                   tal:repeat="video videos"
+                   tal:attributes="href video/url;
+                                   style video/scale;
+                                   title video/title"
+                   tal:content="video/description" />
+            </div>
+            <div class="flowPlayerMessage discreet" i18n:translate="video_fallback">
+                If your video do not start playing shortly, please ensure
+                that you have JavaScript enabled and the latest version of
+                Adobe Flash installed.
+            </div>   
+        </tal:block>
+        
+        <p tal:condition="not:videos" i18n:translate="no_videos">
+            There are no videos in this folder. Add some video files here
+            first.
+        </p>
     
         <div tal:replace="structure provider:plone.belowcontentbody" />
 

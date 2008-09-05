@@ -1,7 +1,5 @@
-import random
-
 from zope.interface import implements
-from zope.component import getMultiAdapter
+from zope.component import getMultiAdapter, queryMultiAdapter
 
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
@@ -10,8 +8,6 @@ from zope import schema
 from zope.formlib import form
 
 from plone.memoize.instance import memoize
-from plone.memoize import ram
-from plone.memoize.compress import xhtml_compress
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
@@ -19,8 +15,9 @@ from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 
 from Products.ATContentTypes.interface import IATTopic, IATFolder
-from collective.flowplayer.interfaces import IFLVVideo
 
+from collective.flowplayer.interfaces import IFlowPlayable
+from collective.flowplayer.interfaces import IFlowPlayerView
 from collective.flowplayer import MessageFactory as _
 
 from Products.CMFCore.utils import getToolByName
@@ -38,10 +35,14 @@ class IVideoPortlet(IPortletDataProvider):
                            required=True,
                            source=SearchableTextSourceBinder({'object_provides' : [IATTopic.__identifier__,
                                                                                    IATFolder.__identifier__,
-                                                                                   IFLVVideo.__identifier__]},
+                                                                                   IFlowPlayable.__identifier__]},
                                                                default_query='path:'))
 
-    random = schema.Bool(title=_(u"Select random items"),
+    limit = schema.Int(title=_(u"Number of videos to show"),
+                       description=_(u"Enter a number greater than 0 to limit the number of items displayed"),
+                       required=False)
+    
+    random = schema.Bool(title=_(u"Randomise the playlist"),
                          description=_(u"If enabled, a random video from the selection will be played."),
                          required=True,
                          default=False)
@@ -57,12 +58,14 @@ class Assignment(base.Assignment):
 
     header = u""
     target =None
+    limit = None
     random = False
     show_more = True
 
-    def __init__(self, header=u"", target=None, random=False, show_more=True):
+    def __init__(self, header=u"", target=None, limit=None, random=False, show_more=True):
         self.header = header
         self.target = target
+        self.limit = limit
         self.random = random
         self.show_more = show_more
 
@@ -76,7 +79,7 @@ class Renderer(base.Renderer):
 
     @property
     def available(self):
-        return self.results() is not None
+        return len(self.results()) > 0
 
     def target_url(self):
         target = self.target()
@@ -87,35 +90,25 @@ class Renderer(base.Renderer):
 
     @memoize
     def results(self):
+        
         target = self.target()
         catalog = getToolByName(self.context, 'portal_catalog')
         
         if target is None:
-            return None
+            return []
         
-        results = []
-        
-        if IATTopic.providedBy(target):
-            results = [dict(url=x.getURL(), title=x.Title, description=x.Description)
-                        for x in target.queryCatalog()]
-        elif IATFolder.providedBy(target):
-            results = [dict(url=x.getURL(), title=x.Title, description=x.Description)
-                        for x in catalog(object_provides=IFLVVideo.__identifier__,
-                                 path = '/'.join(target.getPhysicalPath()),
-                                 sort_on='getObjPositionInParent')]
+        view = queryMultiAdapter((target, self.request), name=u"flowplayer")
+        if view is None or not IFlowPlayerView.providedBy(view):
+            return []
             
-        if results and self.data.random:
-            return random.choice(results)
-        elif results:
-            return results[0]
-    
-        if not IFLVVideo.providedBy(target):
-            return None
-    
-        return dict(url=target.absolute_url(),
-                    title=target.Title(),
-                    description=target.Description())
+        videos = view.videos()
         
+        limit = self.data.limit
+        if limit:
+            return videos[:limit]
+        else:
+            return videos
+
     @memoize
     def target(self):
         target_path = self.data.target

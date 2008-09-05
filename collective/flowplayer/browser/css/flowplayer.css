@@ -1,0 +1,25 @@
+/* Default size - will be adjusted to size of actual clip if available */
+.autoFlowPlayer {
+    display: block;
+    border: 0px;    
+}
+
+.portletFlowPlayer .playListFlowPlayer {
+    display: block;
+    height: 100px;
+}
+
+div.playButton { 
+    background:url(play.png) no-repeat; 
+    width:50px; 
+    height:50px; 
+    position:relative; 
+    top:-140px; 
+    left:125px;     
+    opacity:0.9; 
+    margin-bottom:-50px; 
+} 
+ 
+div.playButton:hover { 
+    opacity:1.0;         
+}

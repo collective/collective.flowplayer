@@ -1,4 +1,4 @@
-<dl class="portlet portletFlashVideo"
+<dl class="portlet portletFlowPlayer"
     i18n:domain="collective.flowplayer"
     tal:define="target_url string:${view/target_url}/view">
 
@@ -10,13 +10,24 @@
         <span class="portletTopRight"></span>
     </dt>
     
-    <dd class="portletItem" tal:define="video view/results">
+    <dd class="portletItem" tal:define="videos view/results">
         
-        <a class="flowplayer" tal:attributes="href string:${video/url}/download">
-        	If your video does not begin to play shortly, make sure you have Adobe
-		  	Flash installed. 
-        </a>
-        
+        <tal:block condition="videos">
+
+            <div style="display: none;"
+                 tal:attributes="class python:view.data.random and 'playListFlowPlayer minimal random' or 'playListFlowPlayer minimal'">
+                <a class="playListItem"
+                   tal:repeat="video videos"
+                   tal:attributes="href video/url;
+                                   title video/title"
+                   tal:content="video/description" />
+            </div>
+            <div class="flowPlayerMessage discreet" i18n:translate="video_fallback">
+                If your video do not start playing shortly, please ensure
+                that you have JavaScript enabled and the latest version of
+                Adobe Flash installed.
+            </div>   
+        </tal:block>
     </dd>
     
     <dd class="portletFooter" tal:condition="view/data/show_more">

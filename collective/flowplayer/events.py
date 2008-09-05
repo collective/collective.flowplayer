@@ -1,59 +1,81 @@
 from zope.interface import alsoProvides, noLongerProvides
-from zope.annotation.interfaces import IAnnotations 
 
-from collective.flowplayer.interfaces import IFLVVideo
+from collective.flowplayer.interfaces import IVideoInfo, IAudio, IVideo
 from collective.flowplayer.flv import FLVHeader, FLVHeaderError
 
 from Products.ATContentTypes.interface import IATFile
 from Products.Archetypes.interfaces import IObjectInitializedEvent
 
-ANNOTATIONS_KEY = "collective.flowplayer"
+from StringIO import StringIO
 
-def remove_flv(object):
-    if IFLVVideo.providedBy(object):
-        noLongerProvides(object, IFLVVideo)
+EXTENSIONS = ['.flv',
+              '.mp3']
+
+def remove_marker(object):
+    changed = False
+    if IAudio.providedBy(object):
+        noLongerProvides(object, IAudio)
+        changed = True
+    if IVideo.providedBy(object):
+        noLongerProvides(object, IVideo)
+        changed = True
+    if changed:
         object.reindexObject(idxs=['object_provides'])
-        
+
+def check_extension(filename):
+    filename = filename.lower()
+    for ext in EXTENSIONS:
+        if filename.endswith(ext):
+            return ext
+    return None
+
 def change_file_view(object, event):
     
     content = event.object
     if not IATFile.providedBy(content):
         return
     
-    file = content.getField('file').getRaw(content)
-    if file is None:
-        remove_flv(content)
-        return
-
-    filename = file.filename
-    if not filename or not filename.endswith('.flv'):
-        remove_flv(content)
-        return
-
-    try:
-        file = file.getIterator()
-    except AttributeError:
-        pass
-
-    file.seek(0)
-    
-    flvparser = FLVHeader()
-    try:
-        flvparser.analyse(file.read(1024))
-    except FLVHeaderError:
-        remove_flv(content)
+    file_object = content.getField('file').getRaw(content)
+    if file_object is None:
+        remove_marker(content)
         return
     
+    ext = check_extension(file_object.filename)
+    if ext is None:
+        remove_marker(content)
+        return
+
     if IObjectInitializedEvent.providedBy(event):
         content.setLayout('flowplayer')
+
+    if ext == '.mp3':
+        if not IAudio.providedBy(content):
+            alsoProvides(content, IAudio)
+            object.reindexObject(idxs=['object_provides'])
+    elif ext == '.flv':
+        
+        try:
+            # For blobs
+            file_handle = file_object.getIterator()
+        except AttributeError:
+            file_handle = StringIO(str(file_object.data))
+
+        file_handle.seek(0)
+        flvparser = FLVHeader()
+        try:
+            flvparser.analyse(file_handle.read(1024))
+        except FLVHeaderError:
+            remove_marker(content)
+            return
     
-    if not IFLVVideo.providedBy(content):
-        alsoProvides(content, IFLVVideo)
-        object.reindexObject(idxs=['object_provides'])
+        if not IVideo.providedBy(content):
+            alsoProvides(content, IVideo)
+            object.reindexObject(idxs=['object_provides'])
+
+        width = flvparser.getWidth()
+        height = flvparser.getHeight()
     
-    width = flvparser.getWidth()
-    height = flvparser.getHeight()
-    
-    if height and width:
-        annotations = IAnnotations(content)
-        annotations["collective.flowplayer"] = {'height': height, 'width': width}
+        if height and width:
+            info = IVideoInfo(content)
+            info.height = height
+            info.width = width

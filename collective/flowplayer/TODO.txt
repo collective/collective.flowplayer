@@ -1,0 +1,9 @@
+collective.flowplayer to-do
+===========================
+
+    - Test MP3 files
+        - May need specific style
+    
+    - Build inline player
+        - set up classes on install automatically
+        - make overlay button work with splash image
