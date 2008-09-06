@@ -7,6 +7,15 @@ class IFlowPlayerView(Interface):
     """View for the flow player
     """
     
+    def audio_only():
+        """Return True if we are only showing audio files.
+        """
+    
+    def scale():
+        """Return a CSS/style snippet to encoding the height and width of
+        the player.
+        """
+    
     def videos():
         """Return a list of dicts for videos to play, with keys url, title,
         description and scale.
@@ -24,9 +33,11 @@ class IAudio(IFlowPlayable):
     """Marker interface for files that contain audio content
     """
     
-class IVideoInfo(IVideo):
+class IMediaInfo(IVideo):
     """Information about a video object
     """
+    
+    audio_only = schema.Bool(title=u"Audio only?", required=True)
     
     width = schema.Int(title=_(u"Width"), required=False)
     height = schema.Int(title=_(u"Height"), required=False)

@@ -31,10 +31,10 @@
 
         <div tal:replace="structure provider:plone.abovecontentbody" />
 
-        <a class="autoFlowPlayer"
-           tal:define="scale view/scale"
+        <a tal:define="audio view/audio_only"
            tal:attributes="href string:${context/absolute_url}/download;
-                           style scale"
+                           class python:audio and 'autoFlowPlayer audio' or 'autoFlowPlayer video';
+                           style view/scale"
             i18n:translate="video_fallback">
             If your video do not start playing shortly, please ensure
             that you have JavaScript enabled and the latest version of

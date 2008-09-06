@@ -79,7 +79,7 @@ class Renderer(base.Renderer):
 
     @property
     def available(self):
-        return len(self.results()) > 0
+        return len(self.videos()) > 0
 
     def target_url(self):
         target = self.target()
@@ -89,7 +89,7 @@ class Renderer(base.Renderer):
             return target.absolute_url()
 
     @memoize
-    def results(self):
+    def videos(self):
         
         target = self.target()
         catalog = getToolByName(self.context, 'portal_catalog')
@@ -108,6 +108,22 @@ class Renderer(base.Renderer):
             return videos[:limit]
         else:
             return videos
+    
+    @memoize
+    def audio_only(self):
+        target = self.target()
+        view = queryMultiAdapter((target, self.request), name=u"flowplayer")
+        if view is None or not IFlowPlayerView.providedBy(view):
+            return False
+        return view.audio_only()
+        
+    @memoize
+    def scale(self):
+        target = self.target()
+        view = queryMultiAdapter((target, self.request), name=u"flowplayer")
+        if view is None or not IFlowPlayerView.providedBy(view):
+            return False
+        return view.scale()
 
     @memoize
     def target(self):

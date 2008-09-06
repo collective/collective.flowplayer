@@ -6,7 +6,8 @@
 
     <include package=".browser" />
     
-    <adapter factory=".annotation.VideoInfoAdapter" />
+    <adapter factory=".media.VideoInfoAdapter" />
+    <adapter factory=".media.AudioInfo" />
     
     <subscriber
         for="Products.ATContentTypes.interface.IATFile

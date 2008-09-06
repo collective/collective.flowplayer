@@ -1,6 +1,6 @@
 from zope.interface import alsoProvides, noLongerProvides
 
-from collective.flowplayer.interfaces import IVideoInfo, IAudio, IVideo
+from collective.flowplayer.interfaces import IMediaInfo, IAudio, IVideo
 from collective.flowplayer.flv import FLVHeader, FLVHeaderError
 
 from Products.ATContentTypes.interface import IATFile
@@ -76,6 +76,6 @@ def change_file_view(object, event):
         height = flvparser.getHeight()
     
         if height and width:
-            info = IVideoInfo(content)
+            info = IMediaInfo(content)
             info.height = height
             info.width = width

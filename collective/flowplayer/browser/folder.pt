@@ -31,13 +31,16 @@
 
         <tal:block condition="videos">
 
-            <div class="playListFlowPlayer" style="display: none;">
-                <a class="playListItem"
-                   tal:repeat="video videos"
-                   tal:attributes="href video/url;
-                                   style video/scale;
-                                   title video/title"
-                   tal:content="video/description" />
+            <div tal:define="audio view/audio_only"
+                 tal:attributes="class python:audio and 'playListFlowPlayer audio' or 'playListFlowPlayer video';
+                                 style string:display:none;;${view/scale}">
+                <tal:block repeat="video videos">
+                    <a tal:define="audio video/audio_only"
+                       tal:attributes="href video/url;
+                                       title video/title;
+                                       class python:audio and 'playListItem audio' or 'playListItem video'"
+                       tal:content="video/description" />
+                </tal:block>
             </div>
             <div class="flowPlayerMessage discreet" i18n:translate="video_fallback">
                 If your video do not start playing shortly, please ensure

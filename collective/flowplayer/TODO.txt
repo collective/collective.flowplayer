@@ -1,9 +1,9 @@
 collective.flowplayer to-do
 ===========================
 
-    - Test MP3 files
-        - May need specific style
+    - portlet scrubber is too long, too big if there are playlist buttons
     
-    - Build inline player
+    - Inline/kupu player
         - set up classes on install automatically
-        - make overlay button work with splash image
+        - need special styles for audio?
+        - make overlay button work with splash image?
