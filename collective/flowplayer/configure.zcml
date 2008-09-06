@@ -4,24 +4,35 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="collective.flowplayer">
 
-	<include package=".browser" />
-	
-	<subscriber
-		for="Products.ATContentTypes.interface.IATFile
-			 Products.Archetypes.interfaces.IObjectInitializedEvent"
-		handler=".events.change_file_view"
-		/>
-	<subscriber
-		for="Products.ATContentTypes.interface.IATFile
-			 Products.Archetypes.interfaces.IObjectEditedEvent"
-		handler=".events.change_file_view"
-		/>
-		
-	<genericsetup:registerProfile
-		name="default"
-		title="Flash video support"
-		directory="profiles/default"
-		provides="Products.GenericSetup.interfaces.EXTENSION"
-		/>
+    <include package=".browser" />
+    
+    <adapter factory=".media.VideoInfoAdapter" />
+    <adapter factory=".media.AudioInfo" />
+    
+    <subscriber
+        for="Products.ATContentTypes.interface.IATFile
+             Products.Archetypes.interfaces.IObjectInitializedEvent"
+        handler=".events.change_file_view"
+        />
+    <subscriber
+        for="Products.ATContentTypes.interface.IATFile
+             Products.Archetypes.interfaces.IObjectEditedEvent"
+        handler=".events.change_file_view"
+        />
+        
+    <genericsetup:registerProfile
+        name="default"
+        title="Flowplayer"
+        directory="profiles/default"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+        
+    <genericsetup:importStep
+        name="collective.flowplayer"
+        title="Flowplayer configuration"
+        description="Configures Kupu pagraph styles for the flow player"
+        handler="collective.flowplayer.exportimport.import_various">
+        <depends name="kupu" />
+    </genericsetup:importStep>
 
 </configure>

@@ -1,0 +1,42 @@
+/* Default size - will be adjusted to size of actual clip if available */
+.autoFlowPlayer {
+    display: block;
+    height: 250px;
+    width: 300px;
+    border: 0px;
+}
+
+.autoFlowPlayer.audio {
+    display: block;
+    height: 27px;
+    width: 240px;
+    border: 0px;
+}
+.autoFlowPlayer.audio.minimal {
+    height: 27px;
+    width: 40px;
+    border: 0px;
+}
+.portletFlowPlayer .playListFlowPlayer {
+    display: block;
+    height: 100px;
+}
+.portletFlowPlayer .playListFlowPlayer.audio {
+    display: block;
+    height: 28px;
+}
+/*
+div.playButton { 
+    background:url(play.png) no-repeat; 
+    width:50px; 
+    height:50px; 
+    position:relative; 
+    top:-140px; 
+    left:125px;     
+    opacity:0.9; 
+    margin-bottom:-50px; 
+} 
+ 
+div.playButton:hover { 
+    opacity:1.0;         
+}*/

@@ -31,10 +31,15 @@
 
         <div tal:replace="structure provider:plone.abovecontentbody" />
 
-        <a class="flowplayer" tal:attributes="href string:${context/absolute_url}/download"> 
-		  If your video does not begin to play shortly, make sure you have Adobe
-		  Flash installed. 
-		</a>
+        <a tal:define="audio view/audio_only"
+           tal:attributes="href string:${context/absolute_url}/download;
+                           class python:audio and 'autoFlowPlayer audio' or 'autoFlowPlayer video';
+                           style view/scale"
+            i18n:translate="video_fallback">
+            If your video do not start playing shortly, please ensure
+            that you have JavaScript enabled and the latest version of
+            Adobe Flash installed.
+        </a>
 
         <div metal:use-macro="here/document_relateditems/macros/relatedItems">
             show related items if they exist
