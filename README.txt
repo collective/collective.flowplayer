@@ -6,7 +6,7 @@ collective.flowplayer integrates the GPL version of Flowplayer
 as well as .mp3 files.
 
 Installation
-============
+------------
 
 Add collective.flowplayer to your buildout as normal. See
 http://plone.org/documentation/tutorial/buildout. Don't forget to load the
@@ -15,12 +15,12 @@ configure.zcml file!
 Then install the product via Plone's Add-on products control panel.
 
 Usage
-=====
+-----
 
 collective.flowplayer offers several different usage modes:
 
 Standalone player
-----------------
+~~~~~~~~~~~~~~~~~
 
 To get a standalone video or audio player, simply add a standard Plone File
 anywhere in your site and upload a .flv or .mp3 file. The 'flowplayer' view
@@ -30,7 +30,7 @@ video/audio player.
 You can also do this manually, of course.
 
 Playlist
---------
+~~~~~~~~
 
 Create a Folder with several .mp3 or .flv files, or create a Collection that
 lists such files. Then 'flowplayer' from the 'display' drop-down at the
@@ -41,7 +41,7 @@ the Folder/Collection (unknown file formats will be ignored) in order. The
 video player will be sized to fit the largest video file in the playlist.
 
 Portlet
--------
+~~~~~~~
 
 To place a video or audio player in a portlet, use the Video Player portlet
 that is installed with this product. You can choose a Folder, Collection or
@@ -51,7 +51,7 @@ playlist much like the one described above.
 Note that the player in the portlet has got a fixed size, set with CSS.
 
 Inline
-------
+~~~~~~
 
 In each of the cases above, the video player is actually created with
 JavaScript as the page is loaded. This allows some degree of graceful 
@@ -101,14 +101,14 @@ outer <div /> to change the appearance of the player, or add 'random' to
 get a randomised playlist. The splash image is optional.
 
 Kupu integration
-================
+----------------
 
 To make it easier to use the type of markup outlined above to insert a video
 or audio player into a Plone content item, this product installs a few
 Kupu paragraph styles.  You can use them like this:
 
 Video
------
+~~~~~
 
  1. Insert the image you want to use as a splash image. You should insert this
     "inline" (rather than left/right floating), preferably in its own
@@ -120,7 +120,7 @@ Video
  3. Select one of the Video or Audio styles from the styles drop-down.
  
 Audio
------
+~~~~~
 
  1. Create a link to an mp3 file, e.g. out of some text. Again, place it in
     its own paragraph.
@@ -130,7 +130,7 @@ Audio
     right. The "Audio" style will produce a larger player on its own line.
     
 Configuration
-=============
+-------------
 
 Flowplayer supports a large number of configuration options. A few of these
 will be set based on the markup used to render the player (e.g. the playlist
