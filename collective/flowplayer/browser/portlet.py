@@ -14,7 +14,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 
-from Products.ATContentTypes.interface import IATTopic, IATFolder
+from Products.ATContentTypes.interface import IATTopic, IATFolder, IATImage
 
 from collective.flowplayer.interfaces import IFlowPlayable
 from collective.flowplayer.interfaces import IFlowPlayerView
@@ -37,6 +37,12 @@ class IVideoPortlet(IPortletDataProvider):
                                                                                    IATFolder.__identifier__,
                                                                                    IFlowPlayable.__identifier__]},
                                                                default_query='path:'))
+                                                               
+    splash = schema.Choice(title=_(u"Splash image"),
+                           description=_(u"An image file to use as a splash image"),
+                           required=False,
+                           source=SearchableTextSourceBinder({'object_provides' : [IATImage.__identifier__, IATFolder.__identifier__,]},
+                                                               default_query='path:'))
 
     limit = schema.Int(title=_(u"Number of videos to show"),
                        description=_(u"Enter a number greater than 0 to limit the number of items displayed"),
@@ -57,14 +63,16 @@ class Assignment(base.Assignment):
     implements(IVideoPortlet)
 
     header = u""
-    target =None
+    target = None
+    splash = None
     limit = None
     random = False
     show_more = True
 
-    def __init__(self, header=u"", target=None, limit=None, random=False, show_more=True):
+    def __init__(self, header=u"", target=None, splash=None, limit=None, random=False, show_more=True):
         self.header = header
         self.target = target
+        self.splash = splash
         self.limit = limit
         self.random = random
         self.show_more = show_more
@@ -72,7 +80,6 @@ class Assignment(base.Assignment):
     @property
     def title(self):
         return self.header
-
 
 class Renderer(base.Renderer):
     render = ViewPageTemplateFile('portlet.pt')
@@ -87,6 +94,27 @@ class Renderer(base.Renderer):
             return None
         else:
             return target.absolute_url()
+    
+    @memoize
+    def splash(self):
+        splash_path = self.data.splash
+        if not splash_path:
+            return None
+
+        if splash_path.startswith('/'):
+            splash_path = splash_path[1:]
+        
+        if not splash_path:
+            return None
+
+        portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
+        portal = portal_state.portal()
+        splash = portal.restrictedTraverse(splash_path, default=None)
+        
+        if splash is not None and not IATImage.providedBy(splash):
+            return None
+        
+        return splash
 
     @memoize
     def videos(self):
@@ -144,6 +172,7 @@ class Renderer(base.Renderer):
 class AddForm(base.AddForm):
     form_fields = form.Fields(IVideoPortlet)
     form_fields['target'].custom_widget = UberSelectionWidget
+    form_fields['splash'].custom_widget = UberSelectionWidget
     
     label = _(u"Add Video Portlet")
     description = _(u"This portlet display a Flash Video")
@@ -154,6 +183,7 @@ class AddForm(base.AddForm):
 class EditForm(base.EditForm):
     form_fields = form.Fields(IVideoPortlet)
     form_fields['target'].custom_widget = UberSelectionWidget
+    form_fields['splash'].custom_widget = UberSelectionWidget
 
     label = _(u"Edit Video Portlet")
     description = _(u"This portlet display a Flash video.")

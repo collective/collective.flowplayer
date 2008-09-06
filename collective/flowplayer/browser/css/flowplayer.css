@@ -5,19 +5,18 @@
     width: 300px;
     border: 0px;
 }
+
 .autoFlowPlayer.audio {
     display: block;
-    height: 28px;
+    height: 27px;
     width: 240px;
     border: 0px;
 }
 .autoFlowPlayer.audio.minimal {
-    display: block;
-    height: 28px;
+    height: 27px;
     width: 40px;
     border: 0px;
 }
-
 .portletFlowPlayer .playListFlowPlayer {
     display: block;
     height: 100px;
@@ -26,7 +25,7 @@
     display: block;
     height: 28px;
 }
-
+/*
 div.playButton { 
     background:url(play.png) no-repeat; 
     width:50px; 
@@ -40,4 +39,4 @@ div.playButton {
  
 div.playButton:hover { 
     opacity:1.0;         
-}
+}*/

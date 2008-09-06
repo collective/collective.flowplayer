@@ -1,9 +1,5 @@
 collective.flowplayer to-do
 ===========================
 
-    - portlet scrubber is too long, too big if there are playlist buttons
+    - audio portlet has a lot of blank space
     
-    - Inline/kupu player
-        - set up classes on install automatically
-        - need special styles for audio?
-        - make overlay button work with splash image?

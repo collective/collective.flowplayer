@@ -43,13 +43,14 @@ class JavaScript(BrowserView):
             if(audio) {
                 config.showMuteVolumeButton = false;
                 config.controlsOverVideo = null;
-                config.showScrubber = true;
+                config.showScrubber = false;
             }
         } else if(audio) {
             config.showFullScreenButton = false;
             config.showMenu = false;
             config.usePlayOverlay = false;
             config.controlsOverVideo = null;
+            config.showScrubber = true;
         }
         if(splash) {
             config.splashImageFile = splash;
@@ -66,6 +67,9 @@ class JavaScript(BrowserView):
             var aTag = this;
             if(!$(aTag).is("a"))
                 aTag = $(this).find("a").get(0);
+            if(aTag == null)
+                return;
+            
             config.videoFile = aTag.href;
             
             var img = $(this).find("img").get(0);
@@ -88,17 +92,19 @@ class JavaScript(BrowserView):
             var splash = null;
             
             var playList = new Array();
-            var size = null;
             $(this).find('a.playListItem').each(function() {
                 playList.push({url: $(this).attr('href')});
-                if(!size) size = $(this).attr('style');
             });
             
+            var img = $(this).find("img").get(0);
+            if(img != null) {
+                splash = $(img).attr('src');
+            }
+            
             if(random) playList.sort(randomOrder);
-            if(size) $(this).attr('style', size);
             
             updateConfig(config, minimal, audio, splash);
-            config.showPlayListButtons = (playList.length >= 1);
+            config.showPlayListButtons = (playList.length > 1);
             config.playList = playList;
             flashembed(this, params, {config:config});
             
@@ -120,10 +126,9 @@ class File(BrowserView):
         self.height = self.info is not None and self.info.height or None
         self.width = self.info is not None and self.info.width or None
         self._audio_only = self.info is not None and self.info.audio_only or None
-        self._scale = ""
         
         if self.height and self.width:
-            return "height: %dpx; width: %dpx;" % (self.height, self.width)
+            self._scale = "height: %dpx; width: %dpx;" % (self.height, self.width)
     
     def audio_only(self):
         return self._audio_only

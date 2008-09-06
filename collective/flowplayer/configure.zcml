@@ -22,9 +22,17 @@
         
     <genericsetup:registerProfile
         name="default"
-        title="Flash video support"
+        title="Flowplayer"
         directory="profiles/default"
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
+        
+    <genericsetup:importStep
+        name="collective.flowplayer"
+        title="Flowplayer configuration"
+        description="Configures Kupu pagraph styles for the flow player"
+        handler="collective.flowplayer.exportimport.import_various">
+        <depends name="kupu" />
+    </genericsetup:importStep>
 
 </configure>

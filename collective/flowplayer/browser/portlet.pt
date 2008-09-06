@@ -17,6 +17,9 @@
                              css_class    python:audio and 'playListFlowPlayer minimal wide audio' or 'playListFlowPlayer minimal video';
                              random_class python:view.data.random and ' random' or '';"
                  tal:attributes="class string:${css_class}${random_class}">
+                <tal:block define="splash view/splash" condition="nocall:splash">
+                    <img tal:replace="structure python:splash.tag()" />
+                </tal:block>
                 <tal:block repeat="video videos">
                     <a class="playListItem"
                        tal:attributes="href video/url;
