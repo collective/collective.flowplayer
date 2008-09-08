@@ -69,7 +69,6 @@ class JavaScript(BrowserView):
                 aTag = $(this).find("a").get(0);
             if(aTag == null)
                 return;
-            
             config.videoFile = aTag.href;
             
             var img = $(this).find("img").get(0);
@@ -129,6 +128,8 @@ class File(BrowserView):
         
         if self.height and self.width:
             self._scale = "height: %dpx; width: %dpx;" % (self.height, self.width)
+        else:
+            self._scale = ""
     
     def audio_only(self):
         return self._audio_only
