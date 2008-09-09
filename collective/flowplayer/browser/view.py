@@ -25,7 +25,7 @@ class JavaScript(BrowserView):
         self.player = "%s/%s" % (portal_path, flowplayer_properties.getProperty('player'),)
         self.properties = properties_to_javascript(flowplayer_properties, portal, ignore=['title', 'player'])
     
-    def __call__(self):
+    def __call__(self, request=None, response=None):
         self.update()
         self.request.response.setHeader("Content-type", "text/javascript")
         return """
