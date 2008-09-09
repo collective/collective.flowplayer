@@ -1,6 +1,15 @@
 Changelog
 =========
 
+1.0b2 - Released September 9th, 2008
+------------------------------------
+
+* Fixed portal_javascripts rendering traceback
+  [optilude]
+
+* Fixed image player view bug
+  [optilude]
+
 1.0b1 - Released September 6th, 2008
 ------------------------------------
 
