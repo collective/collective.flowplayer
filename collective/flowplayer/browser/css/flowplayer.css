@@ -20,6 +20,7 @@
 .portletFlowPlayer .playListFlowPlayer {
     display: block;
     height: 100px;
+    width: 100%;
 }
 .portletFlowPlayer .playListFlowPlayer.audio {
     display: block;
