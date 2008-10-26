@@ -39,7 +39,7 @@
                i18n:translate="video_fallback">
                 If your video does not start playing shortly, please ensure
                 that you have JavaScript enabled and the latest version of
-                Adobe Flash installed.
+                Adobe Flash Player (http://www.adobe.com/products/flashplayer/) installed.
             </a>
         </div>
 
