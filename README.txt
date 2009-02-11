@@ -61,7 +61,7 @@ pages.
 
 To create a standalone player, you would use markup like this::
 
-    <a class="autoFlowPlayer href="path/to/video-file.flv">
+    <a class="autoFlowPlayer" href="path/to/video-file.flv">
         <img src="path/to/splashscreen.jpg" />
     </a>
     
