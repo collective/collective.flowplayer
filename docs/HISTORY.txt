@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0b3 - Unreleased
+1.0b3 - 2009-02-23
 ------------------
 
 * Added support for links
