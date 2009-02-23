@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<portlets>
+   <portlet
+     addview="collective.flowplayer.Player"
+     title="Video player"
+     description="A portlet that plays Flash videos"
+   />
+</portlets>

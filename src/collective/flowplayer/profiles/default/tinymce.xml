@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<object>
+ <layout>
+  <styles purge="False">
+   <element value="Video|div|autoFlowPlayer video"/>
+   <element value="Video (left)|div|autoFlowPlayer video image-left"/>
+   <element value="Video (right)|div|autoFlowPlayer video image-right"/>
+   <element value="Audio|div|autoFlowPlayer audio"/>
+   <element value="Audio (left)|div|autoFlowPlayer audio image-left"/>
+   <element value="Audio (right)|div|autoFlowPlayer audio image-right"/>
+  </styles>
+ </layout>
+</object>

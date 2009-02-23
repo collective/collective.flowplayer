@@ -1,0 +1,48 @@
+<dl class="portlet portletFlowPlayer"
+    i18n:domain="collective.flowplayer"
+    tal:define="target_url string:${view/target_url}/view">
+
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <a tal:attributes="href target_url" tal:omit-tag="not:view/data/show_more">
+            <span tal:content="view/data/header" />
+        </a>
+        <span class="portletTopRight"></span>
+    </dt>
+    
+    <dd class="portletItem" tal:define="videos view/videos">
+        <tal:block condition="videos">
+            <div style="display: none;"
+                 tal:define="audio        view/audio_only;
+                             css_class    python:audio and 'playListFlowPlayer audio' or 'playListFlowPlayer minimal video';
+                             random_class python:view.data.random and ' random' or '';"
+                 tal:attributes="class string:${css_class}${random_class}">
+                <tal:block define="splash view/splash" condition="nocall:splash">
+                    <img tal:replace="structure python:splash.tag()" />
+                </tal:block>
+                <tal:block repeat="video videos">
+                    <a class="playListItem"
+                       tal:attributes="href video/url;
+                                       title video/title;"
+                       tal:content="video/description" />
+                </tal:block>
+            </div>
+            <div class="flowPlayerMessage discreet" i18n:translate="video_fallback">
+                If your video does not start playing shortly, please ensure
+                that you have JavaScript enabled and the latest version of
+                Adobe Flash Player (http://www.adobe.com/products/flashplayer/) installed.
+            </div>   
+        </tal:block>
+    </dd>
+    
+    <dd class="portletFooter">
+        <span class="portletBottomLeft"></span>
+        <span>
+        <a tal:condition="view/data/show_more" tal:attributes="href target_url" i18n:translate="more_url">
+         More&hellip;
+         </a>
+        </span>
+        <span class="portletBottomRight"></span>
+    </dd>
+
+</dl>
