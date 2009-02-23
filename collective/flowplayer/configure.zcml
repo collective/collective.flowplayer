@@ -12,12 +12,23 @@
     <subscriber
         for="Products.ATContentTypes.interface.IATFile
              Products.Archetypes.interfaces.IObjectInitializedEvent"
-        handler=".events.change_file_view"
+        handler=".events.ChangeFileView"
         />
     <subscriber
         for="Products.ATContentTypes.interface.IATFile
              Products.Archetypes.interfaces.IObjectEditedEvent"
-        handler=".events.change_file_view"
+        handler=".events.ChangeFileView"
+        />
+
+    <subscriber
+        for="Products.ATContentTypes.interface.IATLink
+             Products.Archetypes.interfaces.IObjectInitializedEvent"
+        handler=".events.ChangeLinkView"
+        />
+    <subscriber
+        for="Products.ATContentTypes.interface.IATLink
+             Products.Archetypes.interfaces.IObjectEditedEvent"
+        handler=".events.ChangeLinkView"
         />
         
     <genericsetup:registerProfile

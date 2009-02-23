@@ -3,6 +3,8 @@ import os
 
 version = '1.0b3'
 
+tests_require = ['collective.testcaselayer']
+
 setup(name='collective.flowplayer',
       version=version,
       description="A simple package using Flowplayer for video content",
@@ -27,6 +29,8 @@ setup(name='collective.flowplayer',
           'setuptools',
           # -*- Extra requirements: -*-
       ],
+      tests_require=tests_require,
+      extras_require={'tests': tests_require},
       entry_points="""
       # -*- Entry points: -*-
       """,

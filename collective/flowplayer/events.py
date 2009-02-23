@@ -1,9 +1,10 @@
+from zope.cachedescriptors import property
 from zope.interface import alsoProvides, noLongerProvides
 
 from collective.flowplayer.interfaces import IMediaInfo, IAudio, IVideo
 from collective.flowplayer.flv import FLVHeader, FLVHeaderError
 
-from Products.ATContentTypes.interface import IATFile
+from Products.ATContentTypes import interface
 from Products.Archetypes.interfaces import IObjectInitializedEvent
 
 from StringIO import StringIO
@@ -22,38 +23,62 @@ def remove_marker(object):
     if changed:
         object.reindexObject(idxs=['object_provides'])
 
-def check_extension(filename):
-    filename = filename.lower()
-    for ext in EXTENSIONS:
-        if filename.endswith(ext):
-            return ext
-    return None
+class ChangeView(object):
 
-def change_file_view(object, event):
-    
-    content = event.object
-    if not IATFile.providedBy(content):
-        return
-    
-    file_object = content.getField('file').getRaw(content)
-    if file_object is None:
-        remove_marker(content)
-        return
-    
-    ext = check_extension(file_object.filename)
-    if ext is None:
-        remove_marker(content)
-        return
+    interface = None
 
-    if IObjectInitializedEvent.providedBy(event):
-        content.setLayout('flowplayer')
+    @property.Lazy
+    def value(self):
+        return self.content.getField('file').getRaw(self.content)
 
-    if ext == '.mp3':
-        if not IAudio.providedBy(content):
-            alsoProvides(content, IAudio)
-            object.reindexObject(idxs=['object_provides'])
-    elif ext == '.flv':
-        
+    def handleAudio(self):
+        if not IAudio.providedBy(self.content):
+            alsoProvides(self.content, IAudio)
+            self.object.reindexObject(idxs=['object_provides'])
+
+    def __init__(self, object, event):
+        self.object = object
+        # TODO: do we really need this different from object?
+        self.content = content = event.object
+
+        if not self.interface.providedBy(content):
+            return
+
+        if self.value is None:
+            remove_marker(content)
+            return
+
+        ext = self.check_extension()
+        if ext is None:
+            remove_marker(content)
+            return
+
+        if IObjectInitializedEvent.providedBy(event):
+            content.setLayout('flowplayer')
+
+        if ext == '.mp3':
+            self.handleAudio()
+        elif ext == '.flv':
+            self.handleVideo()
+
+    def handleVideo(self):
+        if not IVideo.providedBy(self.content):
+            alsoProvides(self.content, IVideo)
+            self.object.reindexObject(idxs=['object_provides'])
+
+class ChangeFileView(ChangeView):
+
+    interface = interface.IATFile
+
+    def check_extension(self):
+        filename = self.value.filename.lower()
+        for ext in EXTENSIONS:
+            if filename.endswith(ext):
+                return ext
+        return None
+
+    def handleVideo(self):
+        file_object = self.value
         try:
             # For blobs
             file_handle = file_object.getIterator()
@@ -65,17 +90,30 @@ def change_file_view(object, event):
         try:
             flvparser.analyse(file_handle.read(1024))
         except FLVHeaderError:
-            remove_marker(content)
+            remove_marker(self.content)
             return
-    
-        if not IVideo.providedBy(content):
-            alsoProvides(content, IVideo)
-            object.reindexObject(idxs=['object_provides'])
+
+        super(ChangeFileView, self).handleVideo()
 
         width = flvparser.getWidth()
         height = flvparser.getHeight()
-    
+
         if height and width:
-            info = IMediaInfo(content)
+            info = IMediaInfo(self.content)
             info.height = height
             info.width = width
+
+class ChangeLinkView(ChangeView):
+
+    interface = interface.IATLink
+
+    @property.Lazy
+    def value(self):
+        return self.content.getField('remoteUrl').getRaw(self.content)
+
+    def check_extension(self):
+        filename = self.value.lower()
+        for ext in EXTENSIONS:
+            if filename.endswith(ext):
+                return ext
+        return None

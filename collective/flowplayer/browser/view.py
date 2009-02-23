@@ -1,4 +1,5 @@
-from zope.interface import implements
+from zope import interface
+from zope import component
 
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
@@ -115,7 +116,7 @@ class JavaScript(BrowserView):
 """ % dict(player=self.player, properties=self.properties)
 
 class File(BrowserView):
-    implements(IFlowPlayerView)
+    interface.implements(IFlowPlayerView)
     
     def __init__(self, context, request):
         super(File, self).__init__(context, request)
@@ -145,8 +146,16 @@ class File(BrowserView):
                     width=self.width,
                     audio_only=self._audio_only)]
 
+    def href(self):
+        return self.context.absolute_url()+'/download'
+
+class Link(File):
+
+    def href(self):
+        return self.context.getRemoteUrl()
+
 class Folder(BrowserView):
-    implements(IFlowPlayerView)
+    interface.implements(IFlowPlayerView)
 
     @memoize
     def audio_only(self):
@@ -173,13 +182,14 @@ class Folder(BrowserView):
             video = brain.getObject()
             if not IFlowPlayable.providedBy(video):
                 continue
-            info = IMediaInfo(video, None)
-            results.append(dict(url=brain.getURL(),
+            view = component.getMultiAdapter(
+                (video, self.request), interface.Interface, 'flowplayer')
+            results.append(dict(url=view.href(),
                                 title=brain.Title,
                                 description=brain.Description,
-                                height=info is not None and info.height or None,
-                                width=info is not None and info.width or None,
-                                audio_only=info is not None and info.audio_only or None))
+                                height=view.height,
+                                width=view.width,
+                                audio_only=view.audio_only()))
         return results
 
     def _query(self):
@@ -189,7 +199,7 @@ class Folder(BrowserView):
                        sort_on='getObjPositionInParent')
 
 class Topic(Folder):
-    implements(IFlowPlayerView)
+    interface.implements(IFlowPlayerView)
     
     def _query(self):
         return self.context.queryCatalog()

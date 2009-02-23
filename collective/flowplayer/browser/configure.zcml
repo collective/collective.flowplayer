@@ -22,6 +22,14 @@
         template="file.pt"
         permission="zope2.View"
         />
+        
+    <browser:page
+        name="flowplayer"
+        for="Products.ATContentTypes.interface.IATLink"
+        class=".view.Link"
+        template="file.pt"
+        permission="zope2.View"
+        />
     
     <browser:page
         name="flowplayer"

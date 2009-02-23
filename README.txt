@@ -2,8 +2,8 @@ Introduction
 ============
 
 collective.flowplayer integrates the GPL version of Flowplayer
-(http://www.flowplayer.org) with Plone 3.x. It can play .flv Flash Video files
-as well as .mp3 files.
+(http://www.flowplayer.org) with Plone 3.x. It can play .flv Flash
+Video files or links as well as .mp3 files or links.
 
 Installation
 ------------
@@ -22,23 +22,25 @@ collective.flowplayer offers several different usage modes:
 Standalone player
 ~~~~~~~~~~~~~~~~~
 
-To get a standalone video or audio player, simply add a standard Plone File
-anywhere in your site and upload a .flv or .mp3 file. The 'flowplayer' view
-will automatically be selected in the 'display' menu, which will show a 
-video/audio player.
+To get a standalone video or audio player, simply add a standard Plone
+File anywhere in your site and upload a .flv or .mp3 file. You can
+also add a Plone Link whose URL points to an .flv or .mp3 URL.  The
+'flowplayer' view will automatically be selected in the 'display'
+menu, which will show a video/audio player.
 
 You can also do this manually, of course.
 
 Playlist
 ~~~~~~~~
 
-Create a Folder with several .mp3 or .flv files, or create a Collection that
-lists such files. Then 'flowplayer' from the 'display' drop-down at the
-Folder/Collection level.
+Create a Folder with several .mp3 or .flv files or links, or create a
+Collection that lists such files or links. Then 'flowplayer' from the
+'display' drop-down at the Folder/Collection level.
 
-This will show a video/audio player that will loop through the media files in
-the Folder/Collection (unknown file formats will be ignored) in order. The
-video player will be sized to fit the largest video file in the playlist.
+This will show a video/audio player that will loop through the media
+in the Folder/Collection (unknown file formats will be ignored) in
+order. The video player will be sized to fit the largest video in
+the playlist.
 
 Portlet
 ~~~~~~~
