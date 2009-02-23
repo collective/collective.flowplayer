@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<object name="Folder" i18n:domain="plone" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <property name="view_methods" purge="false">
+  <element value="flowplayer"/>
+ </property>
+</object>

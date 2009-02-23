@@ -1,0 +1,28 @@
+/* Default size - will be adjusted to size of actual clip if available */
+.autoFlowPlayer {
+    display: block;
+    height: 250px;
+    width: 300px;
+    border: 0px;
+}
+
+.autoFlowPlayer.audio {
+    display: block;
+    height: 27px;
+    width: 240px;
+    border: 0px;
+}
+.autoFlowPlayer.audio.minimal {
+    height: 27px;
+    width: 40px;
+    border: 0px;
+}
+.portletFlowPlayer .video {
+    display: block;
+    height: 100px;
+    width: 100%;
+}
+.portletFlowPlayer .audio {
+    display: block;
+    height: 28px;
+}
