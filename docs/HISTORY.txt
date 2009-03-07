@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.0b4 - 2009-03-06
+------------------
+
+* Move the Plone dependency into the buildout to avoid the problem
+  reported in
+  http://david.wglick.org/2009/heads-up-watch-out-for-dependencies-on-plone/
+
 1.0b3 - 2009-02-23
 ------------------
 

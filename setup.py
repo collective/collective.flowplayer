@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0b3'
+version = '1.0b4'
 
 tests_require = ['collective.testcaselayer']
 
@@ -29,7 +29,7 @@ setup(name='collective.flowplayer',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
-          'Plone',
+          # 'Plone', Too confusing for those using releases < 3.2
       ],
       tests_require=tests_require,
       extras_require={'tests': tests_require},
