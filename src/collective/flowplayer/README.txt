@@ -17,6 +17,7 @@ Open a browser and log in as a normal user.
     ...     'Password').value = ptc.default_password
     >>> browser.getControl('Log in').click()
 
+
 FLV Files
 =========
 
@@ -172,3 +173,24 @@ same file.
         usePlayOverlay:true,
         loop:false,
         autoPlay:false };...
+
+Make sure we don't leak into sites where we're not installed
+============================================================
+
+If the product is uninstalled, new items should no longer get subtyped.
+
+    >>> portal.portal_quickinstaller.uninstallProducts(products=['collective.flowplayer'])
+    >>> folder.manage_delObjects(['foo.flv'])
+    >>> browser.open(folder.absolute_url())
+    >>> browser.getLink('File').click()
+    >>> ctrl = browser.getControl(name="file_file")
+    >>> opened = open(
+    ...     os.path.join(os.path.dirname(tests.__file__), 'foo.flv'))
+    >>> ctrl.add_file(opened, 'video/x-flv', 'foo.flv')
+    >>> browser.getControl('Save').click()
+    >>> opened.close()
+    >>> print browser.contents
+    <...
+    ...Changes saved...
+    >>> interfaces.IVideo.providedBy(folder['foo.flv'])
+    False

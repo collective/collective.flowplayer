@@ -1,5 +1,7 @@
 from zope.cachedescriptors import property
 from zope.interface import alsoProvides, noLongerProvides
+from zope.interface.interfaces import IInterface
+from zope.component import getSiteManager
 
 from collective.flowplayer.interfaces import IMediaInfo, IAudio, IVideo
 from collective.flowplayer.flv import FLVHeader, FLVHeaderError
@@ -11,6 +13,10 @@ from StringIO import StringIO
 
 EXTENSIONS = ['.flv',
               '.mp3']
+
+def is_flowplayer_installed(object):
+    sm = getSiteManager(context=object)
+    return sm.queryUtility(IInterface, name=u'collective.flowplayer.interfaces.IFlowPlayerSite', default=False)
 
 def remove_marker(object):
     changed = False
@@ -40,6 +46,9 @@ class ChangeView(object):
         self.object = object
         # TODO: do we really need this different from object?
         self.content = content = event.object
+
+        if not is_flowplayer_installed(content):
+            return
 
         if not self.interface.providedBy(content):
             return

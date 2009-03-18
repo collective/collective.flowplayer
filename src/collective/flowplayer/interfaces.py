@@ -3,6 +3,9 @@ from zope import schema
 
 from collective.flowplayer import MessageFactory as _
 
+class IFlowPlayerSite(Interface):
+    """Marker interface for sites with this product installed"""
+
 class IFlowPlayerView(Interface):
     """View for the flow player
     """

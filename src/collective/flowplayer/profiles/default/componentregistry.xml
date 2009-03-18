@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<componentregistry>
+ <utilities> 
+  <utility
+      name="collective.flowplayer.interfaces.IFlowPlayerSite"
+      component="collective.flowplayer.interfaces.IFlowPlayerSite"
+      interface="zope.interface.interfaces.IInterface"
+  />
+ </utilities>
+</componentregistry>
