@@ -1,7 +1,10 @@
 Changelog
 =========
 
-1.0b5 - Unreleased
+1.0b6 - Unreleased
+------------------
+
+1.0b5 - 2009-03-18
 ------------------
 
 * Have the event handlers make sure they're working with an object from a
