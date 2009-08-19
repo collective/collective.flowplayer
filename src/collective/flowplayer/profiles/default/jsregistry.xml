@@ -4,5 +4,8 @@
     enabled="True" expression=""
     id="++resource++collective.flowplayer/flashembed.min.js" inline="False"/>
  <javascript cacheable="True" compression="none" cookable="True"
+    enabled="True" expression=""
+    id="++resource++collective.flowplayer/flowplayer.playlist-3.0.6.min.js" inline="False"/>
+ <javascript cacheable="True" compression="none" cookable="True"
     enabled="True" expression=""  id="@@collective.flowplayer.js" inline="False"/>      
 </object>

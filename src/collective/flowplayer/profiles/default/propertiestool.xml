@@ -2,17 +2,29 @@
 <object name="portal_properties">
  <object name="flowplayer_properties" meta_type="Plone Property Sheet">
   <property name="title">Flow player properties</property>
-  <property name="player" type="string">++resource++collective.flowplayer/FlowPlayerDark.swf</property>
+  <property name="player" type="string">++resource++collective.flowplayer/flowplayer-3.1.2.swf</property>
+  <property name="plugins/controls/url" type="string">++resource++collective.flowplayer/flowplayer.controls-3.1.2.swf</property>
+  <property name="plugins/audio/url" type="string">++resource++collective.flowplayer/flowplayer.audio-3.1.0.swf</property>
+  <property name="clip/autoPlay" type="boolean">False</property>
+  <property name="clip/autoBuffering" type="boolean">False</property>
+  <property name="clip/scaling" type="string">fit</property>
+  <property name="plugins/controls/volume" type="boolean">True</property>
+
+
+  
+  <!-- FIXED properties
+  <property name="XXX-autoPlay = clip/autoPlay" type="boolean">False</property>
+  <property name="XXX-autoBuffering = clip/autoBuffering" type="boolean">False</property>
+  <property name="XXX-initialScale = clip/scaling" type="string">fit</property>
+  <property name="XXX-showVolumeSlider = plugins/controls/volume" type="boolean">False</property> -->
+
+  <!-- NOT FIXED properties
   <property name="loop" type="boolean">False</property>
-  <property name="autoPlay" type="boolean">False</property>
-  <property name="autoBuffering" type="boolean">False</property>
   <property name="usePlayOverlay" type="boolean">True</property>
-  <property name="initialScale" type="string">fit</property>
   <property name="initialVolumePercentage" type="int">50</property>
   <property name="useNativeFullScreen" type="boolean">True</property>
-  <property name="showVolumeSlider" type="boolean">False</property>
   <property name="controlsOverVideo" type="string">ease</property>
   <property name="controlBarBackgroundColor" type="int">-1</property>
-  <property name="controlBarGloss" type="string">low</property>
+  <property name="controlBarGloss" type="string">low</property> -->
  </object>
 </object>

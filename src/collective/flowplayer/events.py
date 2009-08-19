@@ -11,8 +11,8 @@ from Products.Archetypes.interfaces import IObjectInitializedEvent
 
 from StringIO import StringIO
 
-EXTENSIONS = ['.flv',
-              '.mp3']
+VIDEO_EXTENSIONS = ['.f4b', '.f4p', '.f4v', '.flv', '.mp4', '.m4v', '.jpg', '.gif', '.png']
+AUDIO_EXTENSIONS = ['.mp3']
 
 def is_flowplayer_installed(object):
     sm = getSiteManager(context=object)
@@ -65,9 +65,9 @@ class ChangeView(object):
         if IObjectInitializedEvent.providedBy(event):
             content.setLayout('flowplayer')
 
-        if ext == '.mp3':
+        if ext in AUDIO_EXTENSIONS:
             self.handleAudio()
-        elif ext == '.flv':
+        elif ext in VIDEO_EXTENSIONS:
             self.handleVideo()
 
     def handleVideo(self):
@@ -81,7 +81,7 @@ class ChangeFileView(ChangeView):
 
     def check_extension(self):
         filename = self.value.filename.lower()
-        for ext in EXTENSIONS:
+        for ext in AUDIO_EXTENSIONS + VIDEO_EXTENSIONS:
             if filename.endswith(ext):
                 return ext
         return None
@@ -95,17 +95,21 @@ class ChangeFileView(ChangeView):
             file_handle = StringIO(str(file_object.data))
 
         file_handle.seek(0)
+        height = width = None
         flvparser = FLVHeader()
         try:
             flvparser.analyse(file_handle.read(1024))
+            width = flvparser.getWidth()
+            height = flvparser.getHeight()
         except FLVHeaderError:
-            remove_marker(self.content)
-            return
+            # Do not remove marker interface. MP4 files can't be parsed 
+            # but works fine. Any file which extension is file can be 
+            # played (hopefully)
+            # remove_marker(self.content)
+            # return
+            pass
 
         super(ChangeFileView, self).handleVideo()
-
-        width = flvparser.getWidth()
-        height = flvparser.getHeight()
 
         if height and width:
             info = IMediaInfo(self.content)
@@ -122,7 +126,7 @@ class ChangeLinkView(ChangeView):
 
     def check_extension(self):
         filename = self.value.lower()
-        for ext in EXTENSIONS:
+        for ext in AUDIO_EXTENSIONS + VIDEO_EXTENSIONS:
             if filename.endswith(ext):
                 return ext
         return None

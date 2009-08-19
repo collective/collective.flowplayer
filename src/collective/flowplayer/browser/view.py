@@ -1,6 +1,6 @@
 from zope import interface
 from zope import component
-
+import simplejson
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from collective.flowplayer.utils import properties_to_javascript
@@ -24,7 +24,10 @@ class JavaScript(BrowserView):
             portal_path = portal_path[:-1]
         
         self.player = "%s/%s" % (portal_path, flowplayer_properties.getProperty('player'),)
-        self.properties = properties_to_javascript(flowplayer_properties, portal, ignore=['title', 'player'])
+        self.properties = properties_to_javascript(flowplayer_properties, portal, ignore=['title', 'player'], as_json_string=False)
+        # debug code
+        # self.properties['debug'] = True
+        # self.properties['log'] = dict(level='info')
     
     def __call__(self, request=None, response=None):
         self.update()
@@ -35,23 +38,10 @@ class JavaScript(BrowserView):
     function randomOrder() { return (Math.round(Math.random())-0.5); }
     function updateConfig(config, minimal, audio, splash) {
         if(minimal) {
-            config.showFullScreenButton = false;
-            config.showStopButton = false;
-            config.showVolumeSlider = false;
-            config.showScrubber = false;
-            config.showMenu = false;
-            config.usePlayOverlay = false;
-            if(audio) {
-                config.showMuteVolumeButton = false;
-                config.controlsOverVideo = null;
-                config.showScrubber = false;
-            }
+            config.plugins.controls = null;
         } else if(audio) {
-            config.showFullScreenButton = false;
-            config.showMenu = false;
-            config.usePlayOverlay = false;
-            config.controlsOverVideo = null;
-            config.showScrubber = true;
+            config.plugins.controls = { fullscreen: false,
+                                           width: 500 };
         }
         if(splash) {
             config.splashImageFile = splash;
@@ -63,6 +53,9 @@ class JavaScript(BrowserView):
             var config = %(properties)s;
             var minimal = $(this).is('.minimal');
             var audio = $(this).is('.audio');
+            if (audio) {
+                $(this).width(500);
+            }
             var splash = null;
             
             var aTag = this;
@@ -70,7 +63,6 @@ class JavaScript(BrowserView):
                 aTag = $(this).find("a").get(0);
             if(aTag == null)
                 return;
-            config.videoFile = aTag.href;
             
             var img = $(this).find("img").get(0);
             if(img != null) {
@@ -80,7 +72,11 @@ class JavaScript(BrowserView):
             }
             
             updateConfig(config, minimal, audio, splash);
-            flashembed(this, params, {config:config});
+            if (!config.clip) {
+                config.clip = {}
+            }
+            config.clip.url = $(aTag).attr('href');
+            flashembed(this, "%(player)s", {config:config});
             $('.flowPlayerMessage').remove();
         });
         
@@ -104,16 +100,19 @@ class JavaScript(BrowserView):
             if(random) playList.sort(randomOrder);
             
             updateConfig(config, minimal, audio, splash);
-            config.showPlayListButtons = (playList.length > 1);
-            config.playList = playList;
-            flashembed(this, params, {config:config});
-            
+            if (playList.length > 1) {
+                config.plugins.controls.playlist = true
+            }
+            config.playlist = playList;
+            flashembed(this, "%(player)s", {config:config});
             $(this).show();
             $('.flowPlayerMessage').remove();
         });
     });
 })(jQuery);
-""" % dict(player=self.player, properties=self.properties)
+""" % dict(player=self.player, 
+           properties=simplejson.dumps(self.properties)
+           )
 
 class File(BrowserView):
     interface.implements(IFlowPlayerView)
@@ -147,7 +146,7 @@ class File(BrowserView):
                     audio_only=self._audio_only)]
 
     def href(self):
-        return self.context.absolute_url()+'/download'
+        return self.context.absolute_url()
 
 class Link(File):
 
