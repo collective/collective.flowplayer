@@ -1,6 +1,8 @@
 from zope import interface
 from zope import component
 import simplejson
+import urllib
+
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from collective.flowplayer.utils import properties_to_javascript
@@ -23,7 +25,7 @@ class JavaScript(BrowserView):
         if portal_path.endswith('/'):
             portal_path = portal_path[:-1]
         
-        self.player = "%s/%s" % (portal_path, flowplayer_properties.getProperty('player'),)
+        self.player = urllib.quote("%s/%s" % (portal_path, flowplayer_properties.getProperty('player'),))
         self.properties = properties_to_javascript(flowplayer_properties, portal, ignore=['title', 'player'], as_json_string=False)
         # debug code
         # self.properties['debug'] = True

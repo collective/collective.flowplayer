@@ -1,4 +1,5 @@
 import simplejson
+import urllib
 
 def properties_to_javascript(propertysheet, portal, ignore=['title'], as_json_string=False):
     items = dict()
@@ -13,9 +14,15 @@ def properties_to_javascript(propertysheet, portal, ignore=['title'], as_json_st
             continue
         
         if isinstance(value, str):
-            js_repr = value.replace('${portal_path}', portal_path)
+            new_value = value.replace('${portal_path}', portal_path)
         else:
-            js_repr = value
+            new_value = value
+            
+        # quote any key with /url in it, because we can't pass ++resource++ 
+        # to the flash as argument - it will replace + with space and file 
+        # is not found.
+        if '/url' in key:
+            new_value = urllib.quote(new_value)
 
         keys = key.split('/')
         to_fill = items
@@ -27,7 +34,7 @@ def properties_to_javascript(propertysheet, portal, ignore=['title'], as_json_st
                     to_fill[k] = dict()
                     to_fill = to_fill[k]
                 else:
-                    to_fill[k] = js_repr
+                    to_fill[k] = new_value
             else:
                 to_fill = to_fill[k]
 
