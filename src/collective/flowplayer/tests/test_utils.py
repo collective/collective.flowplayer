@@ -19,13 +19,13 @@ class TestUtils(ZopeTestCase.ZopeTestCase):
         self.props = MockPropertySheet()
         self.props._items['title'] = 'Player properties'
         self.props._items['player'] = 'flowplayer.swf'
-        self.props._items['plugins/controls/url'] = 'flowplayer.controls.swf'
+        self.props._items['plugins/controls/url'] = '${portal_path}flowplayer.controls.swf'
         self.props._items['plugins/controls/all'] = False
         self.props._items['plugins/controls/play'] = True
         self.props._items['plugins/controls/scrubber'] = True
         self.props._items['plugins/controls/tooltips/fullscreen'] = 'Enter fullscreen mode'
         self.props._items['plugins/controls/tooltips/buttons'] = True
-        self.props._items['plugins/audio/url'] = 'flowplayer.audio.swf'
+        self.props._items['plugins/audio/url'] = '++resource++collective.flowplayer/flowplayer.audio.swf'
         self.props._items['clip/autoPlay'] = False
         self.props._items['clip/autoBuffering'] = True
     
@@ -36,9 +36,9 @@ class TestUtils(ZopeTestCase.ZopeTestCase):
         self.assertEqual(len(parsed['plugins'].keys()), 2) # controls, audio
         self.assertEqual(parsed['plugins']['controls']['all'], False) 
         self.assertEqual(parsed['plugins']['controls']['scrubber'], True) 
-        self.assertEqual(parsed['plugins']['audio']['url'], 'flowplayer.audio.swf') 
+        self.assertEqual(parsed['plugins']['controls']['url'], r'/portal/flowplayer.controls.swf') 
+        self.assertEqual(parsed['plugins']['audio']['url'], r'%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.audio.swf') 
         self.assertEqual(parsed['clip']['autoBuffering'], True) 
-        
         
 
 def test_suite():

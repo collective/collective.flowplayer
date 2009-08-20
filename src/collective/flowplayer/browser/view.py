@@ -34,8 +34,7 @@ class JavaScript(BrowserView):
     def __call__(self, request=None, response=None):
         self.update()
         self.request.response.setHeader("Content-type", "text/javascript")
-        return """
-(function($) {
+        return """(function($) {
     var params = {src: "%(player)s"};
     function randomOrder() { return (Math.round(Math.random())-0.5); }
     function updateConfig(config, minimal, audio, splash) {

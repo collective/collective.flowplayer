@@ -60,19 +60,8 @@ The generated JavaScript includes the appropriate metadata.
     >>> browser.open(folder['foo.flv'].absolute_url()+'/collective.flowplayer.js')
     >>> print browser.contents
     (...
-    var params = {src:
-    "/plone/++resource++collective.flowplayer/FlowPlayerDark.swf"};...
-    var config = { controlsOverVideo:'ease',
-        controlBarBackgroundColor:-1,
-        showVolumeSlider:false,
-        controlBarGloss:'low',
-        useNativeFullScreen:true,
-        autoBuffering:false,
-        initialVolumePercentage:50,
-        initialScale:'fit',
-        usePlayOverlay:true,
-        loop:false,
-        autoPlay:false };...
+    var params = {src: "/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer-3.1.2.swf"};...
+    var config = {"clip": {"scaling": "fit", "autoBuffering": false, "autoPlay": false}, "plugins": {"audio": {"url": "%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.audio-3.1.0.swf"}, "controls": {"url": "%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.controls-3.1.2.swf", "volume": true}}};...
 
 FLV Links
 =========
@@ -116,19 +105,8 @@ The generated JavaScript includes the appropriate metadata.
     >>> browser.open(folder['foo-link-title'].absolute_url()+'/collective.flowplayer.js')
     >>> print browser.contents
     (...
-    var params = {src:
-    "/plone/++resource++collective.flowplayer/FlowPlayerDark.swf"};...
-    var config = { controlsOverVideo:'ease',
-        controlBarBackgroundColor:-1,
-        showVolumeSlider:false,
-        controlBarGloss:'low',
-        useNativeFullScreen:true,
-        autoBuffering:false,
-        initialVolumePercentage:50,
-        initialScale:'fit',
-        usePlayOverlay:true,
-        loop:false,
-        autoPlay:false };...
+    var params = {src: "/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer-3.1.2.swf"};...
+    var config = {"clip": {"scaling": "fit", "autoBuffering": false, "autoPlay": false}, "plugins": {"audio": {"url": "%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.audio-3.1.0.swf"}, "controls": {"url": "%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.controls-3.1.2.swf", "volume": true}}};...
 
 Folders
 =======
@@ -160,19 +138,8 @@ same file.
     >>> browser.open(folder.absolute_url()+'/collective.flowplayer.js')
     >>> print browser.contents
     (...
-    var params = {src:
-    "/plone/++resource++collective.flowplayer/FlowPlayerDark.swf"};...
-    var config = { controlsOverVideo:'ease',
-        controlBarBackgroundColor:-1,
-        showVolumeSlider:false,
-        controlBarGloss:'low',
-        useNativeFullScreen:true,
-        autoBuffering:false,
-        initialVolumePercentage:50,
-        initialScale:'fit',
-        usePlayOverlay:true,
-        loop:false,
-        autoPlay:false };...
+    var params = {src: "/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer-3.1.2.swf"};...
+    var config = {"clip": {"scaling": "fit", "autoBuffering": false, "autoPlay": false}, "plugins": {"audio": {"url": "%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.audio-3.1.0.swf"}, "controls": {"url": "%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.controls-3.1.2.swf", "volume": true}}};...
 
 Make sure we don't leak into sites where we're not installed
 ============================================================
