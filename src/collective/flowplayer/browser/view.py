@@ -77,7 +77,7 @@ class JavaScript(BrowserView):
                 config.clip = {}
             }
             config.clip.url = $(aTag).attr('href');
-            flashembed(this, "%(player)s", {config:config});
+            flashembed(this, params, {config:config});
             $('.flowPlayerMessage').remove();
         });
         
@@ -105,7 +105,7 @@ class JavaScript(BrowserView):
                 config.plugins.controls.playlist = true
             }
             config.playlist = playList;
-            flashembed(this, "%(player)s", {config:config});
+            flashembed(this, params, {config:config});
             $(this).show();
             $('.flowPlayerMessage').remove();
         });
