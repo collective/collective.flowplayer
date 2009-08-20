@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0b6'
+version = '1.0b6 - flowplayer3'
 
 tests_require = ['collective.testcaselayer']
 
@@ -29,6 +29,7 @@ setup(name='collective.flowplayer',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
+          'simplejson',
           # 'Plone', Too confusing for those using releases < 3.2
       ],
       tests_require=tests_require,
