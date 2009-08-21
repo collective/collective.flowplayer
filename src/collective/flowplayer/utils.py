@@ -1,10 +1,9 @@
 import simplejson
 import urllib
 
-def properties_to_javascript(propertysheet, portal, ignore=['title'], as_json_string=False):
+def properties_to_javascript(propertysheet, portal_path, ignore=['title'], as_json_string=False):
     items = dict()
     
-    portal_path = portal.absolute_url_path()
     if not portal_path.endswith('/'):
         portal_path += '/'
     

@@ -47,10 +47,25 @@
         permission="zope2.View"
         />      
         
+    <!-- runtime code used for transforming HTML elements to player 
+         instances. Important when player should be invoked from Kupu,
+         but used on file and folder templates as well.
+         Transforms .autoFlowPlayer and .playListFlowPlayer
+         elements to players. -->
     <browser:page
         name="collective.flowplayer.js"
         for="*"
         class=".view.JavaScript"
+        attribute="runtime_config"
+        permission="zope2.View"
+        />
+
+    <!-- global configuration taken from portal_properties -->
+    <browser:page
+        name="collective.flowplayer.config.js"
+        for="*"
+        class=".view.JavaScript"
+        attribute="global_config"
         permission="zope2.View"
         />
 
