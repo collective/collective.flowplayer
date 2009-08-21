@@ -1,7 +1,11 @@
-import simplejson
 import urllib
 
-def properties_to_javascript(propertysheet, portal_path, ignore=['title'], as_json_string=False):
+def properties_to_dict(propertysheet, portal_path, ignore=['title']):
+    """
+    Analyses portal properties and creates python dictionary from keys-values. 
+    Key in the form 'k1/k2/k3' having a value 'value' is transformed to dictionary:
+    items = { k1 : { k2 : { k3 : value } } }
+    """
     items = dict()
     
     if not portal_path.endswith('/'):
@@ -37,7 +41,4 @@ def properties_to_javascript(propertysheet, portal_path, ignore=['title'], as_js
             else:
                 to_fill = to_fill[k]
 
-    if as_json_string:
-        return simplejson.dumps(items)
-    else:
-        return items
+    return items

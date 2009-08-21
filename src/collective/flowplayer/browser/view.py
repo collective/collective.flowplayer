@@ -6,7 +6,7 @@ import urllib
 
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
-from collective.flowplayer.utils import properties_to_javascript
+from collective.flowplayer.utils import properties_to_dict
 
 from collective.flowplayer.interfaces import IFlowPlayable
 from collective.flowplayer.interfaces import IMediaInfo, IFlowPlayerView
@@ -27,7 +27,8 @@ class JavaScript(BrowserView):
             portal_path = portal_path[:-1]
 
         self.portal_path = portal_path
-        self.player = urllib.quote("%s/%s" % (self.portal_path, self.flowplayer_properties.getProperty('player'),))
+        self.player = urllib.quote("%s/%s" % (self.portal_path, 
+                                              self.flowplayer_properties.getProperty('player'),))
     
     
     """
@@ -43,9 +44,12 @@ class JavaScript(BrowserView):
     def global_config(self, request=None, response=None):
         """ Returns global configuration of the Flowplayer taken from portal_properties """
         self.update()
-        self.properties = properties_to_javascript(self.flowplayer_properties, self.portal_path, ignore=['title', 'player'], as_json_string=False)
         self.request.response.setHeader("Content-type", "text/javascript")
-        return """var flowplayer_config = %(properties)s""" % dict(properties=simplejson.dumps(self.properties, indent=4))
+        properties = properties_to_dict(self.flowplayer_properties, 
+                                        self.portal_path, 
+                                        ignore=['title', 'player'])
+        return """var flowplayer_config = %(properties)s
+               """ % dict(properties=simplejson.dumps(properties, indent=4))
 
     def runtime_config(self, request=None, response=None):
         """ Returns global configuration of the Flowplayer taken from portal_properties """
@@ -68,7 +72,7 @@ class JavaScript(BrowserView):
             return temp;
         }
         
-        function updateConfig(config, minimal, audio, splash) {
+        function updateConfig(config, minimal, audio) {
             if(minimal) {
                 config.plugins.controls = null;
             } else if(audio) {
@@ -79,7 +83,6 @@ class JavaScript(BrowserView):
 
         $('.autoFlowPlayer').each(function() {
             var config = clone(flowplayer_config);
-            config.onBeforeFinish = function() { return false; };
             var minimal = $(this).is('.minimal');
             var audio = $(this).is('.audio');
             if (audio) {
@@ -92,14 +95,7 @@ class JavaScript(BrowserView):
             if(aTag == null)
                 return;
             
-            var img = $(this).find("img").get(0);
-            if(img != null) {
-                $(this).height($(img).height());
-                $(this).width($(img).width());
-                splash = $(img).attr('src');
-            }
-            
-            updateConfig(config, minimal, audio, splash);
+            updateConfig(config, minimal, audio);
             if (!config.clip) {
                 config.clip = {}
             }
@@ -123,14 +119,9 @@ class JavaScript(BrowserView):
                 $(this).remove()  // player container must be empty or contain image only
             });
             
-            var img = $(this).find("img").get(0);
-            if(img != null) {
-                splash = $(img).attr('src');
-            }
-            
             if(random) playList.sort(randomOrder);
             
-            updateConfig(config, minimal, audio, splash);
+            updateConfig(config, minimal, audio);
             if (playList.length > 1) {
                 config.plugins.controls.playlist = true
             }
