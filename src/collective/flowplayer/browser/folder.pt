@@ -38,8 +38,7 @@
                     <a tal:define="audio video/audio_only"
                        tal:attributes="href video/url;
                                        title video/title;
-                                       class python:audio and 'playListItem audio' or 'playListItem video'"
-                       tal:content="video/description" />
+                                       class python:audio and 'playListItem audio' or 'playListItem video'"></a>
                 </tal:block>
             </div>
             <div class="flowPlayerMessage discreet" i18n:translate="video_fallback">

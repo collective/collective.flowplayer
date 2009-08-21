@@ -54,6 +54,8 @@ class JavaScript(BrowserView):
         return """(function($) {
         $(function() { 
 
+        function randomOrder() { return (Math.round(Math.random())-0.5); }
+        
         // thanks: http://keithdevens.com/weblog/archive/2007/Jun/07/javascript.clone
         function clone(obj) {   
             if (!obj || typeof obj != 'object') { return obj; }     
@@ -118,6 +120,7 @@ class JavaScript(BrowserView):
             var playList = new Array();
             $(this).find('a.playListItem').each(function() {
                 playList.push({url: $(this).attr('href')});
+                $(this).remove()  // player container must be empty or contain image only
             });
             
             var img = $(this).find("img").get(0);
