@@ -29,9 +29,10 @@
 
         <div tal:replace="structure provider:plone.abovecontentbody" />
 
-        <div tal:define="audio view/audio_only">
+        <div tal:define="audio view/audio_only"
+             tal:attributes="class python:audio and 'autoFlowPlayer audio' or 'autoFlowPlayer video';
+                             style view/scale">
             <a tal:attributes="href view/href;
-                               class python:audio and 'autoFlowPlayer audio' or 'autoFlowPlayer video';
                                style view/scale"
                i18n:translate="video_fallback">
                 If your video does not start playing shortly, please ensure
