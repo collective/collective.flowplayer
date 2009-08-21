@@ -1,6 +1,6 @@
 import urllib
 
-def properties_to_dict(propertysheet, portal_path, ignore=['title']):
+def properties_to_dict(propertysheet, portal_url, ignore=['title']):
     """
     Analyses portal properties and creates python dictionary from keys-values. 
     Key in the form 'k1/k2/k3' having a value 'value' is transformed to dictionary:
@@ -8,8 +8,8 @@ def properties_to_dict(propertysheet, portal_path, ignore=['title']):
     """
     items = dict()
     
-    if not portal_path.endswith('/'):
-        portal_path += '/'
+    if not portal_url.endswith('/'):
+        portal_url += '/'
     
     # build python representation of properties first
     for key, value in propertysheet.propertyItems():
@@ -17,7 +17,8 @@ def properties_to_dict(propertysheet, portal_path, ignore=['title']):
             continue
         
         if isinstance(value, str):
-            new_value = value.replace('${portal_path}', portal_path)
+            new_value = value.replace('${portal_path}', portal_url)
+            new_value = new_value.replace('${portal_url}', portal_url)
         else:
             new_value = value
             

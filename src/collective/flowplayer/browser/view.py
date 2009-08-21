@@ -22,14 +22,12 @@ class JavaScript(BrowserView):
         properties_tool = getToolByName(self.context, 'portal_properties')
         self.flowplayer_properties = getattr(properties_tool, 'flowplayer_properties', None)
         
-        portal_path = portal.absolute_url_path()
-        if portal_path.endswith('/'):
-            portal_path = portal_path[:-1]
+        portal_url = portal.absolute_url()
+        self.portal_url = portal_url
+        self.player = self.flowplayer_properties.getProperty('player') \
+                      .replace('${portal_url}', portal_url) \
+                      .replace('${portal_path}', portal_url)
 
-        self.portal_path = portal_path
-        self.player = urllib.quote("%s/%s" % (self.portal_path, 
-                                              self.flowplayer_properties.getProperty('player'),))
-    
     
     """
     Why there are two JS configuration files ? 
@@ -46,7 +44,7 @@ class JavaScript(BrowserView):
         self.update()
         self.request.response.setHeader("Content-type", "text/javascript")
         properties = properties_to_dict(self.flowplayer_properties, 
-                                        self.portal_path, 
+                                        self.portal_url, 
                                         ignore=['title', 'player'])
         return """var flowplayer_config = %(properties)s
                """ % dict(properties=simplejson.dumps(properties, indent=4))
