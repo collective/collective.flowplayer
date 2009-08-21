@@ -7,9 +7,12 @@ Todo and notes to Flowplayer3 version, started at 2009/08/19
 
 STILL WORK IN PROGRESS
 
-   - fix browser tests
+    - we should use 'flowplayer.js' instead of flashembed.js to support 
+      javascript events (eg. loop) and javascript plugins (eg. playlists).
+      If I replace flashembed with flowplayer, player is not initially 
+      shown (you must click to player area first)
 
-   - migration of properties in portal_properties
+   - ?migration of properties in portal_properties?
 
    - loop does not work. It seems functions are not passed through <object> 
      config params. http://flowplayer.org/forum/6/10931#post-10952

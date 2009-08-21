@@ -109,7 +109,7 @@ class JavaScript(BrowserView):
     });
 })(jQuery);
 """ % dict(player=self.player, 
-           properties=simplejson.dumps(self.properties)
+           properties=simplejson.dumps(self.properties, indent=4)
            )
 
 class File(BrowserView):
