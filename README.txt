@@ -142,9 +142,48 @@ be hidden in 'minimal' mode). Most other options can be set in the ZMI.
 In portal_properties, there should be a new stylesheet called
 flowplayer_properties. Options set here are passed through to the player's
 JavaScript configuration (make sure you use the right property type). For
-string properties, you can use the placeholder ${portal_path} to refer to
-the path to the portal root. This is useful for things like watermark images.
+string properties, you can use the placeholder ${portal_url} to refer to
+the URL of the portal root. This is useful for things like watermark images or 
+player plugins. 
+If you plan to use Flowplayer's embed plugin (not supported directly by 
+collective.flowplayer, but may be configured using custom javascript plugin),
+you should always use ${portal_url} in front of your player or plugin URLs, 
+because this URL will be included in the embed code.
 
 You can also use the 'player' property to change the player SWF file that's
-used, e.g. to switch to FlowPlayerLight.swf, or use the commercial version if
-you have this installed.
+used, e.g. to switch to commercial version if you have this installed. 
+
+Since FlowPlayer3 uses more complex properties and plugins infrastructure, most
+of properties is defined as a plugin configuration (e.g. control bar is separate
+plugin with own set of properties). If you want to configure FlowPlayer3 plugin,
+you should define it's flash file using property syntax eg. plugins/controls/url
+which generates configuration item in form::
+
+    { 
+        plugins : {
+                        controls : {
+                                        url : 'VALUE OF PROPERTY'
+                                   }
+                  }
+    }
+    
+To configure color of control bar volumeSlidercolor, define property: 
+plugins/controls/volumeSliderColor set to value 'lime', which generates 
+the following config::
+
+    { 
+        plugins : {
+                        controls : {
+                                        url : 'VALUE OF PROPERTY',
+                                        volumeSlider: 'lime'
+                                   }
+                  }
+    }
+    
+All control bar configuration properties are described on
+http://flowplayer.org/plugins/flash/controlbar.html
+
+General informations about FlowPlayer configuration may be found at
+http://flowplayer.org/documentation/configuration/ Please note, it is not 
+possible to specify events in the Plone flowplayer_properties sheet now (eg.
+onBeforeFinish event). 

@@ -7,10 +7,13 @@ Todo and notes to Flowplayer3 version, started at 2009/08/19
 
 STILL WORK IN PROGRESS
 
-    - we should use 'flowplayer.js' instead of flashembed.js to support 
+    X we should use 'flowplayer.js' instead of flashembed.js to support 
       javascript events (eg. loop) and javascript plugins (eg. playlists).
       If I replace flashembed with flowplayer, player is not initially 
       shown (you must click to player area first)
+      [ FIXED - player container element must not contain any HTML code unless
+      this code is taken as splash screen so you must click to the area to
+      player gets loaded]
 
    - ?migration of properties in portal_properties?
 

@@ -2,9 +2,9 @@
 <object name="portal_properties">
  <object name="flowplayer_properties" meta_type="Plone Property Sheet">
   <property name="title">Flow player properties</property>
-  <property name="player" type="string">++resource++collective.flowplayer/flowplayer-3.1.2.swf</property>
-  <property name="plugins/controls/url" type="string">++resource++collective.flowplayer/flowplayer.controls-3.1.2.swf</property>
-  <property name="plugins/audio/url" type="string">++resource++collective.flowplayer/flowplayer.audio-3.1.0.swf</property>
+  <property name="player" type="string">${portal_url}/++resource++collective.flowplayer/flowplayer-3.1.2.swf</property>
+  <property name="plugins/controls/url" type="string">${portal_url}/++resource++collective.flowplayer/flowplayer.controls-3.1.2.swf</property>
+  <property name="plugins/audio/url" type="string">${portal_url}/++resource++collective.flowplayer/flowplayer.audio-3.1.0.swf</property>
   <property name="clip/autoPlay" type="boolean">False</property>
   <property name="clip/autoBuffering" type="boolean">False</property>
   <property name="clip/scaling" type="string">fit</property>

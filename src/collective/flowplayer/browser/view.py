@@ -20,13 +20,16 @@ class JavaScript(BrowserView):
         portal = portal_url.getPortalObject()
         
         properties_tool = getToolByName(self.context, 'portal_properties')
-        self.flowplayer_properties = getattr(properties_tool, 'flowplayer_properties', None)
+        flowplayer_properties = getattr(properties_tool, 'flowplayer_properties', None)
         
         portal_url = portal.absolute_url()
         self.portal_url = portal_url
-        self.player = self.flowplayer_properties.getProperty('player') \
-                      .replace('${portal_url}', portal_url) \
-                      .replace('${portal_path}', portal_url)
+        self.player = flowplayer_properties.getProperty('player') \
+                         .replace('${portal_url}', portal_url) \
+                         .replace('${portal_path}', portal_url)
+        self.properties = properties_to_dict(flowplayer_properties, 
+                                             self.portal_url, 
+                                             ignore=['title', 'player'])
 
     
     """
@@ -38,16 +41,18 @@ class JavaScript(BrowserView):
     configuration is used to fine-tune the particular player config, 
     eg. minimal or audio-only setup.
     """
-    
+
     def global_config(self, request=None, response=None):
-        """ Returns global configuration of the Flowplayer taken from portal_properties """
+        """ Returns global configuration of the Flowplayer taken from portal_properties.
+            If you want to customize flowplayer behaviour, override 
+            collective.flowplayer.config.js from your product and return 
+            flowplayer_config variable set to yoyr needs.
+            Please note, runtime_config (collective.flowplayer.js) will be processed
+            as well and config will be overriden (updated) - eg. playlist or clip url """
         self.update()
         self.request.response.setHeader("Content-type", "text/javascript")
-        properties = properties_to_dict(self.flowplayer_properties, 
-                                        self.portal_url, 
-                                        ignore=['title', 'player'])
         return """var flowplayer_config = %(properties)s
-               """ % dict(properties=simplejson.dumps(properties, indent=4))
+               """ % dict(properties=simplejson.dumps(self.properties, indent=4))
 
     def runtime_config(self, request=None, response=None):
         """ Returns global configuration of the Flowplayer taken from portal_properties """
@@ -69,7 +74,6 @@ class JavaScript(BrowserView):
             }       
             return temp;
         }
-        
         function updateConfig(config, minimal, audio) {
             if(minimal) {
                 config.plugins.controls = null;
@@ -78,7 +82,6 @@ class JavaScript(BrowserView):
                                                width: 500 };
             }
         }
-
         $('.autoFlowPlayer').each(function() {
             var config = clone(flowplayer_config);
             var minimal = $(this).is('.minimal');
