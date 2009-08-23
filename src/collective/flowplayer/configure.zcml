@@ -46,4 +46,13 @@
         <depends name="kupu" />
     </genericsetup:importStep>
 
+    <genericsetup:upgradeStep
+        title="Upgrade collective.flowplayer"
+        description="Migrates flowplayer_properties to version 3.x"
+        source="1.0"
+        destination="3.0"
+        handler=".migration.migrateTo30"
+        sortkey="1"
+        profile="collective.flowplayer:default"
+    />  
 </configure>

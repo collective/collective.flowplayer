@@ -1,29 +1,25 @@
 import unittest
 from Testing import ZopeTestCase
 
+from OFS.PropertyManager import PropertyManager
 from collective.flowplayer.utils import properties_to_dict
-
-class MockPropertySheet(object):
-    _items = dict()
-    
-    def propertyItems(self):
-        return self._items.items()
 
 class TestUtils(ZopeTestCase.ZopeTestCase):
     
     def afterSetUp(self):
-        self.props = MockPropertySheet()
-        self.props._items['title'] = 'Player properties'
-        self.props._items['player'] = 'flowplayer.swf'
-        self.props._items['plugins/controls/url'] = '${portal_path}flowplayer.controls.swf'
-        self.props._items['plugins/controls/all'] = False
-        self.props._items['plugins/controls/play'] = True
-        self.props._items['plugins/controls/scrubber'] = True
-        self.props._items['plugins/controls/tooltips/fullscreen'] = 'Enter fullscreen mode'
-        self.props._items['plugins/controls/tooltips/buttons'] = True
-        self.props._items['plugins/audio/url'] = '${portal_url}++resource++collective.flowplayer/flowplayer.audio.swf'
-        self.props._items['clip/autoPlay'] = False
-        self.props._items['clip/autoBuffering'] = True
+        self.props = PropertyManager()
+        # PropertyManager has title property already
+        self.props.manage_changeProperties(title = 'Player properties')
+        self.props.manage_addProperty('player', 'flowplayer.swf', 'string')
+        self.props.manage_addProperty('plugins/controls/url', '${portal_path}flowplayer.controls.swf', 'string')
+        self.props.manage_addProperty('plugins/controls/all', False, 'boolean')
+        self.props.manage_addProperty('plugins/controls/play', True, 'boolean')
+        self.props.manage_addProperty('plugins/controls/scrubber', True, 'boolean')
+        self.props.manage_addProperty('plugins/controls/tooltips/fullscreen', 'Enter fullscreen mode', 'string')
+        self.props.manage_addProperty('plugins/controls/tooltips/buttons', True, 'boolean')
+        self.props.manage_addProperty('plugins/audio/url', '${portal_url}++resource++collective.flowplayer/flowplayer.audio.swf', 'string')
+        self.props.manage_addProperty('clip/autoPlay',False, 'boolean')
+        self.props.manage_addProperty('clip/autoBuffering', True, 'boolean')
     
     def test_parsing(self):
         parsed = properties_to_dict(self.props, 'http://localhost', ignore=['title', 'player'])
