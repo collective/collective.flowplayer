@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0b6flowplayer3branch'
+version = '3.0a1'
 
 tests_require = ['collective.testcaselayer']
 
