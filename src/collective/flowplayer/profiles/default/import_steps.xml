@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<import-steps>
- <import-step id="lowplayer_various" version="20090823-01"
-              handler="collective.flowplayer.setuphandlers.importVarious"
-              title="Various collective.flowplayer settings">
-  <dependency step="propertiestool"/>
-    Properties settings
- </import-step>
-</import-steps>
