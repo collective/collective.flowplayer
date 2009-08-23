@@ -3,7 +3,7 @@
  <object name="flowplayer_properties" meta_type="Plone Property Sheet">
   <property name="title">Flow player properties</property>
 
-  <!-- properties are set in setuphandlers.py -->  
+  <!-- properties are set in exportimport.py -->  
 
  </object>
 </object>

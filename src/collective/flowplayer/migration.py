@@ -7,6 +7,7 @@ V30_PROPERTIES_MAPPING = {
     'autoBuffering'     : 'clip/autoBuffering',
     'initialScale'      : 'clip/scaling',
     'showVolumeSlider'  : 'plugins/controls/volume',
+    'controlBarBackgroundColor' : 'plugins/controls/backgroundColor',
 }
 
 def migrateTo30(context):
@@ -23,11 +24,7 @@ def migrateTo30(context):
                 # ignore any other combinations, because these are not expected
 
 # <!-- NOT YET FIXED properties
-# <property name="loop" type="boolean">False</property>
 # <property name="usePlayOverlay" type="boolean">True</property>
-# <property name="initialVolumePercentage" type="int">50</property>
 # <property name="useNativeFullScreen" type="boolean">True</property>
 # <property name="controlsOverVideo" type="string">ease</property>
-# <property name="controlBarBackgroundColor" type="int">-1</property>
 # <property name="controlBarGloss" type="string">low</property> -->            
-# 

@@ -60,14 +60,7 @@ The generated JavaScript includes the appropriate metadata.
     >>> browser.open(folder['foo.flv'].absolute_url()+'/collective.flowplayer.js')
     >>> print browser.contents
     (...
-    var config = clone(flowplayer_config);...
-    flowplayer(aTag, "http://nohost/plone/++resource++collective.flowplayer/flowplayer-3.1.2.swf", config);...
-
-Check contents of general config javascript
-
-    >>> browser.open(folder['foo.flv'].absolute_url()+'/collective.flowplayer.config.js')
-    >>> print browser.contents
-    var flowplayer_config = {
+    var config = {
         "clip": {
             "scaling": "fit",
             "autoBuffering": false,
@@ -82,8 +75,8 @@ Check contents of general config javascript
                  "volume": true
              }
          }
-    }
-    <BLANKLINE>
+    }...
+    flowplayer(aTag, "http://nohost/plone/++resource++collective.flowplayer/flowplayer-3.1.2.swf", config).onLoad( function() { this.setVolume(50); });...
 
 FLV Links
 =========
@@ -127,8 +120,9 @@ The generated JavaScript includes the appropriate metadata.
     >>> browser.open(folder['foo-link-title'].absolute_url()+'/collective.flowplayer.js')
     >>> print browser.contents
     (...
-    var config = clone(flowplayer_config);...
-    flowplayer(aTag, "http://nohost/plone/++resource++collective.flowplayer/flowplayer-3.1.2.swf", config);...
+    var config = {
+        "clip": {...
+    flowplayer(aTag, "http://nohost/plone/++resource++collective.flowplayer/flowplayer-3.1.2.swf", config).onLoad( function() { this.setVolume(50); });...
 
 Folders
 =======
@@ -160,8 +154,9 @@ same file.
     >>> browser.open(folder.absolute_url()+'/collective.flowplayer.js')
     >>> print browser.contents
     (...
-    var config = clone(flowplayer_config);...
-    flowplayer(aTag, "http://nohost/plone/++resource++collective.flowplayer/flowplayer-3.1.2.swf", config);...
+    var config = {
+        "clip": {...
+    flowplayer(aTag, "http://nohost/plone/++resource++collective.flowplayer/flowplayer-3.1.2.swf", config).onLoad( function() { this.setVolume(50); });...
 
 Make sure we don't leak into sites where we're not installed
 ============================================================

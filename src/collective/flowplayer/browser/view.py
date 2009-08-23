@@ -29,32 +29,21 @@ class JavaScript(BrowserView):
                          .replace('${portal_path}', portal_url)
         self.properties = properties_to_dict(flowplayer_properties, 
                                              self.portal_url, 
-                                             ignore=['title', 'player'])
-
-    
-    """
-    Why there are two JS configuration files ? 
-    We'd like to support flowplayer events in the future and events cannot be
-    passed through flashvars (at least I don't know how). 
-    Global configuration file is used to supply global player configuration
-    including events (e.g. onBeforeFinish to support loop) but runtime
-    configuration is used to fine-tune the particular player config, 
-    eg. minimal or audio-only setup.
-    """
-
-    def global_config(self, request=None, response=None):
-        """ Returns global configuration of the Flowplayer taken from portal_properties.
-            If you want to customize flowplayer behaviour, override 
-            collective.flowplayer.config.js from your product and return 
-            flowplayer_config variable set to yoyr needs.
-            Please note, runtime_config (collective.flowplayer.js) will be processed
-            as well and config will be overriden (updated) - eg. playlist or clip url """
-        self.update()
-        self.request.response.setHeader("Content-type", "text/javascript")
-        return """var flowplayer_config = %(properties)s
-               """ % dict(properties=simplejson.dumps(self.properties, indent=4))
-
-    def runtime_config(self, request=None, response=None):
+                                             ignore=['title', 
+                                                     'player', 
+                                                     'loop',
+                                                     'initialVolumePercentage'])
+        # build string in Javascript format which is appended to the player
+        # It contains javascript events which can't be configured in the 
+        # self.properties, because simplejson can't handle them
+        self.events = ''
+        volume = flowplayer_properties.getProperty('initialVolumePercentage')
+        if volume:
+            self.events += '.onLoad( function() { this.setVolume(%d); })' % volume
+        if flowplayer_properties.getProperty('loop'):
+            self.events += '.onBeforeFinish( function() { return false; })'
+        
+    def __call__(self, request=None, response=None):
         """ Returns global configuration of the Flowplayer taken from portal_properties """
         self.update()
         self.request.response.setHeader("Content-type", "text/javascript")
@@ -62,18 +51,6 @@ class JavaScript(BrowserView):
         $(function() { 
 
         function randomOrder() { return (Math.round(Math.random())-0.5); }
-        
-        // thanks: http://keithdevens.com/weblog/archive/2007/Jun/07/javascript.clone
-        function clone(obj) {   
-            if (!obj || typeof obj != 'object') { return obj; }     
-            var temp = new obj.constructor();   
-            for (var key in obj) {  
-                if (obj.hasOwnProperty(key)) {
-                    temp[key] = clone(obj[key]);
-                }
-            }       
-            return temp;
-        }
         function updateConfig(config, minimal, audio) {
             if(minimal) {
                 config.plugins.controls = null;
@@ -83,7 +60,7 @@ class JavaScript(BrowserView):
             }
         }
         $('.autoFlowPlayer').each(function() {
-            var config = clone(flowplayer_config);
+            var config = %(config)s;
             var minimal = $(this).is('.minimal');
             var audio = $(this).is('.audio');
             if (audio) {
@@ -103,12 +80,12 @@ class JavaScript(BrowserView):
             config.clip.url = $(aTag).attr('href');
                         
             updateConfig(config, minimal, audio);
-            flowplayer(aTag, "%(player)s", config);
+            flowplayer(aTag, "%(player)s", config)%(events)s;
             $('.flowPlayerMessage').remove();
         });
         
         $('.playListFlowPlayer').each(function() {
-            var config = clone(flowplayer_config);
+            var config = %(config)s;
             var minimal = $(this).is('.minimal');
             var audio = $(this).is('.audio');
             var random = $(this).is('.random');
@@ -127,13 +104,16 @@ class JavaScript(BrowserView):
                 config.plugins.controls.playlist = true
             }
             config.playlist = playList;
-            flowplayer(this, "%(player)s", config);
+            flowplayer(this, "%(player)s", config)%(events)s;
             $(this).show();
             $('.flowPlayerMessage').remove();
         });
     });
 })(jQuery);
-""" % dict(player = self.player)
+""" % dict(player = self.player,
+           config = simplejson.dumps(self.properties, indent=4),
+           events = self.events
+          )
 
 
 class File(BrowserView):
