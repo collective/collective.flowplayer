@@ -1,7 +1,7 @@
 # Migration utilities and migration steps
 from Products.CMFCore.utils import getToolByName
 
-# oldProperty: newProperty
+# oldProperty: newProperty. do not properties which name is not changed (e.g. player)
 V30_PROPERTIES_MAPPING = {
     'autoPlay'          : 'clip/autoPlay',
     'autoBuffering'     : 'clip/autoBuffering',
