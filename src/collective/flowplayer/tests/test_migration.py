@@ -15,6 +15,8 @@ class TestMigration30(FunctionalTestCase):
         self.props.manage_addProperty('autoBuffering', True, 'boolean')
         self.props.manage_addProperty('initialScale', 'fit', 'string')
         self.props.manage_addProperty('showVolumeSlider', False, 'boolean')
+        self.props.manage_addProperty('controlBarGloss', False, 'boolean')
+        self.props.manage_addProperty('useNativeFullScreen', True, 'boolean')
 
     def test_migration(self):
         # assert values defined in propertiestool.xml
@@ -33,6 +35,9 @@ class TestMigration30(FunctionalTestCase):
         self.failIf(self.props.hasProperty('autoBuffering'))
         self.failIf(self.props.hasProperty('showVolumeSlider'))
         self.failIf(self.props.hasProperty('initalScale'))
+        # Those are deleted because not migrated at all
+        self.failIf(self.props.hasProperty('controlBarGloss'))
+        self.failIf(self.props.hasProperty('useNativeFullScreen'))
 
 def test_suite():
     suite = unittest.TestSuite()

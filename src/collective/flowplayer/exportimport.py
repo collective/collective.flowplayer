@@ -48,6 +48,14 @@ def import_various(context):
     ptool = getToolByName(site, 'portal_properties')
     props = ptool.flowplayer_properties
 
+    # We don't want to migrate contents of 'player' property. Check if there is 
+    # 'plugins/controls/url' property (which indicates we migrated to new version
+    # already) and if there is not one, remove 'player' property to force new
+    # version of this property
+    if not props.hasProperty('plugins/controls/url'):
+        if props.hasProperty('player'):
+            props.manage_delProperties(['player'])
+    
     for prop in _PROPERTIES:
         if not props.hasProperty(prop['name']):
             props.manage_addProperty(prop['name'], prop['value'], prop['type_'])

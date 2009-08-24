@@ -10,6 +10,13 @@ V30_PROPERTIES_MAPPING = {
     'controlBarBackgroundColor' : 'plugins/controls/backgroundColor',
 }
 
+V30_TO_DELETE = [
+    'usePlayOverlay', 
+    'useNativeFullScreen', 
+    'controlsOverVideo',
+    'controlBarGloss',
+]
+
 def migrateTo30(context):
     properties_tool = getToolByName(context, 'portal_properties', None)
     if properties_tool is not None:
@@ -22,9 +29,6 @@ def migrateTo30(context):
                         flowplayer_properties._updateProperty(v, flowplayer_properties.getProperty(k))
                         flowplayer_properties.manage_delProperties([k])
                 # ignore any other combinations, because these are not expected
-
-# <!-- NOT YET FIXED properties
-# <property name="usePlayOverlay" type="boolean">True</property>
-# <property name="useNativeFullScreen" type="boolean">True</property>
-# <property name="controlsOverVideo" type="string">ease</property>
-# <property name="controlBarGloss" type="string">low</property> -->            
+            for k in V30_TO_DELETE:
+                if flowplayer_properties.hasProperty(k):
+                    flowplayer_properties.manage_delProperties([k])

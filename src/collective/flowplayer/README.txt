@@ -158,6 +158,37 @@ same file.
         "clip": {...
     flowplayer(aTag, "http://nohost/plone/++resource++collective.flowplayer/flowplayer-3.1.2.swf", config).onLoad( function() { this.setVolume(50); });...
 
+Let's try to change some flowplayer properties.
+
+    >>> props = portal.portal_properties.flowplayer_properties
+    >>> props.player
+    '${portal_url}/++resource++collective.flowplayer/flowplayer-3.1.2.swf'
+    >>> props.getProperty('clip/autoPlay')
+    False
+    >>> props._updateProperty('clip/autoPlay', True)
+    >>> browser.open(folder['foo.flv'].absolute_url()+'/collective.flowplayer.js')
+    >>> print browser.contents
+    (...
+    var config = {
+        "clip": {...
+            "autoPlay": true
+            },...
+            
+Try to add new property.
+    
+    >>> not not props.hasProperty('plugins/controls/backgroundColor')
+    False
+    >>> props.manage_addProperty('plugins/controls/backgroundColor', '#000000', 'string')
+    >>> props.getProperty('plugins/controls/backgroundColor')
+    '#000000'
+    >>> browser.open(folder['foo.flv'].absolute_url()+'/collective.flowplayer.js')
+    >>> print browser.contents
+    (...
+    var config = {...
+        "plugins": {...
+            "controls": {...
+                "backgroundColor": "#000000"...
+
 Make sure we don't leak into sites where we're not installed
 ============================================================
 

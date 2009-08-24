@@ -1,9 +1,9 @@
 Introduction
 ============
 
-collective.flowplayer integrates the GPL version of Flowplayer
-(http://www.flowplayer.org) with Plone 3.x. It can play .flv Flash
-Video files or links as well as .mp3 files or links.
+collective.flowplayer integrates the GPL version of `Flowplayer`_ with Plone
+3.x. It can play .flv Flash Video files, mp4 files or links as well as .mp3
+files or links.
 
 Installation
 ------------
@@ -131,6 +131,17 @@ Audio
     and "right" styles will produce a small player floating to the left or
     right. The "Audio" style will produce a larger player on its own line.
     
+Notes
+~~~~~
+
+    * it is not possible to detect clip width/height from the mp4 file now
+
+    * if your player is not displayed on the page load, but is displayed after
+      you click somewhere to the player container area, be sure there is no HTML
+      code nor text inside the player container HTML tag. Such code/text is
+      considered as player splash screen and player is waiting for click to
+      the splash.
+
 Configuration
 -------------
 
@@ -139,51 +150,127 @@ will be set based on the markup used to render the player (e.g. the playlist
 buttons will only be rendered if there is a playlist, and most controls will
 be hidden in 'minimal' mode). Most other options can be set in the ZMI.
 
-In portal_properties, there should be a new stylesheet called
+In portal_properties, there should be a new propertysheet called
 flowplayer_properties. Options set here are passed through to the player's
 JavaScript configuration (make sure you use the right property type). For
 string properties, you can use the placeholder ${portal_url} to refer to
 the URL of the portal root. This is useful for things like watermark images or 
 player plugins. 
-If you plan to use Flowplayer's embed plugin (not supported directly by 
-collective.flowplayer, but may be configured using custom javascript plugin),
-you should always use ${portal_url} in front of your player or plugin URLs, 
-because this URL will be included in the embed code.
 
 You can also use the 'player' property to change the player SWF file that's
 used, e.g. to switch to commercial version if you have this installed. 
 
 Since FlowPlayer3 uses more complex properties and plugins infrastructure, most
-of properties is defined as a plugin configuration (e.g. control bar is separate
-plugin with own set of properties). If you want to configure FlowPlayer3 plugin,
-you should define it's flash file using property syntax eg. plugins/controls/url
-which generates configuration item in form::
+of visual properties are defined as a plugin configuration (e.g. control bar is
+separate plugin with own set of properties). If you want to configure
+FlowPlayer3 plugin, you should define it's flash file using property syntax eg.
+plugins/controls/url which generates configuration item in form::
 
-    { 
-        plugins : {
-                        controls : {
-                                        url : 'VALUE OF PROPERTY'
-                                   }
-                  }
+    {
+     plugins : {
+               controls : {
+                            url : 'VALUE OF PROPERTY'
+                          }
+               }
     }
     
-To configure color of control bar volumeSlidercolor, define property: 
+To configure color of control bar volumeSliderColor, define property: 
 plugins/controls/volumeSliderColor set to value 'lime', which generates 
 the following config::
 
     { 
-        plugins : {
-                        controls : {
-                                        url : 'VALUE OF PROPERTY',
-                                        volumeSlider: 'lime'
-                                   }
-                  }
+     plugins : {
+               controls : {
+                            url : 'VALUE OF PROPERTY',
+                            volumeSliderColor: 'lime'
+                          }
+               }
     }
-    
-All control bar configuration properties are described on
-http://flowplayer.org/plugins/flash/controlbar.html
 
-General informations about FlowPlayer configuration may be found at
-http://flowplayer.org/documentation/configuration/ Please note, it is not 
-possible to specify events in the Plone flowplayer_properties sheet now (eg.
-onBeforeFinish event). 
+All control bar configuration properties are described on `Controlbar plugin
+documentation`_ page.
+
+General informations about the configuration options may be found at the
+`FlowPlayer configuration`_ page. Please note, it is not possible to specify
+events in the Plone's flowplayer_properties sheet now (eg. onBeforeFinish
+event).
+
+Useful configuration examples from http://flowplayer.org:
+
+ * `Custom tooltips and texts`_
+ 
+ * `Controlbar color generator`_
+
+Extending player runtime
+------------------------
+
+It is possible to extend player configuration or modify player behaviour runtime
+using javascript plugins. Collective.flowplayer uses flowplayer.js for embedding
+player into page. It is the most general version of embedding which allows all
+kinds of configuration of the player. Please read `Documentation of Flowplayer
+JS API`_ for more details. The most important for player extension is `Player
+retrieval`_ part and description of `Player configuration`_ and `Clip
+configuration`_. A lot of player scripting examples may be found at `Scripting
+demo`_ page and `Scripting documentation`_
+
+Extending example
+-----------------
+
+collective.flowplayer creates Flowplayer instance from all .autoFlowPlayer and
+.playListFlowPlayer containers on the page. You may retrieve first player
+eg. by::
+
+    $f()  or flowplayer()
+    
+or iterate through all players on page using:: 
+
+    $f("*").each
+    
+To be able to configure player runtime, you must first create custom javascript 
+file and include this file to page or add it to portal_javascripts registry.
+Since flowplayer uses jQuery to initialize itself, you must use jQuery syntax
+as well. Example of js skeleton::
+
+    jq(function () {
+
+        // your javascript code goes here
+
+    })
+    
+Let's create concerete example. The most visible one is Javascript alert :)
+
+    jq(function () {
+
+        $f().onPause(function() { alert("Don't pause me!")})
+
+    })
+
+or (for all players on the page)::
+
+    jq(function () {
+
+        $f("*").each( function() { 
+                        this.onPause(function() { alert("Don't pause me!")}) 
+                      })
+
+    })
+
+TIP: If you are using Firefox and have the Firebug Add-on installed, then you
+can try the examples yourself against every possible Flowplayer demo on
+flowplayer.org or your own site. Activate Firebug console and enter::
+
+    $f().onPause(function() { alert("Don't pause me!")})
+    
+Try to start/pause player now. Alert window should be displayed.
+
+.. _Flowplayer: http://www.flowplayer.org
+.. _`Controlbar plugin documentation`: http://flowplayer.org/plugins/flash/controlbar.html
+.. _`Flowplayer configuration`: http://flowplayer.org/documentation/configuration/
+.. _`Custom tooltips and texts`: http://flowplayer.org/demos/skinning/tooltips.html
+.. _`Controlbar color generator`: http://flowplayer.org/documentation/skinning/controlbar.html
+.. _`Documentation of Flowplayer JS API`: http://flowplayer.org/documentation/api/index.html
+.. _`Player retrieval`: http://flowplayer.org/documentation/api/flowplayer.html#playerretrieval
+.. _`Player configuration`: http://flowplayer.org/documentation/api/player.html 
+.. _`Clip configuration`: http://flowplayer.org/documentation/api/clip.html
+.. _`Scripting demo`: http://flowplayer.org/demos/index.html#scripting
+.. _`Scripting documentation`: http://flowplayer.org/documentation/scripting.html
