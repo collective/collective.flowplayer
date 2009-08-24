@@ -12,36 +12,48 @@ from collective.flowplayer.interfaces import IFlowPlayable
 from collective.flowplayer.interfaces import IMediaInfo, IFlowPlayerView
 
 from plone.memoize.instance import memoize
+from plone.memoize import view
 
 class JavaScript(BrowserView):
     
-    def update(self):
-        portal_url = getToolByName(self.context, 'portal_url')
-        portal = portal_url.getPortalObject()
-        
+    @view.memoize_contextless
+    def portal_state(self):
+        """ returns 
+            http://dev.plone.org/plone/browser/plone.app.layout/trunk/plone/app/layout/globals/portal.py
+        """
+        return component.getMultiAdapter((self.context, self.request), name=u"plone_portal_state")
+
+    @property
+    def flowplayer_properties(self):
         properties_tool = getToolByName(self.context, 'portal_properties')
-        flowplayer_properties = getattr(properties_tool, 'flowplayer_properties', None)
+        return getattr(properties_tool, 'flowplayer_properties', None)
+
+    @property
+    def flowplayer_properties_as_dict(self):
+        portal_url = self.portal_state().portal_url()
+        return properties_to_dict(self.flowplayer_properties, 
+                                  portal_url, 
+                                  ignore=['title', 
+                                          'player', 
+                                          'loop',
+                                          'initialVolumePercentage'])
         
-        portal_url = portal.absolute_url()
-        self.portal_url = portal_url
-        self.player = flowplayer_properties.getProperty('player') \
+    def update(self):
+        portal_url = self.portal_state().portal_url()
+        self.player = self.flowplayer_properties.getProperty('player') \
                          .replace('${portal_url}', portal_url) \
                          .replace('${portal_path}', portal_url)
-        self.properties = properties_to_dict(flowplayer_properties, 
-                                             self.portal_url, 
-                                             ignore=['title', 
-                                                     'player', 
-                                                     'loop',
-                                                     'initialVolumePercentage'])
+
         # build string in Javascript format which is appended to the player
         # It contains javascript events which can't be configured in the 
         # self.properties, because simplejson can't handle them
         self.events = ''
-        volume = flowplayer_properties.getProperty('initialVolumePercentage')
+        volume = self.flowplayer_properties.getProperty('initialVolumePercentage')
         if volume:
             self.events += '.onLoad( function() { this.setVolume(%d); })' % volume
-        if flowplayer_properties.getProperty('loop'):
+        if self.flowplayer_properties.getProperty('loop'):
             self.events += '.onBeforeFinish( function() { return false; })'
+
         
     def __call__(self, request=None, response=None):
         """ Returns global configuration of the Flowplayer taken from portal_properties """
@@ -111,7 +123,7 @@ class JavaScript(BrowserView):
     });
 })(jQuery);
 """ % dict(player = self.player,
-           config = simplejson.dumps(self.properties, indent=4),
+           config = simplejson.dumps(self.flowplayer_properties_as_dict, indent=4),
            events = self.events
           )
 
