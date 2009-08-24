@@ -40,6 +40,8 @@ class JavaScript(BrowserView):
         
     def update(self):
         portal_url = self.portal_state().portal_url()
+        if not portal_url.endswith('/'):
+            portal_url += '/'
         self.player = self.flowplayer_properties.getProperty('player') \
                          .replace('${portal_url}', portal_url) \
                          .replace('${portal_path}', portal_url)
