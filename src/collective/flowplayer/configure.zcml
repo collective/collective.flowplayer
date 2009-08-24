@@ -49,7 +49,7 @@
     <genericsetup:upgradeStep
         title="Upgrade collective.flowplayer"
         description="Migrates flowplayer_properties to version 3.x"
-        source="1.0"
+        source="1.0b5"
         destination="3.0b1"
         handler=".migration.migrateTo30"
         sortkey="1"
