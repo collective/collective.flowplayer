@@ -6,22 +6,6 @@ collective.flowplayer to-do
 Todo and notes to Flowplayer3 version, started at 2009/08/19
 
 STILL WORK IN PROGRESS
-
-    X we should use 'flowplayer.js' instead of flashembed.js to support 
-      javascript events (eg. loop) and javascript plugins (eg. playlists).
-      If I replace flashembed with flowplayer, player is not initially 
-      shown (you must click to player area first)
-      [ FIXED - player container element must not contain any HTML code unless
-      this code is taken as splash screen so you must click to the area to
-      player gets loaded]
-
-   - ?migration of properties in portal_properties?
-
-   - loop does not work. It seems functions are not passed through <object> 
-     config params. http://flowplayer.org/forum/6/10931#post-10952
-
-   - initialVolume has to be set using JS as well (same problem as above)
-     See http://flowplayer.org/forum/2/11384#post-11528
      
    - some properties seems not directly available in flowplayer3
         usePlayOverlay
