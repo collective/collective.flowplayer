@@ -29,7 +29,14 @@
 
         <div tal:replace="structure provider:plone.abovecontentbody" />
 
-        <tal:block condition="videos">
+        <div condition="videos" 
+                   tal:attributes="class python:view.show_playlist() and 'flowPlaylistVisible' or 'flowPlaylistHidden'">
+
+            <div class="flowPlayerMessage discreet" i18n:translate="video_fallback">
+                If your video does not start playing shortly, please ensure
+                that you have JavaScript enabled and the latest version of
+                Adobe Flash Player (http://www.adobe.com/products/flashplayer/) installed.
+            </div>   
 
             <div tal:define="audio view/audio_only"
                  tal:attributes="class python:audio and 'playListFlowPlayer audio' or 'playListFlowPlayer video';
@@ -41,12 +48,22 @@
                                        class python:audio and 'playListItem audio' or 'playListItem video'"></a>
                 </tal:block>
             </div>
-            <div class="flowPlayerMessage discreet" i18n:translate="video_fallback">
-                If your video does not start playing shortly, please ensure
-                that you have JavaScript enabled and the latest version of
-                Adobe Flash Player (http://www.adobe.com/products/flashplayer/) installed.
-            </div>   
-        </tal:block>
+
+            <div id="playlist_wrap">
+                <a class="prevPage"></a>
+                <div id="pl"> 
+                    <div id="flowPlaylist">
+                        <tal:block repeat="video videos">
+                            <a tal:attributes="href video/url;
+                                               title video/title"
+                               tal:content="video/title"></a>
+                        </tal:block>
+                    </div>
+                </div>
+                <a class="nextPage"></a>
+            </div>
+            <div class="visualClear"><!-- --></div>
+        </div>
         
         <p tal:condition="not:videos" i18n:translate="no_videos">
             There are no videos in this folder. Add some video files here

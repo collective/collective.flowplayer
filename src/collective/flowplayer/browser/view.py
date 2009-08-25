@@ -36,7 +36,8 @@ class JavaScript(BrowserView):
                                   ignore=['title', 
                                           'player', 
                                           'loop',
-                                          'initialVolumePercentage'])
+                                          'initialVolumePercentage',
+                                          'showPlaylist',])
         
     def update(self):
         portal_url = self.portal_state().portal_url()
@@ -104,11 +105,19 @@ class JavaScript(BrowserView):
             var audio = $(this).is('.audio');
             var random = $(this).is('.random');
             var splash = null;
-            
+
+            if (!config.clip) {
+                config.clip = {}
+            }
             var playList = new Array();
+            var clipSet = false;
             $(this).find('a.playListItem').each(function() {
+                if (! clipSet) { 
+                    config.clip.url = $(this).attr('href'); 
+                    clipSet = true 
+                };
                 playList.push({url: $(this).attr('href')});
-                $(this).remove()  // player container must be empty or contain image only
+                $(this).remove();
             });
             
             if(random) playList.sort(randomOrder);
@@ -118,7 +127,8 @@ class JavaScript(BrowserView):
                 config.plugins.controls.playlist = true
             }
             config.playlist = playList;
-            flowplayer(this, "%(player)s", config)%(events)s;
+            $("#pl").scrollable({items:'div#flowPlaylist', size:4, clickable:false});
+            flowplayer(this, "%(player)s", config)%(events)s.playlist("div#flowPlaylist", {loop: true, manual: true});
             $(this).show();
             $('.flowPlayerMessage').remove();
         });
@@ -171,7 +181,13 @@ class Link(File):
 
 class Folder(BrowserView):
     interface.implements(IFlowPlayerView)
-
+    
+    @memoize
+    def show_playlist(self):
+        properties_tool = getToolByName(self.context, 'portal_properties')
+        props = getattr(properties_tool, 'flowplayer_properties', None)
+        return props.getProperty('showPlaylist')
+        
     @memoize
     def audio_only(self):
         return len([v for v in self.videos() if not v['audio_only']]) == 0

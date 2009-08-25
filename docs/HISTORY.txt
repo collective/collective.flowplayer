@@ -6,6 +6,10 @@ Changelog
 
 * Updated to flowplayer3 - Please read Upgrade notes and Readme
 
+* new option showPlaylist toggles horizontal playlist below the player in the
+  folder/collection view mode. Images and styles are taken from this example:
+  http://flowplayer.org/demos/plugins/javascript/playlist/horizontal.htm
+
 1.0b5 - 2009-03-18
 ------------------
 

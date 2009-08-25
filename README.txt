@@ -42,6 +42,10 @@ in the Folder/Collection (unknown file formats will be ignored) in
 order. The video player will be sized to fit the largest video in
 the playlist.
 
+There is horizontal scrollable playlist displayed under the player by default.
+If you don't want to display the playlist, switch off "showPlaylist" property in
+flowplayer's configuration.
+
 Portlet
 ~~~~~~~
 

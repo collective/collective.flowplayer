@@ -76,7 +76,7 @@ The generated JavaScript includes the appropriate metadata.
              }
          }
     }...
-    flowplayer(aTag, "http://nohost/plone/++resource++collective.flowplayer/flowplayer-3.1.2.swf", config).onLoad( function() { this.setVolume(50); });...
+    flowplayer(aTag, "http://nohost/plone//++resource++collective.flowplayer/flowplayer-3.1.2.swf", config).onLoad( function() { this.setVolume(50); });...
 
 FLV Links
 =========
@@ -122,7 +122,7 @@ The generated JavaScript includes the appropriate metadata.
     (...
     var config = {
         "clip": {...
-    flowplayer(aTag, "http://nohost/plone/++resource++collective.flowplayer/flowplayer-3.1.2.swf", config).onLoad( function() { this.setVolume(50); });...
+    flowplayer(aTag, "http://nohost/plone//++resource++collective.flowplayer/flowplayer-3.1.2.swf", config).onLoad( function() { this.setVolume(50); });...
 
 Folders
 =======
@@ -156,7 +156,7 @@ same file.
     (...
     var config = {
         "clip": {...
-    flowplayer(aTag, "http://nohost/plone/++resource++collective.flowplayer/flowplayer-3.1.2.swf", config).onLoad( function() { this.setVolume(50); });...
+    flowplayer(aTag, "http://nohost/plone//++resource++collective.flowplayer/flowplayer-3.1.2.swf", config).onLoad( function() { this.setVolume(50); });...
 
 Let's try to change some flowplayer properties.
 
@@ -188,6 +188,30 @@ Try to add new property.
         "plugins": {...
             "controls": {...
                 "backgroundColor": "#000000"...
+
+Check playlist 
+
+    >>> props.getProperty('showPlaylist')
+    True
+    >>> browser.open(folder['foo.flv'].absolute_url()+'/view')
+    >>> 'playListFlowPlayer' in browser.contents
+    False
+    >>> folder.setLayout('flowplayer')
+    >>> folder.getLayout()
+    'flowplayer'
+    >>> browser.open(folder.absolute_url())
+    >>> 'playListFlowPlayer' in browser.contents
+    True
+    >>> 'flowPlaylistVisible' in browser.contents
+    True
+    >>> props._updateProperty('showPlaylist', False)
+    >>> browser.open(folder.absolute_url())
+    >>> 'playListFlowPlayer' in browser.contents
+    True
+    >>> 'flowPlaylistHidden' in browser.contents
+    True
+    
+    
 
 Make sure we don't leak into sites where we're not installed
 ============================================================
