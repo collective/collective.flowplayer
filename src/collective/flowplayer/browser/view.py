@@ -70,8 +70,7 @@ class JavaScript(BrowserView):
             if(minimal) {
                 config.plugins.controls = null;
             } else if(audio) {
-                config.plugins.controls = { fullscreen: false,
-                                               width: 500 };
+                config.plugins.controls.fullscreen = false;
             }
         }
         $('.autoFlowPlayer').each(function() {
@@ -183,10 +182,10 @@ class Folder(BrowserView):
     interface.implements(IFlowPlayerView)
     
     @memoize
-    def show_playlist(self):
+    def playlist_class(self):
         properties_tool = getToolByName(self.context, 'portal_properties')
         props = getattr(properties_tool, 'flowplayer_properties', None)
-        return props.getProperty('showPlaylist')
+        return props.getProperty('showPlaylist') and 'flowPlaylistVisible' or 'flowPlaylistHidden'
         
     @memoize
     def audio_only(self):
@@ -196,6 +195,9 @@ class Folder(BrowserView):
     def scale(self):
         height = 0
         width = 0
+        if self.audio_only():
+            height = 27
+            width = 400
         
         for video in self.videos():
             if video['height'] > height or video['width'] > width:

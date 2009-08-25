@@ -7,7 +7,8 @@ Images are copied from there as well.
 */
 
 .flowPlaylistVisible div.playListFlowPlayer {
-    padding: 0 126px 8px 127px;
+    padding-left: 38px;
+    padding-bottom: 8px;
 }
 
 .flowPlaylistHidden #playlist_wrap {

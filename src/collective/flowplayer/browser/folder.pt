@@ -29,8 +29,9 @@
 
         <div tal:replace="structure provider:plone.abovecontentbody" />
 
-        <div condition="videos" 
-                   tal:attributes="class python:view.show_playlist() and 'flowPlaylistVisible' or 'flowPlaylistHidden'">
+        <div tal:condition="videos" 
+             tal:define="audio view/audio_only"
+             tal:attributes="class view/playlist_class">
 
             <div class="flowPlayerMessage discreet" i18n:translate="video_fallback">
                 If your video does not start playing shortly, please ensure
@@ -38,8 +39,7 @@
                 Adobe Flash Player (http://www.adobe.com/products/flashplayer/) installed.
             </div>   
 
-            <div tal:define="audio view/audio_only"
-                 tal:attributes="class python:audio and 'playListFlowPlayer audio' or 'playListFlowPlayer video';
+            <div tal:attributes="class python:audio and 'playListFlowPlayer audio' or 'playListFlowPlayer video';
                                  style string:display:none;;${view/scale}">
                 <tal:block repeat="video videos">
                     <a tal:define="audio video/audio_only"
