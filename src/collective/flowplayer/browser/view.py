@@ -47,6 +47,8 @@ class JavaScript(BrowserView):
                          .replace('${portal_url}', portal_url) \
                          .replace('${portal_path}', portal_url)
 
+        # if showPlaylist is True, do not show playlist buttons on controlbar
+        self.show_cb_playlist_buttons = not self.flowplayer_properties.getProperty('showPlaylist')
         # build string in Javascript format which is appended to the player
         # It contains javascript events which can't be configured in the 
         # self.properties, because simplejson can't handle them
@@ -62,6 +64,13 @@ class JavaScript(BrowserView):
         """ Returns global configuration of the Flowplayer taken from portal_properties """
         self.update()
         self.request.response.setHeader("Content-type", "text/javascript")
+        if self.show_cb_playlist_buttons:
+            pb_code = """if (playList.length > 1) {
+                config.plugins.controls.playlist = true
+            }"""
+        else:
+            pb_code = ''
+            
         return """(function($) {
         $(function() { 
 
@@ -122,9 +131,7 @@ class JavaScript(BrowserView):
             if(random) playList.sort(randomOrder);
             
             updateConfig(config, minimal, audio);
-            if (playList.length > 1) {
-                config.plugins.controls.playlist = true
-            }
+            %(cb_playlist_buttons)s;
             config.playlist = playList;
             $("#pl").scrollable({items:'div#flowPlaylist', size:4, clickable:false});
             flowplayer(this, "%(player)s", config)%(events)s.playlist("div#flowPlaylist", {loop: true, manual: true});
@@ -135,7 +142,8 @@ class JavaScript(BrowserView):
 })(jQuery);
 """ % dict(player = self.player,
            config = simplejson.dumps(self.flowplayer_properties_as_dict, indent=4),
-           events = self.events
+           events = self.events,
+           cb_playlist_buttons = pb_code,
           )
 
 
