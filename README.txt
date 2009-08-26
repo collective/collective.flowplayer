@@ -164,6 +164,12 @@ player plugins.
 You can also use the 'player' property to change the player SWF file that's
 used, e.g. to switch to commercial version if you have this installed. 
 
+'''Important note''' Since playlist configuration is a generated javascript file
+included in portal_javascript, you must reload portal_javascript after global
+player configuration is changed or portal_javascript must be running in debug
+mode (not reccommended for production sites). Go to ZMI/portal_javascript,
+scroll down and pres "Save" button after your flowplayer_properties are set.
+
 Since FlowPlayer3 uses more complex properties and plugins infrastructure, most
 of visual properties are defined as a plugin configuration (e.g. control bar is
 separate plugin with own set of properties). If you want to configure
