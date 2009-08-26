@@ -74,6 +74,13 @@ class JavaScript(BrowserView):
                 if (audio) {
                     $(this).width(500);
                 }
+                if ($(this).is('div')) {
+                    // comming from Kupu, there are relative urls
+                    config.clip.baseUrl = $('base').attr('href');
+                    config.clip.url = $(this).find('a').attr('href');
+                    // Clip is always linked as text or splash image, so autoplay after clicked
+                    config.clip.autoPlay = true;
+                }
                 flowplayer(this, "%(player)s", config)%(events)s;
                 $('.flowPlayerMessage').remove();
             });
