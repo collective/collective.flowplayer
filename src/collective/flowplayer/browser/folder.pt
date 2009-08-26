@@ -49,7 +49,7 @@
                 </tal:block>
             </div>
 
-            <div id="playlist_wrap">
+            <div class="playlist_wrap">
                 <a class="prevPage"></a>
                 <div id="pl"> 
                     <div id="flowPlaylist">

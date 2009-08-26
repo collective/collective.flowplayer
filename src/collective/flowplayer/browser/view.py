@@ -75,34 +75,41 @@ class JavaScript(BrowserView):
         $(function() { 
 
         function randomOrder() { return (Math.round(Math.random())-0.5); }
-        function updateConfig(config, minimal, audio) {
+        function updateConfig(config, minimal, audio, portlet) {
             if(minimal) {
                 config.plugins.controls = null;
             } else if(audio) {
                 config.plugins.controls.fullscreen = false;
+            }
+            if(portlet && !minimal) {
+                $(this).width(130);
+                config.plugins.controls.volume = false;
+                config.plugins.controls.scrubber = true;
+                config.plugins.controls.time = false;
             }
         }
         $('.autoFlowPlayer').each(function() {
             var config = %(config)s;
             var minimal = $(this).is('.minimal');
             var audio = $(this).is('.audio');
+            var portlet = $(this).parents('.portlet').length > 0;
             if (audio) {
                 $(this).width(500);
             }
             var splash = null;
             var aTag = this;
-            if(!$(aTag).is("a"))
+            if(!$(aTag).is("a")) {
                 aTag = $(this).find("a").get(0);
-            if(aTag == null)
+            }
+            if(aTag === null) {
                 return;
+            }
             
-            updateConfig(config, minimal, audio);
+            updateConfig(config, minimal, audio, portlet);
             if (!config.clip) {
-                config.clip = {}
+                config.clip = {};
             }
             config.clip.url = $(aTag).attr('href');
-                        
-            updateConfig(config, minimal, audio);
             flowplayer(aTag, "%(player)s", config)%(events)s;
             $('.flowPlayerMessage').remove();
         });
@@ -112,29 +119,53 @@ class JavaScript(BrowserView):
             var minimal = $(this).is('.minimal');
             var audio = $(this).is('.audio');
             var random = $(this).is('.random');
-            var splash = null;
+            portlet_parents = $(this).parents('.portlet');
+            if (portlet_parents.length > 0) {
+                var portlet = true;
+                // unique id of the container. portlet_parents is tag with class .portlet
+                // it's parent is tag with unique ID    
+                var portlet_parent = portlet_parents.parent();
+                var playlist_id = portlet_parent.attr('id') + '-playlist';
+                portlet_parents.find('div.flowPlaylist-portlet-marker').attr('id', playlist_id);
+                var playlist_selector = '#'+playlist_id;
+            } else {
+                var portlet = false;
+                var playlist_selector = 'div#flowPlaylist';
+            }
 
             if (!config.clip) {
-                config.clip = {}
+                config.clip = {};
             }
             var playList = new Array();
             var clipSet = false;
+            var splash = null;
+            $(this).find('img').each(function() {
+                splash = {url: $(this).attr('href')};
+                playList.push(splash);
+                $(this).remove();
+            });
+
             $(this).find('a.playListItem').each(function() {
                 if (! clipSet) { 
-                    config.clip.url = $(this).attr('href'); 
-                    clipSet = true 
-                };
-                playList.push({url: $(this).attr('href')});
+                    config.clip.url = $(this).attr('href');
+                    if (splash) {
+                        config.clip.autoPlay = false;
+                    }
+                    clipSet = true;
+                }
+                playList.push({url: $(this).attr('href'), title: $(this).attr('title')});
                 $(this).remove();
             });
             
-            if(random) playList.sort(randomOrder);
+            if(random) { playList.sort(randomOrder); }
             
-            updateConfig(config, minimal, audio);
-            %(cb_playlist_buttons)s;
+            updateConfig(config, minimal, audio, portlet);
+            %(cb_playlist_buttons)s
             config.playlist = playList;
-            $("#pl").scrollable({items:'div#flowPlaylist', size:4, clickable:false});
-            flowplayer(this, "%(player)s", config)%(events)s.playlist("div#flowPlaylist", {loop: true, manual: true});
+            if (!portlet) {
+                $("#pl").scrollable({items:playlist_selector, size:4, clickable:false});
+            }
+            flowplayer(this, "%(player)s", config)%(events)s.playlist(playlist_selector, {loop: true, manual: true});
             $(this).show();
             $('.flowPlayerMessage').remove();
         });

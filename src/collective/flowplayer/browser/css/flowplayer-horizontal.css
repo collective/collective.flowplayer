@@ -11,7 +11,7 @@ Images are copied from there as well.
     padding-bottom: 8px;
 }
 
-.flowPlaylistHidden #playlist_wrap {
+.flowPlaylistHidden .playlist_wrap {
     display: none;
 }
 

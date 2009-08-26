@@ -10,11 +10,17 @@
         <span class="portletTopRight"></span>
     </dt>
     
-    <dd class="portletItem" tal:define="videos view/videos">
-        <tal:block condition="videos">
-            <div style="display: none;"
-                 tal:define="audio        view/audio_only;
-                             css_class    python:audio and 'playListFlowPlayer audio' or 'playListFlowPlayer minimal video';
+    <dd class="portletItem" tal:define="videos view/videos;
+                                        audio  view/audio_only;">
+        <div class='flowPlaylistHidden' tal:condition="videos">
+            <div class="flowPlayerMessage discreet" i18n:translate="video_fallback">
+                If your video does not start playing shortly, please ensure
+                that you have JavaScript enabled and the latest version of
+                Adobe Flash Player (http://www.adobe.com/products/flashplayer/) installed.
+            </div>   
+
+            <div style="display:none"
+                 tal:define="css_class python:audio and 'playListFlowPlayer audio' or 'playListFlowPlayer minimal video';
                              random_class python:view.data.random and ' random' or '';"
                  tal:attributes="class string:${css_class}${random_class}">
                 <tal:block define="splash view/splash" condition="nocall:splash">
@@ -23,16 +29,22 @@
                 <tal:block repeat="video videos">
                     <a class="playListItem"
                        tal:attributes="href video/url;
-                                       title video/title;"
-                       tal:content="video/description" />
+                                       title video/title"></a>
                 </tal:block>
             </div>
-            <div class="flowPlayerMessage discreet" i18n:translate="video_fallback">
-                If your video does not start playing shortly, please ensure
-                that you have JavaScript enabled and the latest version of
-                Adobe Flash Player (http://www.adobe.com/products/flashplayer/) installed.
-            </div>   
-        </tal:block>
+            <tal:comment condition="nothing">
+            The following div will be hidden using CSS but is required due to Flowplayer playlist feature/loop.
+            </tal:comment>
+            <div class="playlist_wrap">
+                <div class="flowPlaylist-portlet-marker">
+                    <tal:block repeat="video videos">
+                        <a tal:attributes="href video/url;
+                                           title video/title"
+                           tal:content="video/title"></a>
+                    </tal:block>
+                </div>
+            </div>
+        </div>
     </dd>
     
     <dd class="portletFooter">
