@@ -39,24 +39,21 @@
                 Adobe Flash Player (http://www.adobe.com/products/flashplayer/) installed.
             </div>   
 
-            <div tal:attributes="class python:audio and 'playListFlowPlayer audio' or 'playListFlowPlayer video';
-                                 style string:display:none;;${view/scale}">
-                <tal:block repeat="video videos">
-                    <a tal:define="audio video/audio_only"
-                       tal:attributes="href video/url;
-                                       title video/title;
-                                       class python:audio and 'playListItem audio' or 'playListItem video'"></a>
-                </tal:block>
-            </div>
+            <a tal:attributes="class python:audio and 'playListFlowPlayer audio' or 'playListFlowPlayer video';
+                                 style string:display:none;;${view/scale};
+                                 href view/first_clip_url">
+            </a>
 
             <div class="playlist_wrap">
                 <a class="prevPage"></a>
                 <div id="pl"> 
                     <div id="flowPlaylist">
                         <tal:block repeat="video videos">
-                            <a tal:attributes="href video/url;
-                                               title video/title"
-                               tal:content="video/title"></a>
+                            <a tal:define="audio video/audio_only"
+                               tal:attributes="href video/url;
+                                               title video/title;
+                                               class python:audio and 'playListItem audio' or 'playListItem video'"
+                                tal:content="video/title"></a>
                         </tal:block>
                     </div>
                 </div>

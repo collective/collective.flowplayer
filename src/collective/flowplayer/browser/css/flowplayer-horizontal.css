@@ -6,7 +6,7 @@ http://flowplayer.org/demos/plugins/javascript/playlist/horizontal.htm
 Images are copied from there as well.
 */
 
-.flowPlaylistVisible div.playListFlowPlayer {
+.flowPlaylistVisible a.playListFlowPlayer {
     padding-left: 38px;
     padding-bottom: 8px;
 }

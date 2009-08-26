@@ -3,7 +3,8 @@ from zope.component import getMultiAdapter, queryMultiAdapter
 
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
-
+import urllib
+import random
 from zope import schema
 from zope.formlib import form
 
@@ -133,10 +134,23 @@ class Renderer(base.Renderer):
         
         limit = self.data.limit
         if limit:
-            return videos[:limit]
+            result = videos[:limit]
         else:
-            return videos
-    
+            result = videos
+
+        if self.data.random:
+            random.shuffle(result)
+        return result
+
+
+    def first_clip_url(self):
+        """ Clip must be quoted to playlist is able to find it in the flowplayer-playlist onBegin/getEl method call """
+        videos = self.videos()
+        if videos:
+            return urllib.quote(videos[0].get('url'))
+        else:
+            return None
+            
     @memoize
     def audio_only(self):
         target = self.target()

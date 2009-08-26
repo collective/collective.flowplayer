@@ -64,30 +64,63 @@ class JavaScript(BrowserView):
         """ Returns global configuration of the Flowplayer taken from portal_properties """
         self.update()
         self.request.response.setHeader("Content-type", "text/javascript")
-        if self.show_cb_playlist_buttons:
-            pb_code = """if (playList.length > 1) {
-                config.plugins.controls.playlist = true
-            }"""
-        else:
-            pb_code = ''
             
         return """(function($) {
         $(function() { 
+            $('.autoFlowPlayer').each(function() {
+                var config = %(config)s;
+                if ($(this).is('.minimal')) { config.plugins.controls = null; }
+                var audio = $(this).is('.audio');
+                if (audio) {
+                    $(this).width(500);
+                }
+                flowplayer(this, "%(player)s", config)%(events)s;
+                $('.flowPlayerMessage').remove();
+            });
+            $('.playListFlowPlayer').each(function() {
+                var config = %(config)s;
+                var audio = $(this).is('.audio');
+                if (audio) { config.plugins.controls.fullscreen = false; }
+                if ($(this).is('.minimal')) { config.plugins.controls = null; }
+                if ($(this).find('img').length > 0) { 
+                    // has splash
+                    config.clip.autoPlay = true;
+                }
+                portlet_parents = $(this).parents('.portlet');
+                var playlist_selector = 'div#flowPlaylist';
+                if (portlet_parents.length > 0) {
+                    var portlet = true;
+                    // playlist has to be bound to unique item
+                    playlist_selector_id = portlet_parents.parent().attr('id')+'-playlist';
+                    $(this).parent().find('.flowPlaylist-portlet-marker').attr('id', playlist_selector_id);
+                    playlist_selector = '#'+playlist_selector_id;
+                    if (audio) {
+                        config.plugins.controls.all = false;
+                        config.plugins.controls.play = true;
+                        config.plugins.controls.scrubber = true;
+                        config.plugins.controls.mute = true;
+                        config.plugins.controls.volume = false;
+                    }
+                } else {
+                    var portlet = false;
+                }
+                if (!portlet) {
+                    $("#pl").scrollable({items:playlist_selector, size:4, clickable:false});
+                }
+                // manual = playlist is setup using HTML tags, not using playlist array in config
+                flowplayer(this, "%(player)s", config).playlist(playlist_selector, {loop: true, manual: true})%(events)s;
+                $(this).show();
+                $('.flowPlayerMessage').remove();
 
+            });
+        });
+})(jQuery);
+""" % dict(player = self.player,
+           config = simplejson.dumps(self.flowplayer_properties_as_dict, indent=4),
+           events = self.events,
+          )
+"""
         function randomOrder() { return (Math.round(Math.random())-0.5); }
-        function updateConfig(config, minimal, audio, portlet) {
-            if(minimal) {
-                config.plugins.controls = null;
-            } else if(audio) {
-                config.plugins.controls.fullscreen = false;
-            }
-            if(portlet && !minimal) {
-                $(this).width(130);
-                config.plugins.controls.volume = false;
-                config.plugins.controls.scrubber = true;
-                config.plugins.controls.time = false;
-            }
-        }
         $('.autoFlowPlayer').each(function() {
             var config = %(config)s;
             var minimal = $(this).is('.minimal');
@@ -168,15 +201,7 @@ class JavaScript(BrowserView):
             flowplayer(this, "%(player)s", config)%(events)s.playlist(playlist_selector, {loop: true, manual: true});
             $(this).show();
             $('.flowPlayerMessage').remove();
-        });
-    });
-})(jQuery);
-""" % dict(player = self.player,
-           config = simplejson.dumps(self.flowplayer_properties_as_dict, indent=4),
-           events = self.events,
-           cb_playlist_buttons = pb_code,
-          )
-
+"""
 
 class File(BrowserView):
     interface.implements(IFlowPlayerView)
@@ -264,6 +289,14 @@ class Folder(BrowserView):
                                 audio_only=view.audio_only()))
         return results
 
+    def first_clip_url(self):
+        """ Clip must be quoted to playlist is able to find it in the flowplayer-playlist onBegin/getEl method call """
+        videos = self.videos()
+        if videos:
+            return urllib.quote(videos[0].get('url'))
+        else:
+            return None
+    
     def _query(self):
         catalog = getToolByName(self.context, 'portal_catalog')
         return catalog(object_provides=IFlowPlayable.__identifier__,
