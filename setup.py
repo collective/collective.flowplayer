@@ -31,6 +31,7 @@ setup(name='collective.flowplayer',
           'setuptools',
           # -*- Extra requirements: -*-
           'simplejson',
+          'plone.app.jqtools',
           # 'Plone', Too confusing for those using releases < 3.2
       ],
       tests_require=tests_require,
