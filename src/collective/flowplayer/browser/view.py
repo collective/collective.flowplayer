@@ -78,12 +78,14 @@ class JavaScript(BrowserView):
                     // comming from Kupu, there are relative urls
                     config.clip.baseUrl = $('base').attr('href');
                     config.clip.url = $(this).find('a').attr('href');
-                    // Clip is always linked as text or splash image, so autoplay after clicked
-                    config.clip.autoPlay = true;
+                    // Ignore global autoplay settings
                     if ($(this).find('img').length == 0) {
-                        // no image. Don't autoplay, remove all elements inside to show player directly.
+                        // no image. Don't autoplay, remove all elements inside the div to show player directly.
                         config.clip.autoPlay = false;
                         $(this).empty();
+                    } else {
+                        // Clip is probably linked as image, so autoplay the clip after image is clicked
+                        config.clip.autoPlay = true;
                     }
                 }
                 flowplayer(this, "%(player)s", config)%(events)s;
