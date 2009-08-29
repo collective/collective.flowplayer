@@ -32,6 +32,7 @@ setup(name='collective.flowplayer',
           # -*- Extra requirements: -*-
           'simplejson',
           'plone.app.jqtools',
+          'collective.testcaselayer',
           # 'Plone', Too confusing for those using releases < 3.2
       ],
       tests_require=tests_require,
