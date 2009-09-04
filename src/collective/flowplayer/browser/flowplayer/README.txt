@@ -2,7 +2,7 @@ This directory containf Flowplayer and its support files.
 
 Versions:
 
-flowplayer.min.js           is flowplayer-3.1.3.min.js 
+flowplayer.min.js           is flowplayer-3.1.4.min.js 
 flowplayer.swf              is flowplayer-3.1.3.swf 
 flowplayer.controls.swf     is flowplayer.controls-3.1.3.swf 
 flowplayer.audio.swf        is flowplayer.audio-3.1.0.swf
