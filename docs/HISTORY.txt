@@ -1,6 +1,8 @@
 Changelog
 =========
 
+* added missing plone.app.jqtools zcml include
+
 3.0b1 - 2009-09-15
 ------------------
 
