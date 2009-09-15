@@ -48,31 +48,35 @@ been set to the flowplayer view.
     >>> print browser.contents
     <...
     <script type="text/javascript"
-    src="http://nohost/plone/portal_javascripts/Plone%20Default/resourcecollective.flowplayerflashembed.min-cachekey....js">
+    src="http://nohost/plone/portal_javascripts/Plone%20Default/resourcecollective.flowplayerflowplayer.min....js">...
     </script>...
     <style type="text/css">@import
     url(http://nohost/plone/portal_css/Plone%20Default/resourcecollective.flowplayer.cssflowplayer-cachekey....css);</style>...
-    class="autoFlowPlayer...
     href="http://nohost/plone/Members/test_user_1_/foo.flv...
+    class="autoFlowPlayer...
 
 The generated JavaScript includes the appropriate metadata.
 
     >>> browser.open(folder['foo.flv'].absolute_url()+'/collective.flowplayer.js')
     >>> print browser.contents
     (...
-    var params = {src:
-    "/plone/++resource++collective.flowplayer/FlowPlayerDark.swf"};...
-    var config = { controlsOverVideo:'ease',
-        controlBarBackgroundColor:-1,
-        showVolumeSlider:false,
-        controlBarGloss:'low',
-        useNativeFullScreen:true,
-        autoBuffering:false,
-        initialVolumePercentage:50,
-        initialScale:'fit',
-        usePlayOverlay:true,
-        loop:false,
-        autoPlay:false };...
+    var config = {
+        "clip": {
+            "scaling": "fit",
+            "autoBuffering": false,
+            "autoPlay": false
+            },
+        "plugins": {
+             "audio": {
+                 "url": "http%3A//nohost/plone//%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.audio.swf"
+             },
+             "controls": {
+                 "url": "http%3A//nohost/plone//%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.controls.swf",
+                 "volume": true
+             }
+         }
+    }...
+    flowplayer(this, "http://nohost/plone//++resource++collective.flowplayer/flowplayer.swf", config).onLoad( function() { this.setVolume(50); });...
 
 FLV Links
 =========
@@ -104,31 +108,21 @@ file that the link points to.
     >>> print browser.contents
     <...
     <script type="text/javascript"
-    src="http://nohost/plone/portal_javascripts/Plone%20Default/resourcecollective.flowplayerflashembed.min-cachekey....js">
+    src="http://nohost/plone/portal_javascripts/Plone%20Default/resourcecollective.flowplayerflowplayer.min-cachekey....js">
     </script>...
     <style type="text/css">@import
     url(http://nohost/plone/portal_css/Plone%20Default/resourcecollective.flowplayer.cssflowplayer-cachekey....css);</style>...
-    class="autoFlowPlayer...
     href="http://nohost/plone/Members/test_user_1_/foo.flv...
+    class="autoFlowPlayer...
 
 The generated JavaScript includes the appropriate metadata.
 
     >>> browser.open(folder['foo-link-title'].absolute_url()+'/collective.flowplayer.js')
     >>> print browser.contents
     (...
-    var params = {src:
-    "/plone/++resource++collective.flowplayer/FlowPlayerDark.swf"};...
-    var config = { controlsOverVideo:'ease',
-        controlBarBackgroundColor:-1,
-        showVolumeSlider:false,
-        controlBarGloss:'low',
-        useNativeFullScreen:true,
-        autoBuffering:false,
-        initialVolumePercentage:50,
-        initialScale:'fit',
-        usePlayOverlay:true,
-        loop:false,
-        autoPlay:false };...
+    var config = {
+        "clip": {...
+    flowplayer(this, "http://nohost/plone//++resource++collective.flowplayer/flowplayer.swf", config).onLoad( function() { this.setVolume(50); });...
 
 Folders
 =======
@@ -149,7 +143,7 @@ same file.
     >>> print browser.contents
     <...
     <script type="text/javascript"
-    src="http://nohost/plone/portal_javascripts/Plone%20Default/resourcecollective.flowplayerflashembed.min-cachekey....js">
+    src="http://nohost/plone/portal_javascripts/Plone%20Default/resourcecollective.flowplayerflowplayer.min-cachekey....js">
     </script>...
     <style type="text/css">@import
     url(http://nohost/plone/portal_css/Plone%20Default/resourcecollective.flowplayer.cssflowplayer-cachekey....css);</style>...
@@ -160,19 +154,64 @@ same file.
     >>> browser.open(folder.absolute_url()+'/collective.flowplayer.js')
     >>> print browser.contents
     (...
-    var params = {src:
-    "/plone/++resource++collective.flowplayer/FlowPlayerDark.swf"};...
-    var config = { controlsOverVideo:'ease',
-        controlBarBackgroundColor:-1,
-        showVolumeSlider:false,
-        controlBarGloss:'low',
-        useNativeFullScreen:true,
-        autoBuffering:false,
-        initialVolumePercentage:50,
-        initialScale:'fit',
-        usePlayOverlay:true,
-        loop:false,
-        autoPlay:false };...
+    var config = {
+        "clip": {...
+    flowplayer(this, "http://nohost/plone//++resource++collective.flowplayer/flowplayer.swf", config).onLoad( function() { this.setVolume(50); });...
+
+Let's try to change some flowplayer properties.
+
+    >>> props = portal.portal_properties.flowplayer_properties
+    >>> props.player
+    '${portal_url}/++resource++collective.flowplayer/flowplayer.swf'
+    >>> props.getProperty('clip/autoPlay')
+    False
+    >>> props._updateProperty('clip/autoPlay', True)
+    >>> browser.open(folder['foo.flv'].absolute_url()+'/collective.flowplayer.js')
+    >>> print browser.contents
+    (...
+    var config = {
+        "clip": {...
+            "autoPlay": true
+            },...
+            
+Try to add new property.
+    
+    >>> not not props.hasProperty('plugins/controls/backgroundColor')
+    False
+    >>> props.manage_addProperty('plugins/controls/backgroundColor', '#000000', 'string')
+    >>> props.getProperty('plugins/controls/backgroundColor')
+    '#000000'
+    >>> browser.open(folder['foo.flv'].absolute_url()+'/collective.flowplayer.js')
+    >>> print browser.contents
+    (...
+    var config = {...
+        "plugins": {...
+            "controls": {...
+                "backgroundColor": "#000000"...
+
+Check playlist 
+
+    >>> props.getProperty('showPlaylist')
+    True
+    >>> browser.open(folder['foo.flv'].absolute_url()+'/view')
+    >>> 'playListFlowPlayer' in browser.contents
+    False
+    >>> folder.setLayout('flowplayer')
+    >>> folder.getLayout()
+    'flowplayer'
+    >>> browser.open(folder.absolute_url())
+    >>> 'playListFlowPlayer' in browser.contents
+    True
+    >>> 'flowPlaylistVisible' in browser.contents
+    True
+    >>> props._updateProperty('showPlaylist', False)
+    >>> browser.open(folder.absolute_url())
+    >>> 'playListFlowPlayer' in browser.contents
+    True
+    >>> 'flowPlaylistHidden' in browser.contents
+    True
+    
+    
 
 Make sure we don't leak into sites where we're not installed
 ============================================================

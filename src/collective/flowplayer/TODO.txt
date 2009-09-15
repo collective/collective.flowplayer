@@ -3,3 +3,17 @@ collective.flowplayer to-do
 
     - audio portlet has a lot of blank space
     
+Todo and notes to Flowplayer3 version, started at 2009/08/19
+
+STILL WORK IN PROGRESS
+     
+   - some properties seems not directly available in flowplayer3
+        usePlayOverlay
+        useNativeFullScreen
+        controlsOverVideo
+        controlBarBackgroundColor
+        controlBarGloss
+      Some properties may be replaced by custom property of 'controls' plugin, 
+      eg property:
+        plugins/controls/timeColor with string value '#01DAFF'
+   

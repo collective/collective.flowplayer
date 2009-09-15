@@ -2,17 +2,8 @@
 <object name="portal_properties">
  <object name="flowplayer_properties" meta_type="Plone Property Sheet">
   <property name="title">Flow player properties</property>
-  <property name="player" type="string">++resource++collective.flowplayer/FlowPlayerDark.swf</property>
-  <property name="loop" type="boolean">False</property>
-  <property name="autoPlay" type="boolean">False</property>
-  <property name="autoBuffering" type="boolean">False</property>
-  <property name="usePlayOverlay" type="boolean">True</property>
-  <property name="initialScale" type="string">fit</property>
-  <property name="initialVolumePercentage" type="int">50</property>
-  <property name="useNativeFullScreen" type="boolean">True</property>
-  <property name="showVolumeSlider" type="boolean">False</property>
-  <property name="controlsOverVideo" type="string">ease</property>
-  <property name="controlBarBackgroundColor" type="int">-1</property>
-  <property name="controlBarGloss" type="string">low</property>
+
+  <!-- properties are set in exportimport.py -->  
+
  </object>
 </object>

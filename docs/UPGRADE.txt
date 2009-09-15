@@ -1,0 +1,39 @@
+Upgrade notes
+=============
+
+Upgrade specific notes: from 1.0 to 3.0
+---------------------------------------
+
+Flowplayer configuration changed a lot from Flowplayer 2.2 used in 
+collective.flowplayer 1.0. Most of Flowplayer properties are migrated 
+automatically, but there are few troubles.
+
+ * Contents of "player" property is *not* migrated. If you are using commercial
+   or customized version of Flowplayer2 please obtain updated version or don't
+   upgrade collective.flowplayer at all!
+
+ * Properties usePlayOverlay, useNativeFullScreen, controlsOverVideo,
+   controlBarGloss are not migrated and are deleted during migration process.
+   There are no direct equivalents in Flowplayer 3
+
+How to upgrade
+--------------
+
+ * force buildout to use new version of collective.flowplayer (check if version
+   is not pinned, use bin/buildout -n)
+
+ * restart zope instance
+
+ * go to portal_quickinstaller or Add/Remove products controlpanel and
+   reinstall Flowplayer product
+
+ * go to ZMI - portal_setup - Upgrades tab, select collective.flowplayer:default
+   profile, click "Choose profile" button. There should be 'Upgrade
+   collective.flowplayer (1.0 → 3.0)' step available. Make sure step is checked
+   and press Upgrade button. If the upgrade step is not shown and you are sure
+   (even unsure) you migrated to the latest version already, press 'Show' button
+   to show old upgrades and run upgrade step manually. It should be safe to run
+   the upgrade step several times.
+
+ * Read README.txt to check how to configure custom properties of your
+   Flowplayer instance

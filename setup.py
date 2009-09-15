@@ -1,14 +1,15 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0b6'
+version = '3.0b2'
 
 tests_require = ['collective.testcaselayer']
 
 setup(name='collective.flowplayer',
       version=version,
       description="A simple package using Flowplayer for video content",
-      long_description=open("README.txt").read() + "\n" +
+      long_description=open("README.txt").read() + "\n\n" +
+                       open(os.path.join("docs", "UPGRADE.txt")).read() + "\n\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
@@ -29,6 +30,9 @@ setup(name='collective.flowplayer',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
+          'simplejson',
+          'plone.app.jqtools',
+          'collective.testcaselayer',
           # 'Plone', Too confusing for those using releases < 3.2
       ],
       tests_require=tests_require,

@@ -30,15 +30,20 @@
         <div tal:replace="structure provider:plone.abovecontentbody" />
 
         <div tal:define="audio view/audio_only"
-             tal:attributes="class python:audio and 'autoFlowPlayer audio' or 'autoFlowPlayer video';
-                             style view/scale">
-            <a tal:attributes="href view/href;
-                               style view/scale"
-               i18n:translate="video_fallback">
+             tal:attributes="style view/scale">
+            <span class="flowPlayerMessage discreet" i18n:translate="video_fallback">
                 If your video does not start playing shortly, please ensure
                 that you have JavaScript enabled and the latest version of
                 Adobe Flash Player (http://www.adobe.com/products/flashplayer/) installed.
-            </a>
+            </span>
+            <tal:comment tal:condition="nothing">
+             Do not put any text/image inside the following a tag. Flowplayer 
+             consider such text/image as a splash screen and does not display
+             itself until clicked!
+            </tal:comment>
+            <a tal:attributes="href view/href;
+                               class python:audio and 'autoFlowPlayer audio' or 'autoFlowPlayer video';
+                               style view/scale"></a>
         </div>
 
         <div metal:use-macro="here/document_relateditems/macros/relatedItems">
