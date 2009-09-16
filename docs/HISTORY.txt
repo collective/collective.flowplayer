@@ -1,7 +1,17 @@
 Changelog
 =========
 
+3.0b2 - 2009-09-16
+------------------
+
 * added missing plone.app.jqtools zcml include
+  [naro]
+
+* It is possible to specify flash parameters using param/... properties.
+  'player' property were changed to 'param/src'. This may be used for setting
+  eg. param/wmode to 'opaque'.
+  [naro]
+
 
 3.0b1 - 2009-09-15
 ------------------
