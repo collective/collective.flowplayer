@@ -9,5 +9,8 @@ class Layer(tcl_ptc.BasePTCLayer):
 
     def afterSetUp(self):
         self.addProfile('collective.flowplayer:default')
+        # put resource registry to debug mode to avoid cachekyes in tests
+        self.portal.portal_css.setDebugMode(True)
+        self.portal.portal_javascripts.setDebugMode(True)
 
 layer = Layer([tcl_ptc.ptc_layer])

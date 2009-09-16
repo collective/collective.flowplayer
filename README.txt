@@ -161,8 +161,10 @@ string properties, you can use the placeholder ${portal_url} to refer to
 the URL of the portal root. This is useful for things like watermark images or 
 player plugins. 
 
-You can also use the 'player' property to change the player SWF file that's
-used, e.g. to switch to commercial version if you have this installed. 
+Properties starting with word "params/" are considered as Flash configuration
+properties. You may set properties like src (player flash file), wmode,
+quality, allowscriptaccess etc. Just use eg. params/wmode as property name and
+eg. 'opaque' as property value.
 
 '''Important note''' Since playlist configuration is a generated javascript file
 included in portal_javascript, you must reload portal_javascript after global

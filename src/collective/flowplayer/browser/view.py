@@ -6,7 +6,8 @@ import urllib
 
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
-from collective.flowplayer.utils import properties_to_dict
+from collective.flowplayer.utils import properties_to_dict, \
+                                        flash_properties_to_dict
 
 from collective.flowplayer.interfaces import IFlowPlayable
 from collective.flowplayer.interfaces import IMediaInfo, IFlowPlayerView
@@ -34,18 +35,20 @@ class JavaScript(BrowserView):
         return properties_to_dict(self.flowplayer_properties, 
                                   portal_url, 
                                   ignore=['title', 
-                                          'player', 
                                           'loop',
                                           'initialVolumePercentage',
                                           'showPlaylist',])
-        
+
+    @property
+    def flash_properties_as_dict(self):
+        portal_url = self.portal_state().portal_url()
+        return flash_properties_to_dict(self.flowplayer_properties, 
+                                        portal_url)
+
     def update(self):
         portal_url = self.portal_state().portal_url()
         if not portal_url.endswith('/'):
             portal_url += '/'
-        self.player = self.flowplayer_properties.getProperty('player') \
-                         .replace('${portal_url}', portal_url) \
-                         .replace('${portal_path}', portal_url)
 
         # if showPlaylist is True, do not show playlist buttons on controlbar
         self.show_cb_playlist_buttons = not self.flowplayer_properties.getProperty('showPlaylist')
@@ -88,7 +91,7 @@ class JavaScript(BrowserView):
                         config.clip.autoPlay = true;
                     }
                 }
-                flowplayer(this, "%(player)s", config)%(events)s;
+                flowplayer(this, %(params)s, config)%(events)s;
                 $('.flowPlayerMessage').remove();
             });
             $('.playListFlowPlayer').each(function() {
@@ -122,100 +125,17 @@ class JavaScript(BrowserView):
                     $("#pl").scrollable({items:playlist_selector, size:4, clickable:false});
                 }
                 // manual = playlist is setup using HTML tags, not using playlist array in config
-                flowplayer(this, "%(player)s", config).playlist(playlist_selector, {loop: true, manual: true})%(events)s;
+                flowplayer(this, %(params)s, config).playlist(playlist_selector, {loop: true, manual: true})%(events)s;
                 $(this).show();
                 $('.flowPlayerMessage').remove();
 
             });
         });
 })(jQuery);
-""" % dict(player = self.player,
+""" % dict(params = simplejson.dumps(self.flash_properties_as_dict),
            config = simplejson.dumps(self.flowplayer_properties_as_dict, indent=4),
            events = self.events,
           )
-"""
-        function randomOrder() { return (Math.round(Math.random())-0.5); }
-        $('.autoFlowPlayer').each(function() {
-            var config = %(config)s;
-            var minimal = $(this).is('.minimal');
-            var audio = $(this).is('.audio');
-            var portlet = $(this).parents('.portlet').length > 0;
-            if (audio) {
-                $(this).width(500);
-            }
-            var splash = null;
-            var aTag = this;
-            if(!$(aTag).is("a")) {
-                aTag = $(this).find("a").get(0);
-            }
-            if(aTag === null) {
-                return;
-            }
-            
-            updateConfig(config, minimal, audio, portlet);
-            if (!config.clip) {
-                config.clip = {};
-            }
-            config.clip.url = $(aTag).attr('href');
-            flowplayer(aTag, "%(player)s", config)%(events)s;
-            $('.flowPlayerMessage').remove();
-        });
-        
-        $('.playListFlowPlayer').each(function() {
-            var config = %(config)s;
-            var minimal = $(this).is('.minimal');
-            var audio = $(this).is('.audio');
-            var random = $(this).is('.random');
-            portlet_parents = $(this).parents('.portlet');
-            if (portlet_parents.length > 0) {
-                var portlet = true;
-                // unique id of the container. portlet_parents is tag with class .portlet
-                // it's parent is tag with unique ID    
-                var portlet_parent = portlet_parents.parent();
-                var playlist_id = portlet_parent.attr('id') + '-playlist';
-                portlet_parents.find('div.flowPlaylist-portlet-marker').attr('id', playlist_id);
-                var playlist_selector = '#'+playlist_id;
-            } else {
-                var portlet = false;
-                var playlist_selector = 'div#flowPlaylist';
-            }
-
-            if (!config.clip) {
-                config.clip = {};
-            }
-            var playList = new Array();
-            var clipSet = false;
-            var splash = null;
-            $(this).find('img').each(function() {
-                splash = {url: $(this).attr('href')};
-                playList.push(splash);
-                $(this).remove();
-            });
-
-            $(this).find('a.playListItem').each(function() {
-                if (! clipSet) { 
-                    config.clip.url = $(this).attr('href');
-                    if (splash) {
-                        config.clip.autoPlay = false;
-                    }
-                    clipSet = true;
-                }
-                playList.push({url: $(this).attr('href'), title: $(this).attr('title')});
-                $(this).remove();
-            });
-            
-            if(random) { playList.sort(randomOrder); }
-            
-            updateConfig(config, minimal, audio, portlet);
-            %(cb_playlist_buttons)s
-            config.playlist = playList;
-            if (!portlet) {
-                $("#pl").scrollable({items:playlist_selector, size:4, clickable:false});
-            }
-            flowplayer(this, "%(player)s", config)%(events)s.playlist(playlist_selector, {loop: true, manual: true});
-            $(this).show();
-            $('.flowPlayerMessage').remove();
-"""
 
 class File(BrowserView):
     interface.implements(IFlowPlayerView)

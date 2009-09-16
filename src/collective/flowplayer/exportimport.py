@@ -6,7 +6,7 @@ from Products.CMFPlone.interfaces import IPropertiesTool
 # in the quickinstaller.
 
 _PROPERTIES = [
-    dict(name='player', type_='string', value='${portal_url}/++resource++collective.flowplayer/flowplayer.swf'),
+    dict(name='param/src', type_='string', value='${portal_url}/++resource++collective.flowplayer/flowplayer.swf'),
     dict(name='loop', type_='boolean', value=False),
     dict(name='showPlaylist', type_='boolean', value=True),
     dict(name='initialVolumePercentage', type_='int', value=50),
