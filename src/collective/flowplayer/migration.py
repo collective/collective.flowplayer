@@ -43,6 +43,6 @@ def migrateTo30b2(context):
         flowplayer_properties = getattr(properties_tool, 'flowplayer_properties', None)
         if flowplayer_properties:
             if flowplayer_properties.hasProperty('player'):
-                flowplayer_properties._updateProperty('params/src', flowplayer_properties.getProperty('player'))
+                flowplayer_properties._updateProperty('param/src', flowplayer_properties.getProperty('player'))
                 flowplayer_properties.manage_delProperties(['player'])
-                logger.info('Property "player" has been migrated to "params/src"')
+                logger.info('Property "player" has been migrated to "param/src"')
