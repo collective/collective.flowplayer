@@ -1,5 +1,5 @@
 <metadata>
-    <version>3.0b2</version>
+    <version>3.0b3</version>
     <dependencies>
         <dependency>profile-plone.app.jqtools:default</dependency>
     </dependencies>
