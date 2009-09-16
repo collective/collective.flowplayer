@@ -29,7 +29,7 @@ How to upgrade
 
  * go to ZMI - portal_setup - Upgrades tab, select collective.flowplayer:default
    profile, click "Choose profile" button. There should be 'Upgrade
-   collective.flowplayer (1.0 → 3.0)' step available. Make sure step is checked
+   collective.flowplayer (1.0 - 3.0)' step available. Make sure step is checked
    and press Upgrade button. If the upgrade step is not shown and you are sure
    (even unsure) you migrated to the latest version already, press 'Show' button
    to show old upgrades and run upgrade step manually. It should be safe to run
