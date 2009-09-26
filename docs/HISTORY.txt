@@ -1,6 +1,15 @@
 Changelog
 =========
 
+3.0b3 - 2009-09-26
+------------------
+
+* URL passed to flowplayer must end with known media suffix (flv, mp3, mp4
+  etc.). URL http://portal/folder/myvideo is not valid source for
+  Flowplayer, but http://portal/folder/myvideo?e=.flv is.
+  Thanks to Milos Prudek for pointing to this issue.
+  [naro]
+
 3.0b2 - 2009-09-16
 ------------------
 

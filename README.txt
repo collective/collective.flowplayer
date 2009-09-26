@@ -249,7 +249,7 @@ as well. Example of js skeleton::
 
     })
     
-Let's create concerete example. The most visible one is Javascript alert :)
+Let's create concerete example. The most visible one is Javascript alert::
 
     jq(function () {
 

@@ -211,7 +211,21 @@ Check playlist
     >>> 'flowPlaylistHidden' in browser.contents
     True
     
+
+Rename foo.flv to 'foo' only and check generated code. Since foo does not end
+with the same suffix as included file ('flv'), append the suffix as argument
+of generated href.
+
+    >>> browser.open(folder['foo.flv'].absolute_url()+'/view')
+    >>> print browser.contents
+    <... <a style="" href="http://nohost/plone/Members/test_user_1_/foo.flv" class="autoFlowPlayer video"></a>...
     
+    >>> folder.manage_renameObjects(['foo.flv',], ['foo'])
+    >>> folder['foo'].absolute_url()
+    'http://nohost/plone/Members/test_user_1_/foo'
+    >>> browser.open(folder['foo'].absolute_url()+'/view')
+    >>> print browser.contents
+    <... <a style="" href="http://nohost/plone/Members/test_user_1_/foo?e=.flv" class="autoFlowPlayer video"></a>...
 
 Make sure we don't leak into sites where we're not installed
 ============================================================
@@ -219,7 +233,7 @@ Make sure we don't leak into sites where we're not installed
 If the product is uninstalled, new items should no longer get subtyped.
 
     >>> portal.portal_quickinstaller.uninstallProducts(products=['collective.flowplayer'])
-    >>> folder.manage_delObjects(['foo.flv'])
+    >>> folder.manage_delObjects(['foo'])
     >>> browser.open(folder.absolute_url())
     >>> browser.getLink('File').click()
     >>> ctrl = browser.getControl(name="file_file")

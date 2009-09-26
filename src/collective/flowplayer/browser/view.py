@@ -3,6 +3,7 @@ from zope import component
 from Acquisition import aq_inner
 import simplejson
 import urllib
+import os 
 
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
@@ -76,6 +77,11 @@ class JavaScript(BrowserView):
                 var audio = $(this).is('.audio');
                 if (audio) {
                     $(this).width(500);
+                    config.plugins.controls.all = false;
+                    config.plugins.controls.play = true;
+                    config.plugins.controls.scrubber = true;
+                    config.plugins.controls.mute = true;
+                    config.plugins.controls.volume = true;
                 }
                 if ($(this).is('div')) {
                     // comming from Kupu, there are relative urls
@@ -161,7 +167,7 @@ class File(BrowserView):
         return self._scale
     
     def videos(self):
-        return[dict(url=self.context.absolute_url(),
+        return[dict(url=self.href(),
                     title=self.context.Title(),
                     description=self.context.Description(),
                     height=self.height,
@@ -169,7 +175,15 @@ class File(BrowserView):
                     audio_only=self._audio_only)]
 
     def href(self):
-        return self.context.absolute_url()
+        context = aq_inner(self.context)
+        ext = ''
+        url = self.context.absolute_url()
+        filename = context.getFilename()
+        if filename:
+            extension = os.path.splitext(filename)[1]
+            if not url.endswith(extension):
+                ext = "?e=%s" % extension
+        return self.context.absolute_url()+ext
 
 class Link(File):
 
