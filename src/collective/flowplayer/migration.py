@@ -18,6 +18,8 @@ V30_TO_DELETE = [
     'controlsOverVideo',
     'controlBarGloss',
 ]
+def emptyMigrate(self):
+    pass
 
 def migrateTo30(context):
     properties_tool = getToolByName(context, 'portal_properties', None)

@@ -17,7 +17,7 @@
         
     <browser:page
         name="flowplayer"
-        for="Products.ATContentTypes.interface.IATFile"
+        for="Products.ATContentTypes.interface.IFileContent"
         class=".view.File"
         template="file.pt"
         permission="zope2.View"

@@ -77,7 +77,7 @@ class ChangeView(object):
 
 class ChangeFileView(ChangeView):
 
-    interface = interface.IATFile
+    interface = interface.IFileContent
 
     def check_extension(self):
         filename = self.value.filename.lower()

@@ -1,6 +1,15 @@
 Changelog
 =========
 
+3.0b4 -
+------------------ 
+
+* use IFileContent instead of IATFile to be able to handle ATBlob as well.
+
+* added empty upgrade step for such version changes which does not require any
+  upgrade. This is not apparently good solution.
+  [naro]
+
 3.0b3 - 2009-09-26
 ------------------
 

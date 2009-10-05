@@ -11,12 +11,12 @@
     <adapter factory=".media.AudioInfo" />
     
     <subscriber
-        for="Products.ATContentTypes.interface.IATFile
+        for="Products.ATContentTypes.interface.IFileContent
              Products.Archetypes.interfaces.IObjectInitializedEvent"
         handler=".events.ChangeFileView"
         />
     <subscriber
-        for="Products.ATContentTypes.interface.IATFile
+        for="Products.ATContentTypes.interface.IFileContent
              Products.Archetypes.interfaces.IObjectEditedEvent"
         handler=".events.ChangeFileView"
         />
@@ -64,6 +64,16 @@
         destination="3.0b2"
         handler=".migration.migrateTo30b2"
         sortkey="2"
+        profile="collective.flowplayer:default"
+    />  
+
+    <genericsetup:upgradeStep
+        title="Upgrade collective.flowplayer"
+        description="Dummy upgrade step to version 3.0b4"
+        source="3.0b3"
+        destination="3.0b4"
+        handler=".migration.emptyMigrate"
+        sortkey="3"
         profile="collective.flowplayer:default"
     />  
 
