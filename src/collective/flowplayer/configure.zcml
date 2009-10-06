@@ -4,7 +4,7 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="collective.flowplayer">
 
-    <include package="plone.app.jqtools" />
+    <include package="plone.app.jquerytools" />
     <include package=".browser" />
     
     <adapter factory=".media.VideoInfoAdapter" />
