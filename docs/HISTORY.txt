@@ -1,8 +1,12 @@
 Changelog
 =========
 
-3.0b4 -
+3.0b4 - 2009-10-05
 ------------------ 
+
+* Depend on plone.app.jquerytools: plone.app.jqtools was renamed and the
+  package removed, so new installations would break.
+  [optilude]
 
 * use IFileContent instead of IATFile to be able to handle ATBlob as well.
 
