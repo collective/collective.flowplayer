@@ -9,6 +9,7 @@ from collective.flowplayer.flv import FLVHeader, FLVHeaderError
 from Products.ATContentTypes import interface
 from Products.Archetypes.interfaces import IObjectInitializedEvent
 
+import urllib2
 from StringIO import StringIO
 
 VIDEO_EXTENSIONS = ['.f4b', '.f4p', '.f4v', '.flv', '.mp4', '.m4v', '.jpg', '.gif', '.png']
@@ -130,3 +131,29 @@ class ChangeLinkView(ChangeView):
             if filename.endswith(ext):
                 return ext
         return None
+
+    def handleVideo(self):
+        try:
+            file_handle = urllib2.urlopen(self.content.getRemoteUrl())
+        except IOError:
+            file_handle = StringIO()
+        height = width = None
+        flvparser = FLVHeader()
+        try:
+            flvparser.analyse(file_handle.read(1024))
+            width = flvparser.getWidth()
+            height = flvparser.getHeight()
+        except FLVHeaderError:
+            # Do not remove marker interface. MP4 files can't be parsed 
+            # but works fine. Any file which extension is in allowed 
+            # extensions should be playable (hopefully)
+            # remove_marker(self.content)
+            # return
+            pass
+
+        super(ChangeLinkView, self).handleVideo()
+
+        if height and width:
+            info = IMediaInfo(self.content)
+            info.height = height
+            info.width = width

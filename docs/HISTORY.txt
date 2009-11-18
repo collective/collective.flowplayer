@@ -6,6 +6,10 @@ Changelog
 * Flowplayer updated to 3.1.4; modules updated to the latest versions
   [naro]
 
+* Added headerparsing to IVideo-enhanced links. This allows using the
+  scaling property `clip/scaling` for links 
+  [tom_gross]
+
 3.0b4 - 2009-10-05
 ------------------ 
 
