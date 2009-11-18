@@ -103,8 +103,8 @@ class ChangeFileView(ChangeView):
             height = flvparser.getHeight()
         except FLVHeaderError:
             # Do not remove marker interface. MP4 files can't be parsed 
-            # but works fine. Any file which extension is file can be 
-            # played (hopefully)
+            # but works fine. Any file which extension is in allowed 
+            # extensions should be playable (hopefully)
             # remove_marker(self.content)
             # return
             pass
