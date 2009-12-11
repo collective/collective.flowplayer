@@ -1,7 +1,13 @@
 Changelog
 =========
 
+3.0b5 - 2009-12-11
+------------------ 
 
+* Removed @@ prefix from collective.flowplayer.js in javascript registry.
+  It probably confused Safari and Chrome. Thanks dahoste for pointing to
+  this issue.
+  [naro]
 
 * Flowplayer updated to 3.1.4; modules updated to the latest versions
   [naro]
