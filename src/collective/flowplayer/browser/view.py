@@ -73,25 +73,28 @@ class JavaScript(BrowserView):
         $(function() { 
             $('.autoFlowPlayer').each(function() {
                 var config = %(config)s;
-                if ($(this).is('.minimal')) { config.plugins.controls = null; }
-                var audio = $(this).is('.audio');
-                if (audio) {
-                    $(this).width(500);
+                var $self = $(this);
+                if ($self.is('.minimal')) { 
+                    config.plugins.controls = null; 
+                };
+                var audio = $self.is('.audio');
+                if (audio && !$self.is('.minimal')) {
+                    $self.width(500);
                     config.plugins.controls.all = false;
                     config.plugins.controls.play = true;
                     config.plugins.controls.scrubber = true;
                     config.plugins.controls.mute = true;
                     config.plugins.controls.volume = true;
                 }
-                if ($(this).is('div')) {
+                if ($self.is('div')) {
                     // comming from Kupu, there are relative urls
                     config.clip.baseUrl = $('base').attr('href');
-                    config.clip.url = $(this).find('a').attr('href');
+                    config.clip.url = $self.find('a').attr('href');
                     // Ignore global autoplay settings
-                    if ($(this).find('img').length == 0) {
+                    if ($self.find('img').length == 0) {
                         // no image. Don't autoplay, remove all elements inside the div to show player directly.
                         config.clip.autoPlay = false;
-                        $(this).empty();
+                        $self.empty();
                     } else {
                         // Clip is probably linked as image, so autoplay the clip after image is clicked
                         config.clip.autoPlay = true;
@@ -102,22 +105,23 @@ class JavaScript(BrowserView):
             });
             $('.playListFlowPlayer').each(function() {
                 var config = %(config)s;
-                var audio = $(this).is('.audio');
+                var $self = $(this);
+                var audio = $self.is('.audio');
                 if (audio) { config.plugins.controls.fullscreen = false; }
-                if ($(this).is('.minimal')) { config.plugins.controls = null; }
-                if ($(this).find('img').length > 0) { 
+                if ($self.is('.minimal')) { config.plugins.controls = null; }
+                if ($self.find('img').length > 0) { 
                     // has splash
                     config.clip.autoPlay = true;
                 }
-                portlet_parents = $(this).parents('.portlet');
+                portlet_parents = $self.parents('.portlet');
                 var playlist_selector = 'div#flowPlaylist';
                 if (portlet_parents.length > 0) {
                     var portlet = true;
                     // playlist has to be bound to unique item
                     playlist_selector_id = portlet_parents.parent().attr('id')+'-playlist';
-                    $(this).parent().find('.flowPlaylist-portlet-marker').attr('id', playlist_selector_id);
+                    $self.parent().find('.flowPlaylist-portlet-marker').attr('id', playlist_selector_id);
                     playlist_selector = '#'+playlist_selector_id;
-                    if (audio) {
+                    if (audio && !$self.is('.minimal')) {
                         config.plugins.controls.all = false;
                         config.plugins.controls.play = true;
                         config.plugins.controls.scrubber = true;
@@ -132,7 +136,7 @@ class JavaScript(BrowserView):
                 }
                 // manual = playlist is setup using HTML tags, not using playlist array in config
                 flowplayer(this, %(params)s, config).playlist(playlist_selector, {loop: true, manual: true})%(events)s;
-                $(this).show();
+                $self.show();
                 $('.flowPlayerMessage').remove();
 
             });
