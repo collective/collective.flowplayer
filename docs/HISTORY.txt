@@ -1,6 +1,15 @@
 Changelog
 =========
 
+3.0b6 - 2010-03-09
+------------------
+
+* Updated Flowplayer to 3.1.5
+
+* Partially fixed class="autoFlowPlayer minimal audio". 
+  Class minimal in combination with audio still causes problems.
+  [naro]
+
 3.0b5 - 2009-12-11
 ------------------ 
 
