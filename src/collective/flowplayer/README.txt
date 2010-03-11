@@ -47,9 +47,9 @@ been set to the flowplayer view.
     >>> folder['foo.flv'].getLayout()
     'flowplayer'
     >>> contents = browser.contents
-    >>> 'src="http://nohost/plone/portal_javascripts/Plone%20Default/++resource++collective.flowplayer/flowplayer.min.js">' in contents
+    >>> '++resource++collective.flowplayer/flowplayer.min.js">' in contents
     True
-    >>> 'url(http://nohost/plone/portal_css/Plone%20Default/++resource++collective.flowplayer.css/flowplayer.css)' in contents
+    >>> '++resource++collective.flowplayer.css/flowplayer.css)' in contents
     True
     >>> 'href="http://nohost/plone/Members/test_user_1_/foo.flv"' in contents
     True
@@ -105,9 +105,9 @@ file that the link points to.
     >>> folder['foo-link-title'].getLayout()
     'flowplayer'
     >>> contents = browser.contents
-    >>> 'src="http://nohost/plone/portal_javascripts/Plone%20Default/++resource++collective.flowplayer/flowplayer.min.js">' in contents
+    >>> '++resource++collective.flowplayer/flowplayer.min.js">' in contents
     True
-    >>> 'url(http://nohost/plone/portal_css/Plone%20Default/++resource++collective.flowplayer.css/flowplayer.css)' in contents
+    >>> '++resource++collective.flowplayer.css/flowplayer.css)' in contents
     True
     >>> 'href="http://nohost/plone/Members/test_user_1_/foo.flv"' in contents
     True
@@ -138,7 +138,7 @@ playlist will list the foo.flv file twice since the link points to the
 same file.
 
     >>> contents = browser.contents
-    >>> 'src="http://nohost/plone/portal_javascripts/Plone%20Default/++resource++collective.flowplayer/flowplayer.playlist.min.js">' in contents
+    >>> '++resource++collective.flowplayer/flowplayer.playlist.min.js">' in contents
     True
     >>> 'class="playListFlowPlayer' in contents
     True
