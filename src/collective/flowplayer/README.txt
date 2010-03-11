@@ -46,12 +46,13 @@ been set to the flowplayer view.
     True
     >>> folder['foo.flv'].getLayout()
     'flowplayer'
-    >>> print browser.contents
-    <...
-    src="http://nohost/plone/portal_javascripts/Plone%20Default/++resource++collective.flowplayer/flowplayer.min.js">...
-    url(http://nohost/plone/portal_css/Plone%20Default/++resource++collective.flowplayer.css/flowplayer.css)...
-    href="http://nohost/plone/Members/test_user_1_/foo.flv"...
-    class="autoFlowPlayer...
+    >>> contents = browser.contents
+    >>> 'src="http://nohost/plone/portal_javascripts/Plone%20Default/++resource++collective.flowplayer/flowplayer.min.js">' in contents
+    True
+    >>> 'url(http://nohost/plone/portal_css/Plone%20Default/++resource++collective.flowplayer.css/flowplayer.css)' in contents
+    True
+    >>> 'href="http://nohost/plone/Members/test_user_1_/foo.flv"' in contents
+    True
 
 The generated JavaScript includes the appropriate metadata.
 
@@ -103,12 +104,13 @@ file that the link points to.
     True
     >>> folder['foo-link-title'].getLayout()
     'flowplayer'
-    >>> print browser.contents
-    <...
-    src="http://nohost/plone/portal_javascripts/Plone%20Default/++resource++collective.flowplayer/flowplayer.min.js">...
-    url(http://nohost/plone/portal_css/Plone%20Default/++resource++collective.flowplayer.css/flowplayer.css)...
-    href="http://nohost/plone/Members/test_user_1_/foo.flv"...
-    class="autoFlowPlayer...
+    >>> contents = browser.contents
+    >>> 'src="http://nohost/plone/portal_javascripts/Plone%20Default/++resource++collective.flowplayer/flowplayer.min.js">' in contents
+    True
+    >>> 'url(http://nohost/plone/portal_css/Plone%20Default/++resource++collective.flowplayer.css/flowplayer.css)' in contents
+    True
+    >>> 'href="http://nohost/plone/Members/test_user_1_/foo.flv"' in contents
+    True
 
 The generated JavaScript includes the appropriate metadata.
 
@@ -135,14 +137,11 @@ The view renders the playlist with all the necessary JavaScript.  This
 playlist will list the foo.flv file twice since the link points to the
 same file.
 
-    >>> print browser.contents
-    <...
-    src="http://nohost/plone/portal_javascripts/Plone%20Default/++resource++collective.flowplayer/flowplayer.min.js">...
-    src="http://nohost/plone/portal_javascripts/Plone%20Default/++resource++collective.flowplayer/flowplayer.playlist.min.js">...
-    url(http://nohost/plone/portal_css/Plone%20Default/++resource++collective.flowplayer.css/flowplayer.css)...
-    class="playListFlowPlayer...
-    href="http://nohost/plone/Members/test_user_1_/foo.flv...
-    href="http://nohost/plone/Members/test_user_1_/foo.flv...
+    >>> contents = browser.contents
+    >>> 'src="http://nohost/plone/portal_javascripts/Plone%20Default/++resource++collective.flowplayer/flowplayer.playlist.min.js">' in contents
+    True
+    >>> 'class="playListFlowPlayer' in contents
+    True
 
     >>> browser.open(folder.absolute_url()+'/collective.flowplayer.js')
     >>> print browser.contents
