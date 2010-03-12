@@ -79,17 +79,25 @@ class JavaScript(BrowserView):
                 };
                 var audio = $self.is('.audio');
                 if (audio && !$self.is('.minimal')) {
-                    $self.width(500);
+                    if ($self.is('.image-left') || $self.is('.image-right'))
+                        $self.width(230)
+                    else
+                        $self.width(500);
                     config.plugins.controls.all = false;
                     config.plugins.controls.play = true;
                     config.plugins.controls.scrubber = true;
                     config.plugins.controls.mute = true;
                     config.plugins.controls.volume = true;
+                    config.plugins.controls.time = true;
                 }
                 if ($self.is('div')) {
                     // comming from Kupu, there are relative urls
                     config.clip.baseUrl = $('base').attr('href');
                     config.clip.url = $self.find('a').attr('href');
+                    if (audio) {
+                      // force .mp3 extension
+                      config.clip.url = config.clip.url + '?e=.mp3';
+                    };
                     // Ignore global autoplay settings
                     if ($self.find('img').length == 0) {
                         // no image. Don't autoplay, remove all elements inside the div to show player directly.
@@ -225,7 +233,6 @@ class Folder(BrowserView):
     
     @memoize
     def videos(self):
-        catalog = getToolByName(self.context, 'portal_catalog')
         results = []
         for brain in self._query():
             video = brain.getObject()
