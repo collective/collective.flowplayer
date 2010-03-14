@@ -1,6 +1,18 @@
 Changelog
 =========
 
+3.0b7 - 2010-03-14
+------------------
+
+* Do not fail if Kupu is not available
+  [naro]
+  
+* added z3c.autoinclude plugin 
+  [naro]
+  
+* Fixed handling of audio player if created from Kupu.
+  [naro]
+
 3.0b6 - 2010-03-09
 ------------------
 

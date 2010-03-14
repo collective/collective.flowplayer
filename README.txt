@@ -141,10 +141,14 @@ Notes
     * it is not possible to detect clip width/height from the mp4 file now
 
     * if your player is not displayed on the page load, but is displayed after
-      you click somewhere to the player container area, be sure there is no HTML
-      code nor text inside the player container HTML tag. Such code/text is
-      considered as player splash screen and player is waiting for click to
+      you click somewhere to the player container area, be sure there is no
+      HTML code nor text inside the player container HTML tag. Such code/text
+      is considered as player splash screen and player is waiting for click to
       the splash.
+
+    * player is correctly created only if player container is < div >
+      element (Kupu does it automatically if Audio and Video styles are used).
+      Using other containers (eg. p) is not supported currently.
 
 Configuration
 -------------
