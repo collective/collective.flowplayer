@@ -1,0 +1,107 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2010-04-29 06:10+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: collective.flowplayer\n"
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:191
+msgid "Add Video Portlet"
+msgstr ""
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:43
+msgid "An image file to use as a splash image"
+msgstr ""
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:202
+msgid "Edit Video Portlet"
+msgstr ""
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:49
+msgid "Enter a number greater than 0 to limit the number of items displayed"
+msgstr ""
+
+#: collective.flowplayer/src/collective/flowplayer/interfaces.py:46
+msgid "Height"
+msgstr ""
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:58
+msgid "If enabled, a more... link will appear in the footer of the portlet, linking to the underlying data."
+msgstr ""
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:53
+msgid "If enabled, a random video from the selection will be played."
+msgstr ""
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:48
+msgid "Number of videos to show"
+msgstr ""
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:30
+msgid "Portlet header"
+msgstr ""
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:52
+msgid "Randomise the playlist"
+msgstr ""
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:57
+msgid "Show more... link"
+msgstr ""
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:42
+msgid "Splash image"
+msgstr ""
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:34
+msgid "Target object"
+msgstr ""
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:35
+msgid "This can be a file containing an FLV file, or a folder or collection containing FLV files"
+msgstr ""
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:192
+msgid "This portlet display a Flash Video"
+msgstr ""
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:203
+msgid "This portlet display a Flash video."
+msgstr ""
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:31
+msgid "Title of the rendered portlet"
+msgstr ""
+
+#: collective.flowplayer/src/collective/flowplayer/interfaces.py:45
+msgid "Width"
+msgstr ""
+
+#. Default: "More…"
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.pt:49
+msgid "more_url"
+msgstr ""
+
+#. Default: "There are no videos in this folder. Add some video files here first."
+#: collective.flowplayer/src/collective/flowplayer/browser/folder.pt:65
+msgid "no_videos"
+msgstr ""
+
+#. Default: "If your video does not start playing shortly, please ensure that you have JavaScript enabled and the latest version of Adobe Flash Player (http://www.adobe.com/products/flashplayer/) installed."
+#: collective.flowplayer/src/collective/flowplayer/browser/folder.pt:36
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.pt:16
+msgid "video_fallback"
+msgstr ""
+
