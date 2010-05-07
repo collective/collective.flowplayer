@@ -12,7 +12,7 @@ from Products.Archetypes.interfaces import IObjectInitializedEvent
 import urllib2
 from StringIO import StringIO
 
-VIDEO_EXTENSIONS = ['.f4b', '.f4p', '.f4v', '.flv', '.mp4', '.m4v', '.jpg', '.gif', '.png']
+VIDEO_EXTENSIONS = ['.f4b', '.f4p', '.f4v', '.flv', '.mp4', '.m4v', '.jpg', '.gif', '.png', '.mov']
 AUDIO_EXTENSIONS = ['.mp3']
 
 def is_flowplayer_installed(object):
@@ -81,10 +81,12 @@ class ChangeFileView(ChangeView):
     interface = interface.IFileContent
 
     def check_extension(self):
-        filename = self.value.filename.lower()
-        for ext in AUDIO_EXTENSIONS + VIDEO_EXTENSIONS:
-            if filename.endswith(ext):
-                return ext
+        filename = self.value.filename
+        if isinstance(filename, basestring):
+            filename = filename.lower()
+            for ext in AUDIO_EXTENSIONS + VIDEO_EXTENSIONS:
+                if filename.endswith(ext):
+                    return ext
         return None
 
     def handleVideo(self):
