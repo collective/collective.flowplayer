@@ -1,6 +1,12 @@
 Changelog
 =========
 
+3.0b8 - Unreleased
+------------------
+
+* Fix to address Flash 10.1 issue.
+  [dunlapm]
+
 3.0b7 - 2010-03-14
 ------------------
 

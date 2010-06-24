@@ -6,12 +6,12 @@ from Products.CMFPlone.interfaces import IPropertiesTool
 # in the quickinstaller.
 
 _PROPERTIES = [
-    dict(name='param/src', type_='string', value='${portal_url}/++resource++collective.flowplayer/flowplayer.swf'),
+    dict(name='param/src', type_='string', value='${portal_url}++resource++collective.flowplayer/flowplayer.swf'),
     dict(name='loop', type_='boolean', value=False),
     dict(name='showPlaylist', type_='boolean', value=True),
     dict(name='initialVolumePercentage', type_='int', value=50),
-    dict(name='plugins/controls/url', type_='string', value='${portal_url}/++resource++collective.flowplayer/flowplayer.controls.swf'),
-    dict(name='plugins/audio/url', type_='string', value='${portal_url}/++resource++collective.flowplayer/flowplayer.audio.swf'),
+    dict(name='plugins/controls/url', type_='string', value='${portal_url}++resource++collective.flowplayer/flowplayer.controls.swf'),
+    dict(name='plugins/audio/url', type_='string', value='${portal_url}++resource++collective.flowplayer/flowplayer.audio.swf'),
     dict(name='clip/autoPlay', type_='boolean', value=False),
     dict(name='clip/autoBuffering', type_='boolean', value=False),
     dict(name='clip/scaling', type_='string', value='fit'),

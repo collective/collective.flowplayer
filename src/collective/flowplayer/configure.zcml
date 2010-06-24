@@ -78,6 +78,16 @@
         profile="collective.flowplayer:default"
     />  
 
+    <genericsetup:upgradeStep
+        title="Upgrade collective.flowplayer"
+        description="Migrates flowplayer props to 3.0b8, fix for Flash 10.1 issue"
+        source="3.0b4"
+        destination="3.0b8"
+        handler=".migration.migrateTo30b8"
+        sortkey="4"
+        profile="collective.flowplayer:default"
+    />
+
   <i18n:registerTranslations directory="locales" />
 
 </configure>
