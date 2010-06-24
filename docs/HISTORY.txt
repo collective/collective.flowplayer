@@ -1,8 +1,11 @@
 Changelog
 =========
 
-3.0b8 - Unreleased
-------------------
+3.0rc1 - 2010-06-24
+-------------------
+
+* Updated Flowplayer to 3.2.2
+  [naro]
 
 * Fix to address Flash 10.1 issue.
   [dunlapm]
