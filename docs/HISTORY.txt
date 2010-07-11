@@ -1,6 +1,13 @@
 Changelog
 =========
 
+* made zope2 products from collective.flowplayer to be able to provide 
+  uninstall profile.
+  [naro]
+  
+* implemented first part of the uninstall profile
+  [naro]
+
 3.0rc1 - 2010-06-24
 -------------------
 

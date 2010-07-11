@@ -1,5 +1,4 @@
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.interfaces import IPropertiesTool
 
 # Properties are defined here, because if they are defined in propertiestool.xml,
 # all properties are re-set the their initial state if you reinstall product
@@ -61,4 +60,3 @@ def import_various(context):
     for prop in _PROPERTIES:
         if not props.hasProperty(prop['name']):
             props.manage_addProperty(prop['name'], prop['value'], prop['type_'])
-    
