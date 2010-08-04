@@ -5,7 +5,7 @@ import zope.interface
 
 from Products.PloneTestCase import ptc
 
-from collective.flowplayer import testing
+from collective.flowplayer.tests import tests
 from collective.flowplayer.interfaces import IMediaInfo, IVideo
 from collective.flowplayer.events import ChangeLinkView
 
@@ -19,7 +19,7 @@ class StubEvent(object):
 class ScalableLinkTest(ptc.PloneTestCase):
     """ Test fetching of metadata of remote videos """
 
-    layer = testing.Layer
+    layer = tests.Layer
 
     def test_link_dimensions(self):
         _createObjectByType('Link', self.folder, 'my-video-link')
