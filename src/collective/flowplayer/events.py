@@ -42,12 +42,8 @@ class ChangeView(object):
         # TODO: do we really need this different from object?
         self.content = content = event.object
 
-        if not is_flowplayer_installed(content):
-            return
-
-        if not self.interface.providedBy(content):
-            return
-
+        if not is_flowplayer_installed(content): return
+        if not self.interface.providedBy(content): return
         if self.value is None:
             remove_marker(content)
             return
