@@ -114,6 +114,8 @@ class ChangeFileView(ChangeView):
             file_handle = file_object.getIterator()
         except AttributeError:
             file_handle = StringIO(str(file_object.data))
+        return file_handle
+
 
 class ChangeLinkView(ChangeView):
 
