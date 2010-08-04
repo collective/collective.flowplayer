@@ -1,10 +1,12 @@
 import unittest
-from zope.testing import doctest
+import doctest
 
 from Testing import ZopeTestCase
 from Products.PloneTestCase import ptc
 from collective.testcaselayer import ptc as tcl_ptc
 from Products.Five import zcml
+
+from interlude import interact
 
 optionflags = (doctest.NORMALIZE_WHITESPACE|
                doctest.ELLIPSIS|
@@ -22,14 +24,33 @@ class Layer(tcl_ptc.BasePTCLayer):
         self.portal.portal_javascripts.setDebugMode(True)
 layer = Layer([tcl_ptc.ptc_layer])
 
+
+FUNCTIONALTESTFILES = [
+    'README.txt',
+]
+TESTFILES = [
+    '../metadata_extraction.txt',
+]
+
 def test_suite():
-    suite = ZopeTestCase.FunctionalDocFileSuite(
-        'README.txt',
-        package='collective.flowplayer',
-        optionflags=optionflags,
-        test_class=ptc.FunctionalTestCase)
-    suite.layer = layer
-    return suite
+    test_class = ptc.FunctionalTestCase
+    test_class.layer = layer
+
+    return unittest.TestSuite(
+        [ZopeTestCase.FunctionalDocFileSuite(
+            file,
+            package='collective.flowplayer',
+            optionflags=optionflags,
+            globs={'interact': interact},
+            test_class=test_class
+        ) for file in FUNCTIONALTESTFILES]
+
+        + [doctest.DocFileSuite(
+            file,
+            optionflags=optionflags,
+            globs={'interact': interact},
+        ) for file in TESTFILES]
+    )
 
 if __name__ == '__main__':
     unittest.main(defaultTest='test_suite')
