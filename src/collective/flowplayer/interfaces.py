@@ -39,8 +39,6 @@ class IAudio(IFlowPlayable):
 class IMediaInfo(Interface):
     """Information about a video object
     """
-
     audio_only = schema.Bool(title=u"Audio only?", required=True)
-
     width = schema.Int(title=_(u"Width"), required=False)
     height = schema.Int(title=_(u"Height"), required=False)
