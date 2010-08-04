@@ -55,9 +55,9 @@ class ChangeView(object):
 
         # set the view to flowplayer view
         # TODO: give up automatic view changing - it causes problems when
-        #       product is deinstalled. instead provide default views for
+        #       product is deinstalled. instead provide a file_view for
         #       the interfaces IAudio and IVideo in combination with
-        #       IFileContent and IATLink
+        #       IFileContent and IATLink.
         if IObjectInitializedEvent.providedBy(event):
             content.setLayout('flowplayer')
 
