@@ -14,7 +14,7 @@
         name="collective.flowplayer.css"
         directory="css"
         />
-        
+
     <browser:page
         name="flowplayer"
         for="Products.ATContentTypes.interface.IFileContent"
@@ -22,7 +22,7 @@
         template="file.pt"
         permission="zope2.View"
         />
-        
+
     <browser:page
         name="flowplayer"
         for="Products.ATContentTypes.interface.IATLink"
@@ -30,7 +30,7 @@
         template="file.pt"
         permission="zope2.View"
         />
-    
+
     <browser:page
         name="flowplayer"
         for="Products.ATContentTypes.interface.IATFolder"
@@ -38,15 +38,15 @@
         template="folder.pt"
         permission="zope2.View"
         />
-    
+
     <browser:page
         name="flowplayer"
         for="Products.ATContentTypes.interface.IATTopic"
         class=".view.Topic"
         template="folder.pt"
         permission="zope2.View"
-        />      
-        
+        />
+
     <browser:page
         name="collective.flowplayer.js"
         for="*"
@@ -62,7 +62,7 @@
         edit_permission="cmf.ManagePortal"
         renderer=".portlet.Renderer"
         addview=".portlet.AddForm"
-        editview=".portlet.EditForm"        
+        editview=".portlet.EditForm"
     />
 
 </configure>
