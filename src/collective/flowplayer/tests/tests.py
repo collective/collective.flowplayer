@@ -3,12 +3,24 @@ from zope.testing import doctest
 
 from Testing import ZopeTestCase
 from Products.PloneTestCase import ptc
-
-from collective.flowplayer import testing
+from collective.testcaselayer import ptc as tcl_ptc
+from Products.Five import zcml
 
 optionflags = (doctest.NORMALIZE_WHITESPACE|
                doctest.ELLIPSIS|
                doctest.REPORT_NDIFF)
+
+ptc.setupPloneSite()
+class Layer(tcl_ptc.BasePTCLayer):
+    """Install collective.flowplayer"""
+    def afterSetUp(self):
+        import collective.flowplayer
+        zcml.load_config('configure.zcml', collective.flowplayer)
+        self.addProfile('collective.flowplayer:default')
+        # put resource registry to debug mode to avoid cachekyes in tests
+        self.portal.portal_css.setDebugMode(True)
+        self.portal.portal_javascripts.setDebugMode(True)
+layer = Layer([tcl_ptc.ptc_layer])
 
 def test_suite():
     suite = ZopeTestCase.FunctionalDocFileSuite(
@@ -16,7 +28,7 @@ def test_suite():
         package='collective.flowplayer',
         optionflags=optionflags,
         test_class=ptc.FunctionalTestCase)
-    suite.layer = testing.layer
+    suite.layer = layer
     return suite
 
 if __name__ == '__main__':
