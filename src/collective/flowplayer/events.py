@@ -67,9 +67,18 @@ class ChangeView(object):
             self.object.reindexObject(idxs=['object_provides'])
 
     def handleVideo(self):
+        metadata = extract_from_raw(self.file_handle)
+        height, width = scale_from_metadata(metadata)
+
         if not IVideo.providedBy(self.content):
             alsoProvides(self.content, IVideo)
             self.object.reindexObject(idxs=['object_provides'])
+
+        if height and width:
+            info = IMediaInfo(self.content)
+            info.height = height
+            info.width = width
+
 
 class ChangeFileView(ChangeView):
 
@@ -97,16 +106,6 @@ class ChangeFileView(ChangeView):
                     return ext
         return None
 
-    def handleVideo(self):
-        metadata = extract_from_raw(self.file_handle)
-        height, width = scale_from_metadata(metadata)
-
-        super(ChangeFileView, self).handleVideo()
-
-        if height and width:
-            info = IMediaInfo(self.content)
-            info.height = height
-            info.width = width
 
 class ChangeLinkView(ChangeView):
 
@@ -130,14 +129,3 @@ class ChangeLinkView(ChangeView):
             if filename.endswith(ext):
                 return ext
         return None
-
-    def handleVideo(self):
-        metadata = extract_from_raw(self.file_handle)
-        height, width = scale_from_metadata(metadata)
-
-        super(ChangeLinkView, self).handleVideo()
-
-        if height and width:
-            info = IMediaInfo(self.content)
-            info.height = height
-            info.width = width
