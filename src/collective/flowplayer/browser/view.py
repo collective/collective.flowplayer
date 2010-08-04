@@ -3,7 +3,7 @@ from zope import component
 from Acquisition import aq_inner
 import simplejson
 import urllib
-import os 
+import os
 
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
@@ -17,10 +17,10 @@ from plone.memoize.instance import memoize
 from plone.memoize import view
 
 class JavaScript(BrowserView):
-    
+
     @view.memoize_contextless
     def portal_state(self):
-        """ returns 
+        """ returns
             http://dev.plone.org/plone/browser/plone.app.layout/trunk/plone/app/layout/globals/portal.py
         """
         return component.getMultiAdapter((self.context, self.request), name=u"plone_portal_state")
@@ -33,9 +33,9 @@ class JavaScript(BrowserView):
     @property
     def flowplayer_properties_as_dict(self):
         portal_url = self.portal_state().portal_url()
-        return properties_to_dict(self.flowplayer_properties, 
-                                  portal_url, 
-                                  ignore=['title', 
+        return properties_to_dict(self.flowplayer_properties,
+                                  portal_url,
+                                  ignore=['title',
                                           'loop',
                                           'initialVolumePercentage',
                                           'showPlaylist',])
@@ -43,7 +43,7 @@ class JavaScript(BrowserView):
     @property
     def flash_properties_as_dict(self):
         portal_url = self.portal_state().portal_url()
-        return flash_properties_to_dict(self.flowplayer_properties, 
+        return flash_properties_to_dict(self.flowplayer_properties,
                                         portal_url)
 
     def update(self):
@@ -54,7 +54,7 @@ class JavaScript(BrowserView):
         # if showPlaylist is True, do not show playlist buttons on controlbar
         self.show_cb_playlist_buttons = not self.flowplayer_properties.getProperty('showPlaylist')
         # build string in Javascript format which is appended to the player
-        # It contains javascript events which can't be configured in the 
+        # It contains javascript events which can't be configured in the
         # self.properties, because simplejson can't handle them
         self.events = ''
         volume = self.flowplayer_properties.getProperty('initialVolumePercentage')
@@ -63,19 +63,19 @@ class JavaScript(BrowserView):
         if self.flowplayer_properties.getProperty('loop'):
             self.events += '.onBeforeFinish( function() { return false; })'
 
-        
+
     def __call__(self, request=None, response=None):
         """ Returns global configuration of the Flowplayer taken from portal_properties """
         self.update()
         self.request.response.setHeader("Content-type", "text/javascript")
-            
+
         return """(function($) {
-        $(function() { 
+        $(function() {
             $('.autoFlowPlayer').each(function() {
                 var config = %(config)s;
                 var $self = $(this);
-                if ($self.is('.minimal')) { 
-                    config.plugins.controls = null; 
+                if ($self.is('.minimal')) {
+                    config.plugins.controls = null;
                 };
                 var audio = $self.is('.audio');
                 if (audio && !$self.is('.minimal')) {
@@ -117,7 +117,7 @@ class JavaScript(BrowserView):
                 var audio = $self.is('.audio');
                 if (audio) { config.plugins.controls.fullscreen = false; }
                 if ($self.is('.minimal')) { config.plugins.controls = null; }
-                if ($self.find('img').length > 0) { 
+                if ($self.find('img').length > 0) {
                     // has splash
                     config.clip.autoPlay = true;
                 }
@@ -157,27 +157,27 @@ class JavaScript(BrowserView):
 
 class File(BrowserView):
     interface.implements(IFlowPlayerView)
-    
+
     def __init__(self, context, request):
         super(File, self).__init__(context, request)
-        
+
         self.info = IMediaInfo(self.context, None)
-        
+
         self.height = self.info is not None and self.info.height or None
         self.width = self.info is not None and self.info.width or None
         self._audio_only = self.info is not None and self.info.audio_only or None
-        
+
         if self.height and self.width:
             self._scale = "height: %dpx; width: %dpx;" % (self.height, self.width)
         else:
             self._scale = ""
-    
+
     def audio_only(self):
         return self._audio_only
-    
+
     def scale(self):
         return self._scale
-    
+
     def videos(self):
         return[dict(url=self.href(),
                     title=self.context.Title(),
@@ -204,17 +204,17 @@ class Link(File):
 
 class Folder(BrowserView):
     interface.implements(IFlowPlayerView)
-    
+
     @memoize
     def playlist_class(self):
         properties_tool = getToolByName(self.context, 'portal_properties')
         props = getattr(properties_tool, 'flowplayer_properties', None)
         return props.getProperty('showPlaylist') and 'flowPlaylistVisible' or 'flowPlaylistHidden'
-        
+
     @memoize
     def audio_only(self):
         return len([v for v in self.videos() if not v['audio_only']]) == 0
-    
+
     @memoize
     def scale(self):
         height = 0
@@ -222,15 +222,15 @@ class Folder(BrowserView):
         if self.audio_only():
             height = 27
             width = 400
-        
+
         for video in self.videos():
             if video['height'] > height or video['width'] > width:
                 height = video['height']
                 width = video['width']
-                
+
         if height and width:
             return "height: %dpx; width: %dpx;" % (height, width)
-    
+
     @memoize
     def videos(self):
         results = []
@@ -255,7 +255,7 @@ class Folder(BrowserView):
             return urllib.quote(videos[0].get('url'))
         else:
             return None
-    
+
     def _query(self):
         catalog = getToolByName(self.context, 'portal_catalog')
         return catalog(object_provides=IFlowPlayable.__identifier__,
@@ -264,6 +264,6 @@ class Folder(BrowserView):
 
 class Topic(Folder):
     interface.implements(IFlowPlayerView)
-    
+
     def _query(self):
         return self.context.queryCatalog()
