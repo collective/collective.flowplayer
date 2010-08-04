@@ -1,10 +1,20 @@
 Changelog
 =========
 
-* made zope2 products from collective.flowplayer to be able to provide 
+* Code cleanup in events.py
+  [thet]
+
+* Metadata extraction with hachoir library instead of own flv-only
+  implementation. Code partially taken from p4a.video.
+  [thet]
+
+* Test fixes and cleanups
+  [thet]
+
+* made zope2 products from collective.flowplayer to be able to provide
   uninstall profile.
   [naro]
-  
+
 * implemented first part of the uninstall profile
   [naro]
 
@@ -22,10 +32,10 @@ Changelog
 
 * Do not fail if Kupu is not available
   [naro]
-  
-* added z3c.autoinclude plugin 
+
+* added z3c.autoinclude plugin
   [naro]
-  
+
 * Fixed handling of audio player if created from Kupu.
   [naro]
 
@@ -34,12 +44,12 @@ Changelog
 
 * Updated Flowplayer to 3.1.5
 
-* Partially fixed class="autoFlowPlayer minimal audio". 
+* Partially fixed class="autoFlowPlayer minimal audio".
   Class minimal in combination with audio still causes problems.
   [naro]
 
 3.0b5 - 2009-12-11
------------------- 
+------------------
 
 * Removed @@ prefix from collective.flowplayer.js in javascript registry.
   It probably confused Safari and Chrome. Thanks dahoste for pointing to
@@ -50,11 +60,11 @@ Changelog
   [naro]
 
 * Added headerparsing to IVideo-enhanced links. This allows using the
-  scaling property `clip/scaling` for links 
+  scaling property `clip/scaling` for links
   [tom_gross]
 
 3.0b4 - 2009-10-05
------------------- 
+------------------
 
 * Depend on plone.app.jquerytools: plone.app.jqtools was renamed and the
   package removed, so new installations would break.
