@@ -1,6 +1,9 @@
 Changelog
 =========
 
+* Fix metadata parsing of links caused by redesign with new parsing framework.
+  [thet]
+
 * CSS simplification.
   [thet]
 
