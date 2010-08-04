@@ -1,6 +1,9 @@
 Changelog
 =========
 
+* Don't hide flowplayer controls in when loading audio files
+  [thet]
+
 * Code cleanup in events.py
   [thet]
 
