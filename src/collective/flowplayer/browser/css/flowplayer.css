@@ -5,20 +5,13 @@
     width: 300px;
     border: 0px;
 }
-
 .autoFlowPlayer.audio {
-    display: block;
     height: 27px;
-    width: 240px;
-    border: 0px;
 }
 .autoFlowPlayer.audio.minimal {
-    height: 27px;
     width: 40px;
-    border: 0px;
 }
 .portletFlowPlayer .video {
-    display: block;
     height: 100px;
     width: 100%;
 }
