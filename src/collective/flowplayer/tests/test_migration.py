@@ -3,11 +3,11 @@ from Products.CMFCore.utils import getToolByName
 from Products.PloneTestCase.PloneTestCase import FunctionalTestCase
 from collective.flowplayer.utils import properties_to_dict
 from collective.flowplayer.migration import migrateTo30
-from collective.flowplayer.testing import layer
-        
+from collective.flowplayer.tests.tests import layer
+
 class TestMigration30(FunctionalTestCase):
     layer = layer
-    
+
     def afterSetUp(self):
         self.props = getToolByName(self.portal, 'portal_properties').flowplayer_properties
         # add old properties, defined in previous versions of collective.flowplayer
