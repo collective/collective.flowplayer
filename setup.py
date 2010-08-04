@@ -3,7 +3,7 @@ import os
 
 version = '3.0rc1'
 
-tests_require = ['collective.testcaselayer']
+tests_require = ['collective.testcaselayer', 'interlude']
 
 setup(name='collective.flowplayer',
       version=version,
