@@ -11,22 +11,21 @@ def make_unicode(string):
         string = string.decode('utf-8')
     return string
 
-def extract_from_raw(raw):
+def parse_raw(raw):
     stream = InputIOStream(raw)
     parser = guessParser(stream)
-    return parse_metadata(parser)
+    return extract_metadata(parser)
 
-def extract(filename):
-    """Extract the metadata from the media file"""
+def parse_file(filename):
     filename = make_unicode(filename)
     try:
         parser = createParser(filename)
     except InputStreamError, err:
         logger.error("stream error! %s\n" % unicode(err))
         return None
-    return parse_metadata(parser)
+    return extract_metadata(parser)
 
-def parse_metadata(parser):
+def extract_metadata(parser):
 
     if not parser:
         logger.error("Unable to create parser.\n")
