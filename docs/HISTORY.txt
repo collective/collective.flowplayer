@@ -1,6 +1,13 @@
 Changelog
 =========
 
+* CSS simplification.
+  [thet]
+
+* Don't set flowplayer's width per javascript for audio files. Let it be set by
+  css. Besides a simplification this change also allows easy overriding.
+  [thet]
+
 * Don't hide flowplayer controls in when loading audio files
   [thet]
 
