@@ -35,7 +35,7 @@ setup(name='collective.flowplayer',
           # 'Plone', Too confusing for those using releases < 3.2
       ],
       tests_require=tests_require,
-      extras_require={'tests': tests_require},
+      extras_require={'test': tests_require},
       entry_points="""
       [z3c.autoinclude.plugin]
       target = plone
