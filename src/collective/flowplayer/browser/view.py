@@ -89,6 +89,7 @@ class JavaScript(BrowserView):
                     config.plugins.controls.mute = true;
                     config.plugins.controls.volume = true;
                     config.plugins.controls.time = true;
+                    config.plugins.controls.autoHide = false;
                 }
                 if ($self.is('div')) {
                     // comming from Kupu, there are relative urls
