@@ -37,11 +37,6 @@ class ChangeView(object):
     value = None
     file_handle = None
 
-    def handleAudio(self):
-        if not IAudio.providedBy(self.content):
-            alsoProvides(self.content, IAudio)
-            self.object.reindexObject(idxs=['object_provides'])
-
     def __init__(self, object, event):
         self.object = object
         # TODO: do we really need this different from object?
@@ -69,6 +64,11 @@ class ChangeView(object):
             self.handleAudio()
         elif ext in VIDEO_EXTENSIONS:
             self.handleVideo()
+
+    def handleAudio(self):
+        if not IAudio.providedBy(self.content):
+            alsoProvides(self.content, IAudio)
+            self.object.reindexObject(idxs=['object_provides'])
 
     def handleVideo(self):
         if not IVideo.providedBy(self.content):
