@@ -4,7 +4,7 @@ from zope.interface.interfaces import IInterface
 from zope.component import getSiteManager
 
 from collective.flowplayer.interfaces import IMediaInfo, IAudio, IVideo
-from collective.flowplayer.metadata_extraction import extract_from_raw
+from collective.flowplayer.metadata_extraction import parse_raw
 from collective.flowplayer.metadata_extraction import scale_from_metadata
 
 from Products.ATContentTypes import interface
@@ -53,6 +53,11 @@ class ChangeView(object):
             remove_marker(content)
             return
 
+        # set the view to flowplayer view
+        # TODO: give up automatic view changing - it causes problems when
+        #       product is deinstalled. instead provide default views for
+        #       the interfaces IAudio and IVideo in combination with
+        #       IFileContent and IATLink
         if IObjectInitializedEvent.providedBy(event):
             content.setLayout('flowplayer')
 
@@ -73,7 +78,7 @@ class ChangeView(object):
             self.object.reindexObject(idxs=['object_provides'])
 
     def handleVideo(self):
-        metadata = extract_from_raw(self.file_handle)
+        metadata = parse_raw(self.file_handle)
         height, width = scale_from_metadata(metadata)
 
         if not IVideo.providedBy(self.content):
