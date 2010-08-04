@@ -61,6 +61,12 @@ class ChangeView(object):
         elif ext in VIDEO_EXTENSIONS:
             self.handleVideo()
 
+    def check_extension(self):
+        for ext in AUDIO_EXTENSIONS + VIDEO_EXTENSIONS:
+            if self.filename.endswith(ext):
+                return ext
+        return None
+
     def handleAudio(self):
         if not IAudio.providedBy(self.content):
             alsoProvides(self.content, IAudio)
@@ -89,6 +95,13 @@ class ChangeFileView(ChangeView):
         return self.content.getField('file').getRaw(self.content)
 
     @property.Lazy
+    def filename(self):
+        filename = self.value.filename
+        if isinstance(filename, basestring):
+            filename = filename.lower()
+        return filename
+
+    @property.Lazy
     def file_handle(self):
         file_object = self.value
         try:
@@ -96,16 +109,6 @@ class ChangeFileView(ChangeView):
             file_handle = file_object.getIterator()
         except AttributeError:
             file_handle = StringIO(str(file_object.data))
-
-    def check_extension(self):
-        filename = self.value.filename
-        if isinstance(filename, basestring):
-            filename = filename.lower()
-            for ext in AUDIO_EXTENSIONS + VIDEO_EXTENSIONS:
-                if filename.endswith(ext):
-                    return ext
-        return None
-
 
 class ChangeLinkView(ChangeView):
 
@@ -116,6 +119,10 @@ class ChangeLinkView(ChangeView):
         return self.content.getField('remoteUrl').getRaw(self.content)
 
     @property.Lazy
+    def filename(self):
+        return self.value.lower()
+
+    @property.Lazy
     def file_handle(self):
         try:
             file_handle = urllib2.urlopen(self.content.getRemoteUrl())
@@ -123,9 +130,3 @@ class ChangeLinkView(ChangeView):
             file_handle = StringIO()
         return file_handle
 
-    def check_extension(self):
-        filename = self.value.lower()
-        for ext in AUDIO_EXTENSIONS + VIDEO_EXTENSIONS:
-            if filename.endswith(ext):
-                return ext
-        return None
