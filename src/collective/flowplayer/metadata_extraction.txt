@@ -3,22 +3,25 @@ Tests for Metadata Extraction from Video
 
     >>> import collective.flowplayer.metadata_extraction as metaex
 
+    >>> import os
+    >>> testfile_home = os.path.join(os.path.dirname(__file__), 'tests')
+
 Video Files should return height and width
-    >>> metadata = metaex.extract('/home/thet/dev/sfd.at/adm.sfd.buildout/src/collective.flowplayer/src/collective/flowplayer/tests/barsandtone.flv')
+    >>> metadata = metaex.extract(testfile_home + '/barsandtone.flv')
     >>> height, width = metaex.scale_from_metadata(metadata)
     >>> height
     288
     >>> width
     360
 
-    >>> metadata = metaex.extract('/home/thet/dev/sfd.at/adm.sfd.buildout/src/collective.flowplayer/src/collective/flowplayer/tests/barsandtone.mp4')
+    >>> metadata = metaex.extract(testfile_home + '/barsandtone.mp4')
     >>> height, width = metaex.scale_from_metadata(metadata)
     >>> height
     288
     >>> width
     360
 
-    >>> metadata = metaex.extract('/home/thet/dev/sfd.at/adm.sfd.buildout/src/collective.flowplayer/src/collective/flowplayer/tests/barsandtone.mov')
+    >>> metadata = metaex.extract(testfile_home + '/barsandtone.mov')
     >>> height, width = metaex.scale_from_metadata(metadata)
     >>> height
     288
@@ -26,7 +29,7 @@ Video Files should return height and width
     360
 
 Extract Metadata directly from File handle
-    >>> file_handle = open('/home/thet/dev/sfd.at/adm.sfd.buildout/src/collective.flowplayer/src/collective/flowplayer/tests/barsandtone.flv', 'rb')
+    >>> file_handle = open(testfile_home + '/barsandtone.flv', 'rb')
     >>> metadata = metaex.extract_from_raw(file_handle)
     >>> height, width = metaex.scale_from_metadata(metadata)
     >>> height
@@ -37,9 +40,10 @@ Extract Metadata directly from File handle
 
 
 Audio only FLV files return no height and width
-    >>> metadata = metaex.extract('/home/thet/dev/sfd.at/adm.sfd.buildout/src/collective.flowplayer/src/collective/flowplayer/tests/foo.flv')
+    >>> metadata = metaex.extract(testfile_home + '/foo.flv')
     >>> height, width = metaex.scale_from_metadata(metadata)
     >>> height
     >>> width
 
     >>> interact( locals() )
+
