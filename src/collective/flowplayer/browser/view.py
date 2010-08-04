@@ -79,10 +79,6 @@ class JavaScript(BrowserView):
                 };
                 var audio = $self.is('.audio');
                 if (audio && !$self.is('.minimal')) {
-                    if ($self.is('.image-left') || $self.is('.image-right'))
-                        $self.width(230)
-                    else
-                        $self.width(500);
                     config.plugins.controls.all = false;
                     config.plugins.controls.play = true;
                     config.plugins.controls.scrubber = true;
