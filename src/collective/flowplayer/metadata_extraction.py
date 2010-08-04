@@ -26,7 +26,6 @@ def parse_file(filename):
     return extract_metadata(parser)
 
 def extract_metadata(parser):
-
     if not parser:
         logger.error("Unable to create parser.\n")
         return None
@@ -46,6 +45,6 @@ def scale_from_metadata(metadata):
     try:
         height = metadata.get('height', None)
         width = metadata.get('width', None)
-    except ValueError:
+    except (ValueError, AttributeError):
         return None, None
     return height, width
