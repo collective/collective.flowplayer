@@ -4,7 +4,8 @@ from zope.interface.interfaces import IInterface
 from zope.component import getSiteManager
 
 from collective.flowplayer.interfaces import IMediaInfo, IAudio, IVideo
-from collective.flowplayer.flv import FLVHeader, FLVHeaderError
+from collective.flowplayer.metadata_extraction import extract_from_raw
+from collective.flowplayer.metadata_extraction import scale_from_metadata
 
 from Products.ATContentTypes import interface
 from Products.Archetypes.interfaces import IObjectInitializedEvent
@@ -97,20 +98,8 @@ class ChangeFileView(ChangeView):
         except AttributeError:
             file_handle = StringIO(str(file_object.data))
 
-        file_handle.seek(0)
-        height = width = None
-        flvparser = FLVHeader()
-        try:
-            flvparser.analyse(file_handle.read(1024))
-            width = flvparser.getWidth()
-            height = flvparser.getHeight()
-        except FLVHeaderError:
-            # Do not remove marker interface. MP4 files can't be parsed 
-            # but works fine. Any file which extension is in allowed 
-            # extensions should be playable (hopefully)
-            # remove_marker(self.content)
-            # return
-            pass
+        metadata = extract_from_raw(file_handle)
+        height, width = scale_from_metadata(metadata)
 
         super(ChangeFileView, self).handleVideo()
 
@@ -139,19 +128,9 @@ class ChangeLinkView(ChangeView):
             file_handle = urllib2.urlopen(self.content.getRemoteUrl())
         except IOError:
             file_handle = StringIO()
-        height = width = None
-        flvparser = FLVHeader()
-        try:
-            flvparser.analyse(file_handle.read(1024))
-            width = flvparser.getWidth()
-            height = flvparser.getHeight()
-        except FLVHeaderError:
-            # Do not remove marker interface. MP4 files can't be parsed 
-            # but works fine. Any file which extension is in allowed 
-            # extensions should be playable (hopefully)
-            # remove_marker(self.content)
-            # return
-            pass
+
+        metadata = extract_from_raw(file_handle)
+        height, width = scale_from_metadata(metadata)
 
         super(ChangeLinkView, self).handleVideo()
 
