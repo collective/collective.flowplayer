@@ -123,7 +123,7 @@ class ChangeLinkView(ChangeView):
 
     @property.Lazy
     def value(self):
-        return self.content.getField('remoteUrl').getRaw(self.content)
+        return self.content.getRemoteUrl()
 
     @property.Lazy
     def filename(self):
@@ -132,7 +132,7 @@ class ChangeLinkView(ChangeView):
     @property.Lazy
     def file_handle(self):
         try:
-            file_handle = urllib2.urlopen(self.content.getRemoteUrl())
+            file_handle = StringIO(str(urllib2.urlopen(self.value).read()))
         except IOError:
             file_handle = StringIO()
         return file_handle
