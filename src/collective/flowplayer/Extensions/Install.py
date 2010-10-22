@@ -33,7 +33,6 @@ def uninstall(self):
 
         kupu.configure_kupu(parastyles=fixed_styles)
         
-    import pdb; pdb.set_trace( )
     # remove collective.flowplayer.interfaces.IFlowPlayerSite utility
     sm = getSiteManager(context=portal)
     if sm.queryUtility(IInterface, name=u'collective.flowplayer.interfaces.IFlowPlayerSite', default=False):
