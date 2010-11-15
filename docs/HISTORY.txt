@@ -1,6 +1,16 @@
 Changelog
 =========
 
+3.0rc2 - 2010-11-15
+-------------------
+
+* Updated to Flowplayer 3.2.5 (plugins updated to latest version)
+  [naro]
+
+* Added iPad/iPhone javascript plugin. Plugin is avalable to custom use, but
+  not included in javascript configuration by default. 
+  [naro]
+
 * Fix metadata parsing of links caused by redesign with new parsing framework.
   [thet]
 

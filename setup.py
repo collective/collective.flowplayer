@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '3.0rc1'
+version = '3.0rc2'
 
 tests_require = ['collective.testcaselayer', 'interlude']
 
