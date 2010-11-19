@@ -137,7 +137,7 @@ class JavaScript(BrowserView):
                     var portlet = false;
                 }
                 if (!portlet) {
-                    $("#pl").scrollable({items:playlist_selector, size:4, clickable:false});
+                    $("#pl").scrollable({items:playlist_selector, size:4, clickable:false, prev:'a.prevPage', next:'a.nextPage'});
                 }
                 // manual = playlist is setup using HTML tags, not using playlist array in config
                 flowplayer(this, %(params)s, config).playlist(playlist_selector, {loop: true, manual: true})%(events)s;
