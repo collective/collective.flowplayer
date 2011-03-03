@@ -5,6 +5,7 @@
     i18n_domain="collective.flowplayer">
 
     <include package="plone.app.portlets" />
+    <include package="Products.CMFCore"/>
 
     <browser:resourceDirectory
         name="collective.flowplayer"
