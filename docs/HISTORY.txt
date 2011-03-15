@@ -4,6 +4,9 @@ Changelog
 3.0rc2 - 2010-11-15
 -------------------
 
+* Dexterity behavior and view for file content.
+  [elro]
+
 * Split base configuration out from AT specific configuration.
   [elro]
 

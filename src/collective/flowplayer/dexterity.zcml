@@ -1,0 +1,39 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="collective.flowplayer">
+
+    <plone:behavior
+        title="Flowplayer File"
+        description="Enable Flowplayer file support"
+        provides=".behaviors.IFlowplayerFile"
+        />
+
+    <browser:page
+        name="flowplayer"
+        for=".behaviors.IFlowplayerFile"
+        class=".dexterity.FlowplayerFileView"
+        template="browser/file4x.pt"
+        permission="zope2.View"
+        />
+
+    <subscriber
+        for=".behaviors.IFlowplayerFile
+             zope.app.container.interfaces.IObjectAddedEvent"
+        handler=".dexterity.update_media_info"
+        />
+
+    <subscriber
+        for=".behaviors.IFlowplayerFile
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler=".dexterity.update_media_info"
+        />
+
+    <adapter
+        for=".behaviors.IFlowplayerFile"
+        factory=".dexterity.get_media_info"
+        />
+
+</configure>

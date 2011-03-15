@@ -183,11 +183,15 @@ class File(BrowserView):
                     width=self.width,
                     audio_only=self._audio_only)]
 
+    def getFilename(self):
+        context = aq_inner(self.context)
+        return context.getFilename()
+
     def href(self):
         context = aq_inner(self.context)
         ext = ''
         url = self.context.absolute_url()
-        filename = context.getFilename()
+        filename = self.getFilename()
         if filename:
             extension = os.path.splitext(filename)[1]
             if not url.endswith(extension):

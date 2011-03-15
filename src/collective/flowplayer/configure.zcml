@@ -4,10 +4,13 @@
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="collective.flowplayer">
 
     <include package="plone.app.jquerytools" />
     <include package=".browser" />
+
+    <include zcml:condition="installed plone.dexterity" file="dexterity.zcml"/>
 
     <five:registerPackage package="." initialize=".initialize" />    
     
