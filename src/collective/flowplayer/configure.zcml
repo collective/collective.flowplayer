@@ -44,6 +44,13 @@
         />
         
     <genericsetup:registerProfile
+        name="base"
+        title="Flowplayer setup without types"
+        directory="profiles/base"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+        
+    <genericsetup:registerProfile
         name="uninstall"
         title="Flowplayer Uninstall"
         directory="profiles/uninstall"

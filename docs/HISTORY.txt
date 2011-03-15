@@ -4,6 +4,9 @@ Changelog
 3.0rc2 - 2010-11-15
 -------------------
 
+* Split base configuration out from AT specific configuration.
+  [elro]
+
 * Updated to Flowplayer 3.2.5 (plugins updated to latest version)
   [naro]
 

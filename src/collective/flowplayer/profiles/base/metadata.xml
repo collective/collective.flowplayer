@@ -1,6 +1,6 @@
 <metadata>
     <version>3.0b8</version>
     <dependencies>
-        <dependency>profile-collective.flowplayer:base</dependency>
+        <dependency>profile-plone.app.jquerytools:default</dependency>
     </dependencies>
 </metadata>
