@@ -1,0 +1,107 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# JeanMichel FRANCOIS <toutpt@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2011-02-09 23:37+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: fr\n"
+"Language-Name: French\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: collective.flowplayer\n"
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:191
+msgid "Add Video Portlet"
+msgstr "Ajouter une portlet vidéo"
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:43
+msgid "An image file to use as a splash image"
+msgstr "Une image à utiliser comme image de démarrage"
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:202
+msgid "Edit Video Portlet"
+msgstr "Modifier une portlet vidéo"
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:49
+msgid "Enter a number greater than 0 to limit the number of items displayed"
+msgstr "Entrer un nombre supérieur à 0 pour limiter le nombre d'éléments affichés"
+
+#: collective.flowplayer/src/collective/flowplayer/interfaces.py:46
+msgid "Height"
+msgstr "Hauteur"
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:58
+msgid "If enabled, a more... link will appear in the footer of the portlet, linking to the underlying data."
+msgstr "Si coché, un lien 'plus...' sera affiché dans le pied de la portlet, vers la donnée correspondant."
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:53
+msgid "If enabled, a random video from the selection will be played."
+msgstr "Si coché, une vidéo choisie aléatoirement dans la sélection sera jouée."
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:48
+msgid "Number of videos to show"
+msgstr "Nombre de vidéos à afficher"
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:30
+msgid "Portlet header"
+msgstr "Entête de la portlet"
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:52
+msgid "Randomise the playlist"
+msgstr "Mélanger la playlist"
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:57
+msgid "Show more... link"
+msgstr "Montrer le lien plus..."
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:42
+msgid "Splash image"
+msgstr "Image de démarrage"
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:34
+msgid "Target object"
+msgstr "Elément cible"
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:35
+msgid "This can be a file containing an FLV file, or a folder or collection containing FLV files"
+msgstr "Ceci peut être un fichier FLV, ou un dossier ou une collection remontant des fichiers FLV"
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:192
+msgid "This portlet display a Flash Video"
+msgstr "Cette portlet affiche une vidéo Flash"
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:203
+msgid "This portlet display a Flash video."
+msgstr "Cette portlet affiche une vidéo Flash."
+
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:31
+msgid "Title of the rendered portlet"
+msgstr "Titre de la portlet affichée."
+
+#: collective.flowplayer/src/collective/flowplayer/interfaces.py:45
+msgid "Width"
+msgstr "Largeur"
+
+#. Default: "More…"
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.pt:49
+msgid "more_url"
+msgstr "Plus…"
+
+#. Default: "There are no videos in this folder. Add some video files here first."
+#: collective.flowplayer/src/collective/flowplayer/browser/folder.pt:65
+msgid "no_videos"
+msgstr "Il n'y a pas de vidéo dans ce dossier. Ajouter quelques fichiers vidéo pour commencer."
+
+#. Default: "If your video does not start playing shortly, please ensure that you have JavaScript enabled and the latest version of Adobe Flash Player (http://www.adobe.com/products/flashplayer/) installed."
+#: collective.flowplayer/src/collective/flowplayer/browser/folder.pt:36
+#: collective.flowplayer/src/collective/flowplayer/browser/portlet.pt:16
+msgid "video_fallback"
+msgstr "Si la lecture de votre vidéo ne démarre pas rapidement, merci de vous assurer que vous avez le support de Javascript activé et que vous avez bien la dernière version du lecteur Adobe Flash installé (http://www.adobe.com/products/flashplayer/)."
+

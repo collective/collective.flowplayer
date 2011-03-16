@@ -1,6 +1,12 @@
 Changelog
 =========
 
+3.0rc3 - Unreleased
+-------------------
+
+* Add french translation
+  [toutpt]
+
 3.0rc2 - 2010-11-15
 -------------------
 
