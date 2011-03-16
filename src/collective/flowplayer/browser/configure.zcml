@@ -15,6 +15,10 @@
         name="collective.flowplayer.css"
         directory="css"
         />
+    <browser:resourceDirectory
+        name="collective.flowplayer.js"
+        directory="js"
+        />
 
     <browser:page
         name="flowplayer"
