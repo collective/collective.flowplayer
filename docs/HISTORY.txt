@@ -4,6 +4,9 @@ Changelog
 3.0rc3 - Unreleased
 -------------------
 
+* Update to Flowplayer 3.2.7 and latest plugin versions.
+  [elro]
+
 * Only generate a minimal config global object. Move remaining javascript to a
   separate file in a resource directory to simplify checking with jslint and
   customisation.
