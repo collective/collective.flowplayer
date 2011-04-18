@@ -15,6 +15,10 @@ Changelog
 * Add french translation
   [toutpt]
 
+* Make kupu setup conditionnal.
+  Fix the kupu import step dependency.
+  [kiorky]
+
 3.0rc2 - 2010-11-15
 -------------------
 

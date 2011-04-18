@@ -11,6 +11,7 @@
     <include package=".browser" />
 
     <include zcml:condition="installed plone.dexterity" file="dexterity.zcml"/>
+    <include zcml:condition="installed Products.kupu" file="kupu.zcml"/>
 
     <five:registerPackage package="." initialize=".initialize" />    
     
@@ -61,13 +62,6 @@
         description="Uninstall profile for collective.flowplayer"
         />
         
-    <genericsetup:importStep
-        name="collective.flowplayer"
-        title="Flowplayer configuration"
-        description="Configures Kupu pagraph styles for the flow player"
-        handler="collective.flowplayer.exportimport.import_various">
-        <depends name="kupu" />
-    </genericsetup:importStep>
 
     <genericsetup:upgradeStep
         title="Upgrade collective.flowplayer"

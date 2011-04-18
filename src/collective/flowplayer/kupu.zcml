@@ -1,0 +1,19 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="collective.flowplayer">
+
+        
+    <genericsetup:importStep
+        name="collective.flowplayer"
+        title="Flowplayer configuration"
+        description="Configures Kupu pagraph styles for the flow player"
+        handler="collective.flowplayer.exportimport.import_various">
+        <depends name="kupu-setup" />
+    </genericsetup:importStep>
+
+</configure>
