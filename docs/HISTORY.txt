@@ -1,8 +1,12 @@
 Changelog
 =========
 
-3.0rc3 - Unreleased
+3.0rc3 - 2011-05-23
 -------------------
+
+* fixed http://plone.org/products/collective-flowplayer/issues/8
+  ValueError("Can't commit with opened blobs.")
+  [naro]
 
 * Update to Flowplayer 3.2.7 and latest plugin versions.
   [elro]
