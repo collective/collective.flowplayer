@@ -78,9 +78,11 @@ class ChangeView(object):
             self.object.reindexObject(idxs=['object_provides'])
 
     def handleVideo(self):
-        metadata = parse_raw(self.file_handle)
+        handle = self.file_handle
+        metadata = parse_raw(handle)
         height, width = scale_from_metadata(metadata)
-
+        handle.close()
+        
         if not IVideo.providedBy(self.content):
             alsoProvides(self.content, IVideo)
             self.object.reindexObject(idxs=['object_provides'])
@@ -89,6 +91,7 @@ class ChangeView(object):
             info = IMediaInfo(self.content)
             info.height = height
             info.width = width
+            
 
 
 class ChangeFileView(ChangeView):

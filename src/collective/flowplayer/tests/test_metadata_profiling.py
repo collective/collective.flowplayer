@@ -25,6 +25,7 @@ class TestMetadataProfiling(unittest.TestCase):
         # parse
         file_handle.seek(0)
         metadata = metaex.parse_raw(file_handle)
+        file_handle.close()
         assert((288, 360) == metaex.scale_from_metadata(metadata))
         print 'parse with metadata_extraction: ' + str(time.time() - tt)
 

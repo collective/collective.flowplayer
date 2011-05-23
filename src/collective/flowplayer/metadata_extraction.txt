@@ -34,6 +34,7 @@ Extract Metadata directly from File handle
     >>> file_handle = open(testfile_home + '/barsandtone.flv', 'rb')
     >>> metadata = metaex.parse_raw(file_handle)
     >>> height, width = metaex.scale_from_metadata(metadata)
+    >>> file_handle.close()
     >>> height
     288
     >>> width
