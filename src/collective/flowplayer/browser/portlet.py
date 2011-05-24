@@ -200,4 +200,4 @@ class EditForm(base.EditForm):
     form_fields['splash'].custom_widget = UberSelectionWidget
 
     label = _(u"Edit Video Portlet")
-    description = _(u"This portlet display a Flash video.")
+    description = _(u"This portlet display a Flash Video")

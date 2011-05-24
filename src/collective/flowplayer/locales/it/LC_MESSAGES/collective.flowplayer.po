@@ -1,103 +1,102 @@
-# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
-# SOME DESCRIPTIVE TITLE.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Italian translation for collective.flowplayer
+# Luca Fabbri <keul@redturtle.it>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2011-05-24 07:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: Luca Fabbri <keul@redturtle.it>\n"
+"Language-Team: RedTurtle Technology <sviluppoplone@redturtle.it>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
+"Language-Code: it\n"
+"Language-Name: Italian\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.flowplayer\n"
 
 #: ../browser/portlet.py:191
 msgid "Add Video Portlet"
-msgstr ""
+msgstr "Aggiunti portlet video"
 
 #: ../browser/portlet.py:43
 msgid "An image file to use as a splash image"
-msgstr ""
+msgstr "Un'immagine da usare come anteprima"
 
 #: ../browser/portlet.py:202
 msgid "Edit Video Portlet"
-msgstr ""
+msgstr "Modifica portlet video"
 
 #: ../browser/portlet.py:49
 msgid "Enter a number greater than 0 to limit the number of items displayed"
-msgstr ""
+msgstr "Inserisci un numero maggiore di 0 per limitare il numero di elementi visualizzati"
 
 #: ../interfaces.py:44
 msgid "Height"
-msgstr ""
+msgstr "Altezza"
 
 #: ../browser/portlet.py:58
 msgid "If enabled, a more... link will appear in the footer of the portlet, linking to the underlying data."
-msgstr ""
+msgstr "Se abilitato, un link \"altro...\" apparirà alla base della portlet, collegato ai dati sottostanti."
 
 #: ../browser/portlet.py:53
 msgid "If enabled, a random video from the selection will be played."
-msgstr ""
+msgstr "Se abilitato, sarà selezionato un video casuale dalla selezione."
 
 #: ../browser/portlet.py:48
 msgid "Number of videos to show"
-msgstr ""
+msgstr "Numero di video da visualizzare"
 
 #: ../browser/portlet.py:30
 msgid "Portlet header"
-msgstr ""
+msgstr "Intestazione della portlet"
 
 #: ../browser/portlet.py:52
 msgid "Randomise the playlist"
-msgstr ""
+msgstr "Riproduzione casuale"
 
 #: ../browser/portlet.py:57
 msgid "Show more... link"
-msgstr ""
+msgstr "Mostra un link \"altro...\""
 
 #: ../browser/portlet.py:42
 msgid "Splash image"
-msgstr ""
+msgstr "Immagine di anteprima"
 
 #: ../browser/portlet.py:34
 msgid "Target object"
-msgstr ""
+msgstr "Oggetto di riferimento"
 
 #: ../browser/portlet.py:35
 msgid "This can be a file containing an FLV file, or a folder or collection containing FLV files"
-msgstr ""
+msgstr "Questo può essere un file video, una cartella o una collezione di file video"
 
 #: ../browser/portlet.py:192
 msgid "This portlet display a Flash Video"
-msgstr ""
+msgstr "Questa portlet visualizzerà un video Flash"
 
 #: ../browser/portlet.py:31
 msgid "Title of the rendered portlet"
-msgstr ""
+msgstr "Titolo della portlet visualizzata"
 
 #: ../interfaces.py:43
 msgid "Width"
-msgstr ""
+msgstr "Larghezza"
 
 #. Default: "More…"
 #: ../browser/portlet.pt:49
 msgid "more_url"
-msgstr ""
+msgstr "Altro…"
 
 #. Default: "There are no videos in this folder. Add some video files here first."
 #: ../browser/folder.pt:65
 msgid "no_videos"
-msgstr ""
+msgstr "Non ci sono video in questa cartella. Prima aggiunti qualche video."
 
 #. Default: "If your video does not start playing shortly, please ensure that you have JavaScript enabled and the latest version of Adobe Flash Player (http://www.adobe.com/products/flashplayer/) installed."
 #: ../browser/folder.pt:36
 #: ../browser/portlet.pt:16
 msgid "video_fallback"
-msgstr ""
+msgstr "Se il tuo video non parte in esecuzione a breve, ti preghiamo di assicurarti che tu abbia JavaScript abilitato e una tra le ultime versioni di Adobe Flash Player (http://www.adobe.com/products/flashplayer/) installata."
 

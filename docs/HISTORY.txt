@@ -1,6 +1,15 @@
 Changelog
 =========
 
+3.0rc4 - Unreleased
+-------------------
+
+* added script for rebuild all ``.po``files
+  [keul]
+
+* added italian translation
+  [keul]
+
 3.0rc3 - 2011-05-23
 -------------------
 

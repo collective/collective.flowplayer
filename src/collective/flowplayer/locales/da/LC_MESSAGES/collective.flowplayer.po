@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-04-29 06:10+0000\n"
+"POT-Creation-Date: 2011-05-24 07:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,91 +17,87 @@ msgstr ""
 "Preferred-Encodings: utf-8\n"
 "Domain: collective.flowplayer\n"
 
-#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:191
+#: ../browser/portlet.py:191
 msgid "Add Video Portlet"
 msgstr "Tilføj videoportlet"
 
-#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:43
+#: ../browser/portlet.py:43
 msgid "An image file to use as a splash image"
 msgstr "Fremsøg et billede, der skal vises 'splash-billede' af videoen. Billedet vises i playeren, før videoen starter."
 
-#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:202
+#: ../browser/portlet.py:202
 msgid "Edit Video Portlet"
 msgstr "Rediger videoportlet"
 
-#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:49
+#: ../browser/portlet.py:49
 msgid "Enter a number greater than 0 to limit the number of items displayed"
 msgstr "Skriv et tal større end 0, hvis du ønsker at forkorte længden af playlisten."
 
-#: collective.flowplayer/src/collective/flowplayer/interfaces.py:46
+#: ../interfaces.py:44
 msgid "Height"
 msgstr "Højde"
 
-#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:58
+#: ../browser/portlet.py:58
 msgid "If enabled, a more... link will appear in the footer of the portlet, linking to the underlying data."
 msgstr "Hvis du krydser af, optræder et 'Vis mere..'-link i bunden af portletten. Det linker til den fil, mappe eller samling, som indeholder videoen."
 
-#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:53
+#: ../browser/portlet.py:53
 msgid "If enabled, a random video from the selection will be played."
 msgstr "Hvis du har krydset af, så vil der blive vist en tilfældig video fra playlisten."
 
-#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:48
+#: ../browser/portlet.py:48
 msgid "Number of videos to show"
 msgstr "Størrelse af playlisten"
 
-#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:30
+#: ../browser/portlet.py:30
 msgid "Portlet header"
 msgstr "Portlet overskrift"
 
-#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:52
+#: ../browser/portlet.py:52
 msgid "Randomise the playlist"
 msgstr "Afspil playlisten i tilfældig rækkefølge"
 
-#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:57
+#: ../browser/portlet.py:57
 msgid "Show more... link"
 msgstr "Vis mere... link"
 
-#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:42
+#: ../browser/portlet.py:42
 msgid "Splash image"
 msgstr "Forside-billede"
 
-#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:34
+#: ../browser/portlet.py:34
 msgid "Target object"
 msgstr "Video(er)"
 
-#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:35
+#: ../browser/portlet.py:35
 msgid "This can be a file containing an FLV file, or a folder or collection containing FLV files"
 msgstr "Her skal du fremsøge det video, du vil vise. Hvis du kun vil vise en enkelt video, kan du finde en FLV-fil (Flash video), som allerede er uploadet til sitet. Hvis du vil have flere videoer på playlisten, kan du i stedet vælge en mappe eller en samling, som indeholder FLV-filer."
 
-#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:192
+#: ../browser/portlet.py:192
 msgid "This portlet display a Flash Video"
 msgstr "Denne portlet viser en eller flere Flash videoer"
 
-#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:203
-msgid "This portlet display a Flash video."
-msgstr "Denne portlet viser en eller flere Flash videoer"
-
-#: collective.flowplayer/src/collective/flowplayer/browser/portlet.py:31
+#: ../browser/portlet.py:31
 msgid "Title of the rendered portlet"
 msgstr "Titel på den viste portlet"
 
-#: collective.flowplayer/src/collective/flowplayer/interfaces.py:45
+#: ../interfaces.py:43
 msgid "Width"
 msgstr "Bredde"
 
 #. Default: "More…"
-#: collective.flowplayer/src/collective/flowplayer/browser/portlet.pt:49
+#: ../browser/portlet.pt:49
 msgid "more_url"
 msgstr "Mere..."
 
 #. Default: "There are no videos in this folder. Add some video files here first."
-#: collective.flowplayer/src/collective/flowplayer/browser/folder.pt:65
+#: ../browser/folder.pt:65
 msgid "no_videos"
 msgstr "Der er ikke nogen videoer i denne mappe. Tilføj nogle video-filer først."
 
 #. Default: "If your video does not start playing shortly, please ensure that you have JavaScript enabled and the latest version of Adobe Flash Player (http://www.adobe.com/products/flashplayer/) installed."
-#: collective.flowplayer/src/collective/flowplayer/browser/folder.pt:36
-#: collective.flowplayer/src/collective/flowplayer/browser/portlet.pt:16
+#: ../browser/folder.pt:36
+#: ../browser/portlet.pt:16
 msgid "video_fallback"
 msgstr "Hvis videoen ikke begynder at spille i løbet af kort tid, så prøv at kontrollere, om du har Javascript slået til og har installeret den seneste version af Adobe Flash Player."
 

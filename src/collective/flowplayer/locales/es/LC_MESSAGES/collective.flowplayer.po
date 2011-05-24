@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-04-29 06:10+0000\n"
+"POT-Creation-Date: 2011-05-24 07:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,91 +17,87 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.flowplayer\n"
 
-#: collective/flowplayer/browser/portlet.py:191
+#: ../browser/portlet.py:191
 msgid "Add Video Portlet"
 msgstr "Añadir portlet de video"
 
-#: collective/flowplayer/browser/portlet.py:43
+#: ../browser/portlet.py:43
 msgid "An image file to use as a splash image"
 msgstr "Una imagen para usar como splash"
 
-#: collective/flowplayer/browser/portlet.py:202
+#: ../browser/portlet.py:202
 msgid "Edit Video Portlet"
 msgstr "Editar portelet de video"
 
-#: collective/flowplayer/browser/portlet.py:49
+#: ../browser/portlet.py:49
 msgid "Enter a number greater than 0 to limit the number of items displayed"
 msgstr "Introduzca un número mayor que 0 para limitar el número de elementos mostrados"
 
-#: collective/flowplayer/interfaces.py:46
+#: ../interfaces.py:44
 msgid "Height"
 msgstr "Altura"
 
-#: collective/flowplayer/browser/portlet.py:58
+#: ../browser/portlet.py:58
 msgid "If enabled, a more... link will appear in the footer of the portlet, linking to the underlying data."
 msgstr "Si habilitado, un  enlace 'más ...' aparecerá en el pie del portlet enlazando a los datos"
 
-#: collective/flowplayer/browser/portlet.py:53
+#: ../browser/portlet.py:53
 msgid "If enabled, a random video from the selection will be played."
 msgstr "Si habilitado, se mostrará un video aleatorio de la selección"
 
-#: collective/flowplayer/browser/portlet.py:48
+#: ../browser/portlet.py:48
 msgid "Number of videos to show"
 msgstr "Número de videos a mostrar"
 
-#: collective/flowplayer/browser/portlet.py:30
+#: ../browser/portlet.py:30
 msgid "Portlet header"
 msgstr "Cabecera del portlet"
 
-#: collective/flowplayer/browser/portlet.py:52
+#: ../browser/portlet.py:52
 msgid "Randomise the playlist"
 msgstr "Lista de reproducción aleatoria"
 
-#: collective/flowplayer/browser/portlet.py:57
+#: ../browser/portlet.py:57
 msgid "Show more... link"
 msgstr "Enlace 'más ...'"
 
-#: collective/flowplayer/browser/portlet.py:42
+#: ../browser/portlet.py:42
 msgid "Splash image"
 msgstr "Imagen de splash"
 
-#: collective/flowplayer/browser/portlet.py:34
+#: ../browser/portlet.py:34
 msgid "Target object"
 msgstr "Contenido objetivo"
 
-#: collective/flowplayer/browser/portlet.py:35
+#: ../browser/portlet.py:35
 msgid "This can be a file containing an FLV file, or a folder or collection containing FLV files"
 msgstr "Puede ser un contenido archivo con un FLV, o una carpeta o colección con tales archivos "
 
-#: collective/flowplayer/browser/portlet.py:192
+#: ../browser/portlet.py:192
 msgid "This portlet display a Flash Video"
 msgstr "Este portlet muestra un video flash"
 
-#: collective/flowplayer/browser/portlet.py:203
-msgid "This portlet display a Flash video."
-msgstr "Este portlet muestra un video flash"
-
-#: collective/flowplayer/browser/portlet.py:31
+#: ../browser/portlet.py:31
 msgid "Title of the rendered portlet"
 msgstr "Título del portlet renderizado"
 
-#: collective/flowplayer/interfaces.py:45
+#: ../interfaces.py:43
 msgid "Width"
 msgstr "Ancho"
 
 #. Default: "More…"
-#: collective/flowplayer/browser/portlet.pt:49
+#: ../browser/portlet.pt:49
 msgid "more_url"
 msgstr "Más…"
 
 #. Default: "There are no videos in this folder. Add some video files here first."
-#: collective/flowplayer/browser/folder.pt:65
+#: ../browser/folder.pt:65
 msgid "no_videos"
 msgstr "No hay videos en esta carpeta. Añada algunos archivos de video aquí primero."
 
 #. Default: "If your video does not start playing shortly, please ensure that you have JavaScript enabled and the latest version of Adobe Flash Player (http://www.adobe.com/products/flashplayer/) installed."
-#: collective/flowplayer/browser/folder.pt:36
-#: collective/flowplayer/browser/portlet.pt:16
+#: ../browser/folder.pt:36
+#: ../browser/portlet.pt:16
 msgid "video_fallback"
 msgstr "Si el video no comienza rápidamente, por favor, asegúrese de que tiene javascript habilitado"
 
