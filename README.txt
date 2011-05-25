@@ -217,6 +217,20 @@ Useful configuration examples from http://flowplayer.org:
  
  * `Controlbar color generator`_
 
+Commercial version of flowplayer
+------------------------------------
+
+Use these parameters in portal_properties/flowplayer_properties (you can use 
+different versions of course)::
+
+    param/src = http://releases.flowplayer.org/swf/flowplayer.commercial-3.2.7.swf
+    plugins/controls/url = http://releases.flowplayer.org/swf/flowplayer.controls-3.2.5.swf
+    plugins/audio/url = http://releases.flowplayer.org/swf/flowplayer.audio-3.2.2.swf
+
+and of course you need to add a "key" property with your license's key.
+
+See http://plone.org/products/collective-flowplayer/issues/10 for details.
+
 Extending player runtime
 ------------------------
 
