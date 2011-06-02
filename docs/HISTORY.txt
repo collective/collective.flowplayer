@@ -4,6 +4,10 @@ Changelog
 3.0rc4 - Unreleased
 -------------------
 
+* Fixed wrong GS import step dependenciences. Fixes
+  http://plone.org/products/collective-flowplayer/issues/12
+  [naro]
+
 * added script for rebuild all ``.po``files
   [keul]
 
