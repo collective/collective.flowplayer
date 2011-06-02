@@ -14,7 +14,7 @@
         description="Configures Kupu pagraph styles for the flow player"
         handler="collective.flowplayer.exportimport.import_various">
         <depends name="kupu-setup" />
-        <depends name="propertiestool" />
+        <depends name="propertiestool" /> 
     </genericsetup:importStep>
 
 </configure>
