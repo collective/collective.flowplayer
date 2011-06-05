@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0rc4 - Unreleased
+3.0rc4 - 2011-06-05
 -------------------
 
 * Fixed wrong GS import step dependenciences. Fixes
