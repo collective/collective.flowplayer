@@ -8,7 +8,7 @@ Changelog
   http://plone.org/products/collective-flowplayer/issues/12
   [naro]
 
-* added script for rebuild all ``.po``files
+* added script for rebuild all .po files
   [keul]
 
 * added italian translation
