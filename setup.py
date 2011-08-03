@@ -1,13 +1,26 @@
 from setuptools import setup, find_packages
 import os
+import sys
+
+install_requires = [
+          'setuptools',
+          'plone.app.jquerytools',
+          # 'Plone', Too confusing for those using releases < 3.2
+          'hachoir_core',
+          'hachoir_metadata',
+          'hachoir_parser',
+      ]
 
 version = '3.0rc4'
 
 tests_require = ['collective.testcaselayer', 'interlude']
 
+if sys.version_info < (2, 6):
+    install_requires.append('simplejson')
+
 setup(name='collective.flowplayer',
       version=version,
-      description="A simple package using Flowplayer for video content",
+      description="A simple package using Flowplayer for video and audio content",
       long_description=open("README.txt").read() + "\n\n" +
                        open(os.path.join("docs", "UPGRADE.txt")).read() + "\n\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
@@ -27,16 +40,7 @@ setup(name='collective.flowplayer',
       namespace_packages=['collective'],
       include_package_data=True,
       zip_safe=False,
-      install_requires=[
-          'setuptools',
-          # -*- Extra requirements: -*-
-          'simplejson',
-          'plone.app.jquerytools',
-          # 'Plone', Too confusing for those using releases < 3.2
-          'hachoir_core',
-          'hachoir_metadata',
-          'hachoir_parser',
-      ],
+      install_requires=install_requires,
       tests_require=tests_require,
       extras_require={'test': tests_require},
       entry_points="""
