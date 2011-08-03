@@ -1,9 +1,15 @@
 from zope import interface
 from zope import component
 from Acquisition import aq_inner
-import simplejson
 import urllib
 import os
+
+try:
+    # python2.6
+    import json
+except ImportError:
+    # python2.4
+    import simplejson as json
 
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
@@ -59,7 +65,7 @@ class JavaScript(BrowserView):
             data['initialVolumePercentage'] = int(volume)
         else:
             data['initialVolumePercentage'] = None
-        return "var collective_flowplayer = %s;" % simplejson.dumps(data, indent=2)
+        return "var collective_flowplayer = %s;" % json.dumps(data, indent=2)
 
 
 class File(BrowserView):
