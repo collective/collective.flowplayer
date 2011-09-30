@@ -58,24 +58,29 @@ The generated JavaScript includes the appropriate metadata.
 
     >>> browser.open(folder['foo.flv'].absolute_url()+'/collective.flowplayer.js')
     >>> print browser.contents
-    (...
-    var config = {
+    var collective_flowplayer = {
+      "params": {
+        "src": "http://nohost/plone/++resource++collective.flowplayer/flowplayer.swf"
+      }, 
+      "config": {
         "clip": {
-            "scaling": "fit",
-            "autoBuffering": false,
-            "autoPlay": false
-            },
+          "scaling": "fit", 
+          "autoBuffering": false, 
+          "autoPlay": false
+        }, 
         "plugins": {
-             "audio": {
-                 "url": "http%3A//nohost/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.audio.swf"
-             },
-             "controls": {
-                 "url": "http%3A//nohost/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.controls.swf",
-                 "volume": true
-             }
-         }
-    }...
-    flowplayer(this, {"src": "http://nohost/plone/++resource++collective.flowplayer/flowplayer.swf"}, config).onLoad( function() { this.setVolume(50); });...
+          "audio": {
+            "url": "http%3A//nohost/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.audio.swf"
+          }, 
+          "controls": {
+            "url": "http%3A//nohost/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.controls.swf", 
+            "volume": true
+          }
+        }
+      }, 
+      "initialVolumePercentage": 50, 
+      "loop": false
+    };
 
 FLV Links
 =========
@@ -116,10 +121,29 @@ The generated JavaScript includes the appropriate metadata.
 
     >>> browser.open(folder['foo-link-title'].absolute_url()+'/collective.flowplayer.js')
     >>> print browser.contents
-    (...
-    var config = {
-        "clip": {...
-    flowplayer(this, {"src": "http://nohost/plone/++resource++collective.flowplayer/flowplayer.swf"}, config).onLoad( function() { this.setVolume(50); });...
+    var collective_flowplayer = {
+      "params": {
+        "src": "http://nohost/plone/++resource++collective.flowplayer/flowplayer.swf"
+      }, 
+      "config": {
+        "clip": {
+          "scaling": "fit", 
+          "autoBuffering": false, 
+          "autoPlay": false
+        }, 
+        "plugins": {
+          "audio": {
+            "url": "http%3A//nohost/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.audio.swf"
+          }, 
+          "controls": {
+            "url": "http%3A//nohost/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.controls.swf", 
+            "volume": true
+          }
+        }
+      }, 
+      "initialVolumePercentage": 50, 
+      "loop": false
+    };
 
 Folders
 =======
@@ -145,10 +169,29 @@ same file.
 
     >>> browser.open(folder.absolute_url()+'/collective.flowplayer.js')
     >>> print browser.contents
-    (...
-    var config = {
-        "clip": {...
-    flowplayer(this, {"src": "http://nohost/plone/++resource++collective.flowplayer/flowplayer.swf"}, config).onLoad( function() { this.setVolume(50); });...
+    var collective_flowplayer = {
+      "params": {
+        "src": "http://nohost/plone/++resource++collective.flowplayer/flowplayer.swf"
+      }, 
+      "config": {
+        "clip": {
+          "scaling": "fit", 
+          "autoBuffering": false, 
+          "autoPlay": false
+        }, 
+        "plugins": {
+          "audio": {
+            "url": "http%3A//nohost/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.audio.swf"
+          }, 
+          "controls": {
+            "url": "http%3A//nohost/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.controls.swf", 
+            "volume": true
+          }
+        }
+      }, 
+      "initialVolumePercentage": 50, 
+      "loop": false
+    };
 
 Let's try to change some flowplayer properties.
 
@@ -158,11 +201,14 @@ Let's try to change some flowplayer properties.
     >>> props._updateProperty('clip/autoPlay', True)
     >>> browser.open(folder['foo.flv'].absolute_url()+'/collective.flowplayer.js')
     >>> print browser.contents
-    (...
-    var config = {
-        "clip": {...
-            "autoPlay": true
-            },...
+    var collective_flowplayer = {
+    ...
+      "config": {
+        "clip": {
+          "scaling": "fit", 
+          "autoBuffering": false, 
+          "autoPlay": true
+        },...
             
 Try to add new property.
     
@@ -173,11 +219,13 @@ Try to add new property.
     '#000000'
     >>> browser.open(folder['foo.flv'].absolute_url()+'/collective.flowplayer.js')
     >>> print browser.contents
-    (...
-    var config = {...
-        "plugins": {...
-            "controls": {...
-                "backgroundColor": "#000000"...
+    var collective_flowplayer = {
+    ...
+      "config": {
+    ...
+          "controls": {
+    ...
+              "backgroundColor": "#000000"...
 
 Modify flash params
     
@@ -186,8 +234,9 @@ Modify flash params
     >>> props.manage_addProperty('param/wmode', 'opaque', 'string')
     >>> browser.open(folder['foo.flv'].absolute_url()+'/collective.flowplayer.js')
     >>> print browser.contents
-    (...
-    flowplayer(this, {"src": "http://nohost/plone/++resource++collective.flowplayer/flowplayer.swf", "wmode": "opaque"}...
+    var collective_flowplayer = {
+    ...
+        "wmode": "opaque"...
 
 Check playlist 
 

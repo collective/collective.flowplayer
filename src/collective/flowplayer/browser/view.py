@@ -126,7 +126,7 @@ class Folder(BrowserView):
     def playlist_class(self):
         properties_tool = getToolByName(self.context, 'portal_properties')
         props = getattr(properties_tool, 'flowplayer_properties', None)
-        return props.getProperty('showPlaylist') and 'flowPlaylistVisible' or 'flowPlaylistHidden'
+        return props and props.getProperty('showPlaylist') and 'flowPlaylistVisible' or 'flowPlaylistHidden'
 
     @memoize
     def audio_only(self):

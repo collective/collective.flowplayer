@@ -13,7 +13,9 @@ from Products.Archetypes.interfaces import IObjectInitializedEvent
 import urllib2
 from StringIO import StringIO
 
-VIDEO_EXTENSIONS = ['.f4b', '.f4p', '.f4v', '.flv', '.mp4', '.m4v', '.jpg', '.gif', '.png', '.mov']
+from hachoir_core.stream import StreamError
+
+VIDEO_EXTENSIONS = ['.f4b', '.f4p', '.f4v', '.flv', '.mp4', '.m4v', '.mov']
 AUDIO_EXTENSIONS = ['.mp3']
 
 def is_flowplayer_installed(object):
@@ -79,9 +81,12 @@ class ChangeView(object):
 
     def handleVideo(self):
         handle = self.file_handle
-        metadata = parse_raw(handle)
-        height, width = scale_from_metadata(metadata)
-        handle.close()
+        try:
+            metadata = parse_raw(handle)
+            height, width = scale_from_metadata(metadata)
+            handle.close()
+        except StreamError:
+            height = width = None
         
         if not IVideo.providedBy(self.content):
             alsoProvides(self.content, IVideo)

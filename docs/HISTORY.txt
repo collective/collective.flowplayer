@@ -7,6 +7,16 @@ Changelog
 * Include ``simplejson`` only on Plone 3 environment
   [keul]
 
+* Removed buggy support for image files
+  [keul]
+
+* Fixed a bug that still looks for ``flowplayer_properties``
+  even if the product is uninstalled.
+  [keul]
+
+* Fixed tests
+  [keul]
+
 3.0rc4 - 2011-06-05
 -------------------
 
