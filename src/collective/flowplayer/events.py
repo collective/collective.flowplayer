@@ -70,7 +70,7 @@ class ChangeView(object):
 
     def check_extension(self):
         for ext in AUDIO_EXTENSIONS + VIDEO_EXTENSIONS:
-            if self.filename.endswith(ext):
+            if isinstance(self.filename, basestring) and self.filename.endswith(ext):
                 return ext
         return None
 
