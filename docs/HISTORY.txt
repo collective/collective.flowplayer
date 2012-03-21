@@ -17,6 +17,9 @@ Changelog
 * Fixed tests
   [keul]
 
+* Fixed filename lazy property for ChangeLinkView
+  [encolpe]
+
 3.0rc4 - 2011-06-05
 -------------------
 

@@ -135,7 +135,10 @@ class ChangeLinkView(ChangeView):
 
     @property.Lazy
     def filename(self):
-        return self.value.lower()
+        filename = self.value.filename
+        if isinstance(filename, basestring):
+            filename = filename.lower()
+        return filename
 
     @property.Lazy
     def file_handle(self):
