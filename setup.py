@@ -11,7 +11,7 @@ install_requires = [
           'hachoir_parser',
       ]
 
-version = '3.0rc4'
+version = '3.0'
 
 tests_require = ['collective.testcaselayer', 'interlude']
 

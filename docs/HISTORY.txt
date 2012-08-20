@@ -1,8 +1,11 @@
 Changelog
 =========
 
-3.0rc5 - Unreleased
+3.0 - Unreleased
 -------------------
+
+* Update Flowplayer to 3.2.14
+  [encolpe]
 
 * Include ``simplejson`` only on Plone 3 environment
   [keul]
