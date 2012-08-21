@@ -11,7 +11,7 @@
     <genericsetup:importStep
         name="collective.flowplayer"
         title="Flowplayer configuration"
-        description="Configures Kupu pagraph styles for the flow player"
+        description="Configures Kupu paragraph styles for the flow player"
         handler="collective.flowplayer.exportimport.import_various">
         <depends name="kupu-setup" />
         <depends name="propertiestool" /> 

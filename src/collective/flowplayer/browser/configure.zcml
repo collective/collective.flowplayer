@@ -64,7 +64,7 @@
         interface=".portlet.IVideoPortlet"
         assignment=".portlet.Assignment"
         view_permission="zope2.View"
-        edit_permission="cmf.ManagePortal"
+        edit_permission="plone.app.portlets.ManagePortlets"
         renderer=".portlet.Renderer"
         addview=".portlet.AddForm"
         editview=".portlet.EditForm"

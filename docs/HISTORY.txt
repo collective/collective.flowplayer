@@ -23,6 +23,10 @@ Changelog
 * Fixed filename lazy property for ChangeLinkView
   [encolpe]
 
+* Changed portlet permission from "Manage portal" to
+  the better "Manage portlets"
+  [keul]
+
 3.0rc4 - 2011-06-05
 -------------------
 
