@@ -21,7 +21,7 @@ if sys.version_info < (2, 6):
 setup(name='collective.flowplayer',
       version=version,
       description="A simple package using Flowplayer for video and audio content",
-      long_description=open("README.txt").read() + "\n\n" +
+      long_description=open("README.rst").read() + "\n\n" +
                        open(os.path.join("docs", "UPGRADE.txt")).read() + "\n\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
