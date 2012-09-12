@@ -109,6 +109,8 @@ get a randomised playlist. The splash image is optional.
 Kupu integration
 ----------------
 
+Kupu is now deprecated. This section is kept for old plone 3 installations.
+
 To make it easier to use the type of markup outlined above to insert a video
 or audio player into a Plone content item, this product installs a few
 Kupu paragraph styles.  You can use them like this:
