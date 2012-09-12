@@ -1,0 +1,29 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="collective.flowplayer">
+
+    <!-- Flowplayer profile is loaded first because 'Flowplayer' < 'base' -->
+    <genericsetup:registerProfile
+        name="Flowplayer"
+        title="Flowplayer"
+        directory="profiles/default"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+        
+    <genericsetup:registerProfile
+        name="base"
+        title="Flowplayer setup without types"
+        directory="profiles/base"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+        
+    <genericsetup:registerProfile
+        name="uninstall"
+        title="Flowplayer Uninstall"
+        directory="profiles/uninstall"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        description="Uninstall profile for collective.flowplayer"
+        />
+
+</configure>
