@@ -4,9 +4,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-05-24 07:34+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-09-10 14:10+0000\n"
+"PO-Revision-Date: 2012-09-10 16:13+0100\n"
+"Last-Translator: Jonathan Riboux <jonathan.riboux@quadra-informatique.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -34,6 +34,7 @@ msgid "Enter a number greater than 0 to limit the number of items displayed"
 msgstr "Entrer un nombre supérieur à 0 pour limiter le nombre d'éléments affichés"
 
 #: ../interfaces.py:44
+#: ../schemaextenders.py:69
 msgid "Height"
 msgstr "Hauteur"
 
@@ -82,8 +83,17 @@ msgid "Title of the rendered portlet"
 msgstr "Titre de la portlet affichée."
 
 #: ../interfaces.py:43
+#: ../schemaextenders.py:60
 msgid "Width"
 msgstr "Largeur"
+
+#: ../schemaextenders.py:70
+msgid "You can override video height detected in video metadata. Leave empty to retreive height from metadata."
+msgstr "Vous pouvez modifier la hauteur de la vidéo initialement détectée depuis les métadonnées. Laissez vide pour récupérer la hauteur depuis les métadonnées."
+
+#: ../schemaextenders.py:61
+msgid "You can override video width detected in video metadata. Leave empty to retreive width from metadata."
+msgstr "Vous pouvez modifier la largeur de la vidéo initialement détectée depuis les métadonnées. Laissez vide pour récupérer la largeur depuis les métadonnées."
 
 #. Default: "More…"
 #: ../browser/portlet.pt:49

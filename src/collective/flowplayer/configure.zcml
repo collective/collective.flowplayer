@@ -7,17 +7,21 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="collective.flowplayer">
 
+    <include package="archetypes.schemaextender" />
     <include package="plone.app.jquerytools" />
     <include package=".browser" />
 
     <include zcml:condition="installed plone.dexterity" file="dexterity.zcml"/>
     <include zcml:condition="installed Products.kupu" file="kupu.zcml"/>
 
-    <five:registerPackage package="." initialize=".initialize" />    
+    <include file="profiles.zcml"/>
+
+    <!--<five:registerPackage package="." initialize=".initialize" />-->
     
     <adapter factory=".media.VideoInfoAdapter" />
     <adapter factory=".media.AudioInfo" />
-    
+    <adapter factory=".schemaextenders.VideoParameters" /> 
+
     <subscriber
         for="Products.ATContentTypes.interface.IFileContent
              Products.Archetypes.interfaces.IObjectInitializedEvent"

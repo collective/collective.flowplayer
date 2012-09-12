@@ -9,9 +9,10 @@ install_requires = [
           'hachoir_core',
           'hachoir_metadata',
           'hachoir_parser',
+          'archetypes.schemaextender',
       ]
 
-version = '3.0'
+version = '3.1'
 
 tests_require = ['collective.testcaselayer', 'interlude']
 

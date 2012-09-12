@@ -157,7 +157,8 @@ class Folder(BrowserView):
                 continue
             view = component.getMultiAdapter(
                 (video, self.request), interface.Interface, 'flowplayer')
-            results.append(dict(url=view.href(),
+            # need to unquote the href because it gets quoted client side
+            results.append(dict(url=urllib.unquote(view.href()),
                                 title=brain.Title,
                                 description=brain.Description,
                                 height=view.height,
@@ -166,10 +167,9 @@ class Folder(BrowserView):
         return results
 
     def first_clip_url(self):
-        """ Clip must be quoted to playlist is able to find it in the flowplayer-playlist onBegin/getEl method call """
         videos = self.videos()
         if videos:
-            return urllib.quote(videos[0].get('url'))
+            return videos[0].get('url')
         else:
             return None
 

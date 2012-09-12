@@ -1,6 +1,17 @@
 Changelog
 =========
 
+3.1 - 2012-09-12
+----------------
+
+* Added width and height configuration in file edition video tab
+  (first loaded from metadata, leave empty to reload from metadata)
+  [jriboux]
+
+* Fixed base profile being installed instead of default.
+  http://plone.org/products/collective-flowplayer/issues/16
+  [jriboux]
+
 3.0 - 2012-08-22
 ----------------
 

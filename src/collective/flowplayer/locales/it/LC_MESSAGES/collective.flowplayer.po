@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-05-24 07:34+0000\n"
+"POT-Creation-Date: 2012-09-10 14:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Luca Fabbri <keul@redturtle.it>\n"
 "Language-Team: RedTurtle Technology <sviluppoplone@redturtle.it>\n"
@@ -33,6 +33,7 @@ msgid "Enter a number greater than 0 to limit the number of items displayed"
 msgstr "Inserisci un numero maggiore di 0 per limitare il numero di elementi visualizzati"
 
 #: ../interfaces.py:44
+#: ../schemaextenders.py:69
 msgid "Height"
 msgstr "Altezza"
 
@@ -81,8 +82,17 @@ msgid "Title of the rendered portlet"
 msgstr "Titolo della portlet visualizzata"
 
 #: ../interfaces.py:43
+#: ../schemaextenders.py:60
 msgid "Width"
 msgstr "Larghezza"
+
+#: ../schemaextenders.py:70
+msgid "You can override video height detected in video metadata. Leave empty to retreive height from metadata."
+msgstr ""
+
+#: ../schemaextenders.py:61
+msgid "You can override video width detected in video metadata. Leave empty to retreive width from metadata."
+msgstr ""
 
 #. Default: "More…"
 #: ../browser/portlet.pt:49

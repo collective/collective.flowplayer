@@ -80,23 +80,26 @@ class ChangeView(object):
             self.object.reindexObject(idxs=['object_provides'])
 
     def handleVideo(self):
-        handle = self.file_handle
-        try:
-            metadata = parse_raw(handle)
-            height, width = scale_from_metadata(metadata)
-            handle.close()
-        except StreamError:
-            height = width = None
+        video = IVideo.providedBy(self.content)
         
-        if not IVideo.providedBy(self.content):
+        if not video:
             alsoProvides(self.content, IVideo)
             self.object.reindexObject(idxs=['object_provides'])
 
-        if height and width:
-            info = IMediaInfo(self.content)
-            info.height = height
-            info.width = width
-            
+        info = IMediaInfo(self.content)
+
+        if (not video) or (info.height == None or info.width == None):
+            handle = self.file_handle
+            try:
+                metadata = parse_raw(handle)
+                height, width = scale_from_metadata(metadata)
+                handle.close()
+            except StreamError:
+                height = width = None
+
+            if height and width:
+                info.height = height
+                info.width = width            
 
 
 class ChangeFileView(ChangeView):
