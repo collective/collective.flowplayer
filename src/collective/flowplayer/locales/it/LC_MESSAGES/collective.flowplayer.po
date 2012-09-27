@@ -88,11 +88,11 @@ msgstr "Larghezza"
 
 #: ../schemaextenders.py:70
 msgid "You can override video height detected in video metadata. Leave empty to retreive height from metadata."
-msgstr ""
+msgstr "Puoi sovrascrivere l'altezza del video estratta dai metadati. Lascia il campo vuoto per ottenere l'altezza dai metadati."
 
 #: ../schemaextenders.py:61
 msgid "You can override video width detected in video metadata. Leave empty to retreive width from metadata."
-msgstr ""
+msgstr "Puoi sovrascrivere la larghezza del video estratta dai metadati. Lascia il campo vuoto per ottenere la larghezza dai metadati."
 
 #. Default: "More…"
 #: ../browser/portlet.pt:49

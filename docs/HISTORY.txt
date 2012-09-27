@@ -1,6 +1,11 @@
 Changelog
 =========
 
+3.1.2 - Unreleased
+------------------
+
+* Updated italian translation [keul]
+
 3.1.1 - 2012-09-12
 ------------------
 
