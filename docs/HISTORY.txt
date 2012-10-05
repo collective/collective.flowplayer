@@ -5,6 +5,8 @@ Changelog
 ------------------
 
 * Updated italian translation [keul]
+* Updated Flowplayer to 3.2.15
+  [tom_gross]
 
 3.1.1 - 2012-09-12
 ------------------
