@@ -12,6 +12,7 @@ local.cfg
 .*
 !.svn
 !.gitignore
+!.travis.yml
 *.pyc
 .Python
 include
