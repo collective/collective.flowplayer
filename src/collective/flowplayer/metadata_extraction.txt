@@ -48,5 +48,3 @@ Audio only FLV files return no height and width
     >>> height
     >>> width
 
-    >>> interact( locals() )
-
