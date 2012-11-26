@@ -9,8 +9,12 @@ function initialVolume() {
 function loop() {
     return !window.collective_flowplayer.loop;
 }
-$(function() {
-    $('.autoFlowPlayer').each(function() {
+
+initFlowpalyer = function(area){
+    if (area === undefined){
+        area = jq('body');
+    }
+    $('.autoFlowPlayer', area).each(function() {
         // Take a copy of the global config
         var config = jQuery.extend(true, {}, window.collective_flowplayer.config);
         var $self = $(this);
@@ -90,5 +94,10 @@ $(function() {
         $('.flowPlayerMessage').remove();
 
     });
-});
+};
+
+
+    $(function() {
+        initFlowpalyer();
+    });
 }(jQuery));
