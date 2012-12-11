@@ -13,7 +13,7 @@
 
     initFlowpalyer = function(area) {
         if (area === undefined) {
-            area = jq('body');
+            area = $('body');
         }
         $('.autoFlowPlayer', area).each(function() {
             // Take a copy of the global config
