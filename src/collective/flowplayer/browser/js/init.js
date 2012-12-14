@@ -11,7 +11,7 @@
         return !window.collective_flowplayer.loop;
     }
 
-    initFlowpalyer = function(area) {
+    initFlowplayer = function(area) {
         if (area === undefined) {
             area = $('body');
         }
@@ -111,6 +111,6 @@
     };
 
     $(function() {
-        initFlowpalyer();
+        initFlowplayer();
     });
 }(jQuery));
