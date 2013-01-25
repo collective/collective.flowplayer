@@ -1,14 +1,14 @@
 Changelog
 =========
 
-3.1.2 - Unreleased
-------------------
+3.1.2 - 2013-1-25
+-----------------
 
 * Define initFlowpalyer variable and add optional param "area" to load
   flowplayer on a specific area.
   [mathias.leimgruber]
 
-* Clean up init.js 
+* Clean up init.js
   [mathias.leimgruber]
 
 * Updated italian translation [keul]
@@ -105,7 +105,7 @@ Changelog
   [naro]
 
 * Added iPad/iPhone javascript plugin. Plugin is avalable to custom use, but
-  not included in javascript configuration by default. 
+  not included in javascript configuration by default.
   [naro]
 
 * Fix metadata parsing of links caused by redesign with new parsing framework.
