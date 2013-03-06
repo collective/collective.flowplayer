@@ -12,7 +12,7 @@ install_requires = [
           'archetypes.schemaextender',
       ]
 
-version = '3.1.2'
+version = '3.1.3'
 
 tests_require = ['collective.testcaselayer', 'interlude']
 

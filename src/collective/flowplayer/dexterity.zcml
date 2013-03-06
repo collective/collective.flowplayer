@@ -21,7 +21,7 @@
 
     <subscriber
         for=".behaviors.IFlowplayerFile
-             zope.app.container.interfaces.IObjectAddedEvent"
+             zope.lifecycleevent.interfaces.IObjectAddedEvent"
         handler=".dexterity.update_media_info"
         />
 
