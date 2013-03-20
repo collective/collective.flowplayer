@@ -15,7 +15,7 @@
         name="flowplayer"
         for=".behaviors.IFlowplayerFile"
         class=".dexterity.FlowplayerFileView"
-        template="browser/file4x.pt"
+        template="browser/file.pt"
         permission="zope2.View"
         />
 
