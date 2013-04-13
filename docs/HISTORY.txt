@@ -1,6 +1,16 @@
 Changelog
 =========
 
+4.0 - Unreleased
+----------------
+
+* Use version 4.0 since we focus development to Plone 4.x now.
+  [saily]
+
+* Plone 4.3 compatiblity.
+  [pbauer]
+
+
 3.1.2 - 2013-1-25
 -----------------
 
