@@ -4,6 +4,9 @@ Changelog
 4.0 - Unreleased
 ----------------
 
+* Upgrade to latest V1 bootstrap
+  [saily]
+
 * Use version 4.0 since we focus development to Plone 4.x now.
   [saily]
 
