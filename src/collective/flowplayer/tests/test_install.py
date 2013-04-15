@@ -12,6 +12,7 @@ class InstallationTestCase(unittest.TestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
+        self.types = self.portal.portal_types
 
     def test_css_registered(self):
         css_registry = self.portal['portal_css']
@@ -34,14 +35,11 @@ class InstallationTestCase(unittest.TestCase):
         try:
             pkg_resources.get_distribution('plone.app.collection')
         except pkg_resources.DistributionNotFound:
-            IS_COLLECTION = False
+            HAS_COLLECTION = False
         else:
-            IS_COLLECTION = True
+            HAS_COLLECTION = True
 
-        if IS_COLLECTION:
-            self.portal.invokeFactory('Collection', id='c1')
+        if HAS_COLLECTION:
+            self.assertIn('flowplayer', self.types['Collection'].view_methods)
         else:
-            self.portal.invokeFactory('Topic', id='c1')
-
-        self.assertIn('flowplayer', [
-            item[0] for item in self.portal['c1'].getAvailableLayouts()])
+            self.assertIn('flowplayer', self.types['Topic'].view_methods)
