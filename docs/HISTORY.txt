@@ -4,6 +4,10 @@ Changelog
 4.0 - Unreleased
 ----------------
 
+* Include keul's fix he did for 3.x release.
+  Updated zcml directives for dexterity usage. Close #3
+  [keul, saily]
+
 * Use different install profiles if no ``plone.app.collection`` module was
   found which is default for Plone 4.0.x and Plone 4.1.x versions.
   [saily]
