@@ -1,18 +1,72 @@
+.. image:: https://travis-ci.org/collective/collective.flowplayer?branch=master
+    :target: http://travis-ci.org/collective/collective.flowplayer
+
+.. contents::
+
 Introduction
 ============
 
 collective.flowplayer integrates the GPL version of `Flowplayer`_ with Plone
-3.x. It can play .flv Flash Video files, mp4 files or links as well as .mp3
+4.x. It can play .flv Flash Video files, mp4 files or links as well as .mp3
 files or links.
+
+If you want to use collective.flowplayer with Plone 3.x, please pin version to
+3.1.2 which was the latest 3.x compatible release.
+
+Development is now focused on Plone 4.x which can be tested by `Travis CI`_
+automatically.
+
+* collective.flowplayer 4.x works with Plone 4.x
+* collective.flowplayer 3.x works with Plone 3.x.
+
 
 Installation
 ------------
 
-Add collective.flowplayer to your buildout as normal. See
-http://plone.org/documentation/tutorial/buildout. Don't forget to load the
-configure.zcml file!
+1. Add collective.flowplayer to your buildout as normal.
+   See http://plone.org/documentation/tutorial/buildout.
 
-Then install the product via Plone's Add-on products control panel.
+   * Plone 4::
+
+         [buildout]
+         ...
+         parts =
+             ...
+             instance
+
+         [instance]
+         eggs =
+             ...
+             collective.flowplayer
+
+   * Plone 3:
+
+     Don't forget to load the configure.zcml file!
+     Please use a versions part in your buildout as shown below to specify a
+     collective.flowplayer version below 4::
+
+       [buildout]
+       ...
+       versions = versions
+       parts =
+           ...
+           instance
+
+       [instance]
+       eggs =
+           ...
+           collective.flowplayer
+       zcml =
+           ...
+           collective.flowplayer
+
+       [versions]
+       collective.flowplayer = 3.1.2
+
+
+2. Install the product via Plone's Add-on products control panel or
+   portal_quickinstaller in ZMI.
+
 
 Usage
 -----
@@ -51,7 +105,7 @@ Portlet
 
 To place a video or audio player in a portlet, use the Video Player portlet
 that is installed with this product. You can choose a Folder, Collection or
-File to display. When displaying a Folder or Collection, you will get a 
+File to display. When displaying a Folder or Collection, you will get a
 playlist much like the one described above.
 
 Note that the player in the portlet has got a fixed size, set with CSS.
@@ -60,7 +114,7 @@ Inline
 ~~~~~~
 
 In each of the cases above, the video player is actually created with
-JavaScript as the page is loaded. This allows some degree of graceful 
+JavaScript as the page is loaded. This allows some degree of graceful
 degradation for browsers without Flash or JavaScript, but, more importantly,
 makes it easy to insert a video player anywhere, including in your content
 pages.
@@ -70,7 +124,7 @@ To create a standalone player, you would use markup like this::
     <a class="autoFlowPlayer" href="path/to/video-file.flv">
         <img src="path/to/splashscreen.jpg" />
     </a>
-    
+
 You can also use a <div class="autoFlowPlayer" /> around the <a /> tag if
 you prefer.
 
@@ -84,7 +138,7 @@ You can also get a more stripped-down player by using::
     <a class="autoFlowPlayer minimal" href="path/to/video-file.flv">
         <img src="path/to/splashscreen.jpg" />
     </a>
-    
+
 For an audio player, you can use::
 
     <a class="autoFlowPlayer audio" href="path/to/audio-file.mp3">
@@ -101,7 +155,7 @@ To get a playlist, you can use markup like this::
         <a class="playListItem" href="path/to/video.flv">Video two</a>
         <img src="splash.jpg" />
     </div>
-    
+
 You can also add 'minimal' and/or 'audio' to the list of classes for the
 outer <div /> to change the appearance of the player, or add 'random' to
 get a randomised playlist. The splash image is optional.
@@ -109,7 +163,7 @@ get a randomised playlist. The splash image is optional.
 Kupu integration
 ----------------
 
-Kupu is now deprecated. This section is kept for old plone 3 installations.
+Kupu is now deprecated. This section is kept for old Plone 3 installations.
 
 To make it easier to use the type of markup outlined above to insert a video
 or audio player into a Plone content item, this product installs a few
@@ -121,22 +175,22 @@ Video
  1. Insert the image you want to use as a splash image. You should insert this
     "inline" (rather than left/right floating), preferably in its own
     paragraph.
-    
+
  2. Select on the image, and make it link to the .flv or .mp3 file you want
     to play.
-    
+
  3. Select one of the Video or Audio styles from the styles drop-down.
- 
+
 Audio
 ~~~~~
 
  1. Create a link to an mp3 file, e.g. out of some text. Again, place it in
     its own paragraph.
-    
+
  2. Select one of the "Audio" styles from the styles drop-down. The "left"
     and "right" styles will produce a small player floating to the left or
     right. The "Audio" style will produce a larger player on its own line.
-    
+
 Notes
 ~~~~~
 
@@ -164,8 +218,8 @@ In portal_properties, there should be a new propertysheet called
 flowplayer_properties. Options set here are passed through to the player's
 JavaScript configuration (make sure you use the right property type). For
 string properties, you can use the placeholder ${portal_url} to refer to
-the URL of the portal root. This is useful for things like watermark images or 
-player plugins. 
+the URL of the portal root. This is useful for things like watermark images or
+player plugins.
 
 Properties starting with word "param/" are considered as Flash configuration
 properties. You may set properties like src (player flash file), wmode,
@@ -191,12 +245,12 @@ plugins/controls/url which generates configuration item in form::
                           }
                }
     }
-    
-To configure color of control bar volumeSliderColor, define property: 
-plugins/controls/volumeSliderColor set to value 'lime', which generates 
+
+To configure color of control bar volumeSliderColor, define property:
+plugins/controls/volumeSliderColor set to value 'lime', which generates
 the following config::
 
-    { 
+    {
      plugins : {
                controls : {
                             url : 'VALUE OF PROPERTY',
@@ -216,13 +270,13 @@ event).
 Useful configuration examples from http://flowplayer.org:
 
  * `Custom tooltips and texts`_
- 
+
  * `Controlbar color generator`_
 
 Commercial version of flowplayer
 ------------------------------------
 
-Use these parameters in portal_properties/flowplayer_properties (you can use 
+Use these parameters in portal_properties/flowplayer_properties (you can use
 different versions of course)::
 
     param/src = http://releases.flowplayer.org/swf/flowplayer.commercial-3.2.7.swf
@@ -253,12 +307,12 @@ collective.flowplayer creates Flowplayer instance from all .autoFlowPlayer and
 eg. by::
 
     $f()  or flowplayer()
-    
-or iterate through all players on page using:: 
+
+or iterate through all players on page using::
 
     $f("*").each
-    
-To be able to configure player runtime, you must first create custom javascript 
+
+To be able to configure player runtime, you must first create custom javascript
 file and include this file to page or add it to portal_javascripts registry.
 Since flowplayer uses jQuery to initialize itself, you must use jQuery syntax
 as well. Example of js skeleton::
@@ -268,7 +322,7 @@ as well. Example of js skeleton::
         // your javascript code goes here
 
     })
-    
+
 Let's create concerete example. The most visible one is Javascript alert::
 
     jq(function () {
@@ -281,8 +335,8 @@ or (for all players on the page)::
 
     jq(function () {
 
-        $f("*").each( function() { 
-                        this.onPause(function() { alert("Don't pause me!")}) 
+        $f("*").each( function() {
+                        this.onPause(function() { alert("Don't pause me!")})
                       })
 
     })
@@ -292,7 +346,7 @@ can try the examples yourself against every possible Flowplayer demo on
 flowplayer.org or your own site. Activate Firebug console and enter::
 
     $f().onPause(function() { alert("Don't pause me!")})
-    
+
 Try to start/pause player now. Alert window should be displayed.
 
 .. _Flowplayer: http://www.flowplayer.org
@@ -302,7 +356,8 @@ Try to start/pause player now. Alert window should be displayed.
 .. _`Controlbar color generator`: http://flowplayer.org/documentation/skinning/controlbar.html
 .. _`Documentation of Flowplayer JS API`: http://flowplayer.org/documentation/api/index.html
 .. _`Player retrieval`: http://flowplayer.org/documentation/api/flowplayer.html#playerretrieval
-.. _`Player configuration`: http://flowplayer.org/documentation/api/player.html 
+.. _`Player configuration`: http://flowplayer.org/documentation/api/player.html
 .. _`Clip configuration`: http://flowplayer.org/documentation/api/clip.html
 .. _`Scripting demo`: http://flowplayer.org/demos/index.html#scripting
 .. _`Scripting documentation`: http://flowplayer.org/documentation/scripting.html
+.. _`Travis CI`: http://travis-ci.org/collective/collective.flowplayer

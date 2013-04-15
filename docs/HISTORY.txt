@@ -4,6 +4,13 @@ Changelog
 4.0 - Unreleased
 ----------------
 
+* Focus development to Plone 4.x and add test buildouts for all Plone 4
+  versions including a travis test for all of them.
+  [saily]
+
+* Upgrade to plone.app.testing and remove collective.testcaselayer
+  [saily]
+
 * Upgrade to latest V1 bootstrap
   [saily]
 

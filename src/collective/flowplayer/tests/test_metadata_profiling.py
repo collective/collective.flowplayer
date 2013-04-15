@@ -1,9 +1,11 @@
-import unittest
-import time
+# -*- coding: utf-8 -*-
 import os
+import time
+import unittest
 
 testfile_home = os.path.join(os.path.dirname(__file__))
 file_handle = open(testfile_home + '/barsandtone.flv', 'rb')
+
 
 class TestMetadataProfiling(unittest.TestCase):
 
@@ -16,7 +18,7 @@ class TestMetadataProfiling(unittest.TestCase):
         flvparser = FLVHeader()
         flvparser.analyse(file_handle.read(1024))
         assert((288, 360) == (flvparser.getHeight(), flvparser.getWidth()))
-        print 'parse with FLVHeader: ' + str(time.time() - tt)
+        print ' (parse with FLVHeader: {0:0.6f})'.format(time.time() - tt)
 
     def testHachoir(self):
         tt = time.time()
@@ -27,10 +29,5 @@ class TestMetadataProfiling(unittest.TestCase):
         metadata = metaex.parse_raw(file_handle)
         file_handle.close()
         assert((288, 360) == metaex.scale_from_metadata(metadata))
-        print 'parse with metadata_extraction: ' + str(time.time() - tt)
-
-
-def test_suite():
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestMetadataProfiling))
-    return suite
+        print ' (parse with metadata_extraction: {0:0.6f})'.format(
+            time.time() - tt)

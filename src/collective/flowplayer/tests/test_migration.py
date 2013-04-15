@@ -1,14 +1,21 @@
-import unittest
-from Products.CMFCore.utils import getToolByName
-from Products.PloneTestCase.PloneTestCase import FunctionalTestCase
+# -*- coding: utf-8 -*-
 from collective.flowplayer.utils import properties_to_dict
+from collective.flowplayer.utils import flash_properties_to_dict
+from collective.flowplayer.testing import \
+    COLLECTIVE_FLOWPLAYER_INTEGRATION_TESTING
+
+import unittest2 as unittest
+
+from Products.CMFCore.utils import getToolByName
 from collective.flowplayer.migration import migrateTo30
-from collective.flowplayer.tests.tests import layer
 
-class TestMigration30(FunctionalTestCase):
-    layer = layer
 
-    def afterSetUp(self):
+class TestMigration30(unittest.TestCase):
+
+    layer = COLLECTIVE_FLOWPLAYER_INTEGRATION_TESTING
+
+    def setUp(self):
+        self.portal = self.layer['portal']
         self.props = getToolByName(self.portal, 'portal_properties').flowplayer_properties
         # add old properties, defined in previous versions of collective.flowplayer
         self.props.manage_addProperty('autoPlay', False, 'boolean')
@@ -39,7 +46,3 @@ class TestMigration30(FunctionalTestCase):
         self.failIf(self.props.hasProperty('controlBarGloss'))
         self.failIf(self.props.hasProperty('useNativeFullScreen'))
 
-def test_suite():
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestMigration30))
-    return suite

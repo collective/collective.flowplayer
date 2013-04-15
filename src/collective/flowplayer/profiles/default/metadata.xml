@@ -1,5 +1,5 @@
 <metadata>
-    <version>3.0b8</version>
+    <version>4</version>
     <dependencies>
         <dependency>profile-collective.flowplayer:base</dependency>
     </dependencies>

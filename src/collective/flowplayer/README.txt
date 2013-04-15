@@ -1,23 +1,26 @@
-.. -*-doctest-*-
-
-
 =====================
 collective.flowplayer
 =====================
 
 Open a browser and log in as a normal user.
 
-    >>> from Products.Five.testbrowser import Browser
-    >>> from Products.PloneTestCase import ptc
-    >>> browser = Browser()
+    >>> from plone.testing.z2 import Browser
+    >>> browser = Browser(layer['app'])
     >>> browser.handleErrors = False
+    >>> portal = layer['portal']
+    >>> from plone.app.testing import TEST_USER_NAME
+    >>> from plone.app.testing import TEST_USER_PASSWORD
     >>> browser.open(portal.absolute_url())
     >>> browser.getLink('Log in').click()
-    >>> browser.getControl('Login Name').value = ptc.default_user
-    >>> browser.getControl(
-    ...     'Password').value = ptc.default_password
+    >>> browser.getControl('Login Name').value = TEST_USER_NAME
+    >>> browser.getControl('Password').value = TEST_USER_PASSWORD
     >>> browser.getControl('Log in').click()
 
+.. note::
+
+   You have to commit transaction to get changes into testbrowser.
+
+    >>> import transaction
 
 FLV Files
 =========
@@ -26,6 +29,7 @@ Add an empty FLV file to a folder.
 
     >>> import os
     >>> from collective.flowplayer import tests
+    >>> folder = portal['test-folder']
     >>> browser.open(folder.absolute_url())
     >>> browser.getLink('File').click()
     >>> ctrl = browser.getControl(name="file_file")
@@ -51,7 +55,7 @@ been set to the flowplayer view.
     True
     >>> '++resource++collective.flowplayer.css/flowplayer.css)' in contents
     True
-    >>> 'href="http://nohost/plone/Members/test_user_1_/foo.flv"' in contents
+    >>> 'href="http://nohost/plone/test-folder/foo.flv"' in contents
     True
 
 The generated JavaScript includes the appropriate metadata.
@@ -61,24 +65,24 @@ The generated JavaScript includes the appropriate metadata.
     var collective_flowplayer = {
       "params": {
         "src": "http://nohost/plone/++resource++collective.flowplayer/flowplayer.swf"
-      }, 
+      },
       "config": {
         "clip": {
-          "scaling": "fit", 
-          "autoBuffering": false, 
+          "scaling": "fit",
+          "autoBuffering": false,
           "autoPlay": false
-        }, 
+        },
         "plugins": {
           "audio": {
             "url": "http%3A//nohost/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.audio.swf"
-          }, 
+          },
           "controls": {
-            "url": "http%3A//nohost/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.controls.swf", 
+            "url": "http%3A//nohost/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.controls.swf",
             "volume": true
           }
         }
-      }, 
-      "initialVolumePercentage": 50, 
+      },
+      "initialVolumePercentage": 50,
       "loop": false
     };
 
@@ -114,7 +118,7 @@ file that the link points to.
     True
     >>> '++resource++collective.flowplayer.css/flowplayer.css)' in contents
     True
-    >>> 'href="http://nohost/plone/Members/test_user_1_/foo.flv"' in contents
+    >>> 'href="http://nohost/plone/test-folder/foo.flv"' in contents
     True
 
 The generated JavaScript includes the appropriate metadata.
@@ -124,24 +128,24 @@ The generated JavaScript includes the appropriate metadata.
     var collective_flowplayer = {
       "params": {
         "src": "http://nohost/plone/++resource++collective.flowplayer/flowplayer.swf"
-      }, 
+      },
       "config": {
         "clip": {
-          "scaling": "fit", 
-          "autoBuffering": false, 
+          "scaling": "fit",
+          "autoBuffering": false,
           "autoPlay": false
-        }, 
+        },
         "plugins": {
           "audio": {
             "url": "http%3A//nohost/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.audio.swf"
-          }, 
+          },
           "controls": {
-            "url": "http%3A//nohost/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.controls.swf", 
+            "url": "http%3A//nohost/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.controls.swf",
             "volume": true
           }
         }
-      }, 
-      "initialVolumePercentage": 50, 
+      },
+      "initialVolumePercentage": 50,
       "loop": false
     };
 
@@ -172,24 +176,24 @@ same file.
     var collective_flowplayer = {
       "params": {
         "src": "http://nohost/plone/++resource++collective.flowplayer/flowplayer.swf"
-      }, 
+      },
       "config": {
         "clip": {
-          "scaling": "fit", 
-          "autoBuffering": false, 
+          "scaling": "fit",
+          "autoBuffering": false,
           "autoPlay": false
-        }, 
+        },
         "plugins": {
           "audio": {
             "url": "http%3A//nohost/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.audio.swf"
-          }, 
+          },
           "controls": {
-            "url": "http%3A//nohost/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.controls.swf", 
+            "url": "http%3A//nohost/plone/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.controls.swf",
             "volume": true
           }
         }
-      }, 
-      "initialVolumePercentage": 50, 
+      },
+      "initialVolumePercentage": 50,
       "loop": false
     };
 
@@ -199,24 +203,26 @@ Let's try to change some flowplayer properties.
     >>> props.getProperty('clip/autoPlay')
     False
     >>> props._updateProperty('clip/autoPlay', True)
+    >>> transaction.commit()
     >>> browser.open(folder['foo.flv'].absolute_url()+'/collective.flowplayer.js')
     >>> print browser.contents
     var collective_flowplayer = {
     ...
       "config": {
         "clip": {
-          "scaling": "fit", 
-          "autoBuffering": false, 
+          "scaling": "fit",
+          "autoBuffering": false,
           "autoPlay": true
         },...
-            
+
 Try to add new property.
-    
+
     >>> not not props.hasProperty('plugins/controls/backgroundColor')
     False
     >>> props.manage_addProperty('plugins/controls/backgroundColor', '#000000', 'string')
     >>> props.getProperty('plugins/controls/backgroundColor')
     '#000000'
+    >>> transaction.commit()
     >>> browser.open(folder['foo.flv'].absolute_url()+'/collective.flowplayer.js')
     >>> print browser.contents
     var collective_flowplayer = {
@@ -228,17 +234,18 @@ Try to add new property.
               "backgroundColor": "#000000"...
 
 Modify flash params
-    
+
     >>> not not props.hasProperty('param/wmode')
     False
     >>> props.manage_addProperty('param/wmode', 'opaque', 'string')
+    >>> transaction.commit()
     >>> browser.open(folder['foo.flv'].absolute_url()+'/collective.flowplayer.js')
     >>> print browser.contents
     var collective_flowplayer = {
     ...
         "wmode": "opaque"...
 
-Check playlist 
+Check playlist
 
     >>> props.getProperty('showPlaylist')
     True
@@ -254,12 +261,12 @@ Check playlist
     >>> 'flowPlaylistVisible' in browser.contents
     True
     >>> props._updateProperty('showPlaylist', False)
+    >>> transaction.commit()
     >>> browser.open(folder.absolute_url())
     >>> 'playListFlowPlayer' in browser.contents
     True
     >>> 'flowPlaylistHidden' in browser.contents
     True
-    
 
 Rename foo.flv to 'foo' only and check generated code. Since foo does not end
 with the same suffix as included file ('flv'), append the suffix as argument
@@ -267,14 +274,15 @@ of generated href.
 
     >>> browser.open(folder['foo.flv'].absolute_url()+'/view')
     >>> print browser.contents
-    <... <a style="" href="http://nohost/plone/Members/test_user_1_/foo.flv" class="autoFlowPlayer video"></a>...
-    
+    <... <a style="" href="http://nohost/plone/test-folder/foo.flv" class="autoFlowPlayer video"></a>...
+
     >>> folder.manage_renameObjects(['foo.flv',], ['foo'])
     >>> folder['foo'].absolute_url()
-    'http://nohost/plone/Members/test_user_1_/foo'
+    'http://nohost/plone/test-folder/foo'
+    >>> transaction.commit()
     >>> browser.open(folder['foo'].absolute_url()+'/view')
     >>> print browser.contents
-    <... <a style="" href="http://nohost/plone/Members/test_user_1_/foo?e=.flv" class="autoFlowPlayer video"></a>...
+    <... <a style="" href="http://nohost/plone/test-folder/foo?e=.flv" class="autoFlowPlayer video"></a>...
 
 Make sure we don't leak into sites where we're not installed
 ============================================================
@@ -283,6 +291,7 @@ If the product is uninstalled, new items should no longer get subtyped.
 
     >>> portal.portal_quickinstaller.uninstallProducts(products=['collective.flowplayer'])
     >>> folder.manage_delObjects(['foo'])
+    >>> transaction.commit()
     >>> browser.open(folder.absolute_url())
     >>> browser.getLink('File').click()
     >>> ctrl = browser.getControl(name="file_file")
