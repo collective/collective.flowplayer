@@ -18,9 +18,15 @@ from hachoir_core.stream import StreamError
 VIDEO_EXTENSIONS = ['.f4b', '.f4p', '.f4v', '.flv', '.mp4', '.m4v', '.mov']
 AUDIO_EXTENSIONS = ['.mp3']
 
+
 def is_flowplayer_installed(object):
     sm = getSiteManager(context=object)
-    return sm.queryUtility(IInterface, name=u'collective.flowplayer.interfaces.IFlowPlayerSite', default=False)
+    return sm.queryUtility(
+        IInterface,
+        name=u'collective.flowplayer.interfaces.IFlowPlayerSite',
+        default=False
+    )
+
 
 def remove_marker(object):
     changed = False
@@ -33,6 +39,7 @@ def remove_marker(object):
     if changed:
         object.reindexObject(idxs=['object_provides'])
 
+
 class ChangeView(object):
 
     interface = None
@@ -44,8 +51,12 @@ class ChangeView(object):
         # TODO: do we really need this different from object?
         self.content = content = event.object
 
-        if not is_flowplayer_installed(content): return
-        if not self.interface.providedBy(content): return
+        if not is_flowplayer_installed(content):
+            return
+
+        if not self.interface.providedBy(content):
+            return
+
         if self.value is None:
             remove_marker(content)
             return
@@ -70,7 +81,8 @@ class ChangeView(object):
 
     def check_extension(self):
         for ext in AUDIO_EXTENSIONS + VIDEO_EXTENSIONS:
-            if isinstance(self.filename, basestring) and self.filename.endswith(ext):
+            if isinstance(self.filename, basestring) and \
+               self.filename.endswith(ext):
                 return ext
         return None
 
@@ -81,14 +93,14 @@ class ChangeView(object):
 
     def handleVideo(self):
         video = IVideo.providedBy(self.content)
-        
+
         if not video:
             alsoProvides(self.content, IVideo)
             self.object.reindexObject(idxs=['object_provides'])
 
         info = IMediaInfo(self.content)
 
-        if (not video) or (info.height == None or info.width == None):
+        if (not video) or (info.height is None or info.width is None):
             handle = self.file_handle
             try:
                 metadata = parse_raw(handle)
@@ -99,7 +111,7 @@ class ChangeView(object):
 
             if height and width:
                 info.height = height
-                info.width = width            
+                info.width = width
 
 
 class ChangeFileView(ChangeView):
@@ -150,4 +162,3 @@ class ChangeLinkView(ChangeView):
         except IOError:
             file_handle = StringIO()
         return file_handle
-
