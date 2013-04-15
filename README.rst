@@ -1,5 +1,5 @@
-.. image:: https://travis-ci.org/collective/collective.flowplayer?branch=master
-    :target: http://travis-ci.org/collective/collective.flowplayer
+.. image:: https://travis-ci.org/collective/collective.flowplayer.png?branch=master
+   :target: https://travis-ci.org/collective/collective.flowplayer
 
 .. contents::
 
