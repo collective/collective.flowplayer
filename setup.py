@@ -51,7 +51,9 @@ setup(name='collective.flowplayer',
       zip_safe=False,
       install_requires=install_requires,
       extras_require={
-          'test': 'plone.app.testing >= 4.2.2'
+          'test': [
+              'plone.app.testing >= 4.2.2',
+          ],
       },
       entry_points="""
       [z3c.autoinclude.plugin]

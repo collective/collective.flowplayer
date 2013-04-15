@@ -17,10 +17,10 @@
     <include file="profiles.zcml"/>
 
     <!--<five:registerPackage package="." initialize=".initialize" />-->
-    
+
     <adapter factory=".media.VideoInfoAdapter" />
     <adapter factory=".media.AudioInfo" />
-    <adapter factory=".schemaextenders.VideoParameters" /> 
+    <adapter factory=".schemaextenders.VideoParameters" />
 
     <subscriber
         for="Products.ATContentTypes.interface.IFileContent
@@ -43,21 +43,37 @@
              Products.Archetypes.interfaces.IObjectEditedEvent"
         handler=".events.ChangeLinkView"
         />
-        
+
     <genericsetup:registerProfile
         name="default"
         title="Flowplayer"
         directory="profiles/default"
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
-        
+
     <genericsetup:registerProfile
         name="base"
         title="Flowplayer setup without types"
         directory="profiles/base"
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
-        
+
+    <genericsetup:registerProfile
+        name="collection"
+        title="Flowplayer view registration for plone.app.collection"
+        directory="profiles/collection"
+        zcml:condition="installed plone.app.collection"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <genericsetup:registerProfile
+        name="collection"
+        title="Flowplayer view registration for Topic type"
+        directory="profiles/topic"
+        zcml:condition="not-installed plone.app.collection"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
     <genericsetup:registerProfile
         name="uninstall"
         title="Flowplayer Uninstall"
@@ -65,7 +81,7 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         description="Uninstall profile for collective.flowplayer"
         />
-        
+
 
     <genericsetup:upgradeStep
         title="Upgrade collective.flowplayer"
@@ -75,7 +91,7 @@
         handler=".migration.migrateTo30"
         sortkey="1"
         profile="collective.flowplayer:default"
-    />  
+    />
 
     <genericsetup:upgradeStep
         title="Upgrade collective.flowplayer"
@@ -85,7 +101,7 @@
         handler=".migration.migrateTo30b2"
         sortkey="2"
         profile="collective.flowplayer:default"
-    />  
+    />
 
     <genericsetup:upgradeStep
         title="Upgrade collective.flowplayer"
@@ -95,7 +111,7 @@
         handler=".migration.emptyMigrate"
         sortkey="3"
         profile="collective.flowplayer:default"
-    />  
+    />
 
     <genericsetup:upgradeStep
         title="Upgrade collective.flowplayer"

@@ -4,6 +4,10 @@ Changelog
 4.0 - Unreleased
 ----------------
 
+* Use different install profiles if no ``plone.app.collection`` module was
+  found which is default for Plone 4.0.x and Plone 4.1.x versions.
+  [saily]
+
 * Pep8 cleanup
   [saily]
 
