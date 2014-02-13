@@ -16,7 +16,8 @@
 
     <include file="profiles.zcml"/>
 
-    <!--<five:registerPackage package="." initialize=".initialize" />-->
+    <!-- XXX This is required for the uninstall to run properly -->
+    <five:registerPackage package="." initialize=".initialize" />
 
     <adapter factory=".media.VideoInfoAdapter" />
     <adapter factory=".media.AudioInfo" />
