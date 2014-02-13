@@ -1,29 +1,46 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="collective.flowplayer">
 
     <!-- Flowplayer profile is loaded first because 'Flowplayer' < 'base' -->
     <genericsetup:registerProfile
-        name="Flowplayer"
+        name="default"
         title="Flowplayer"
         directory="profiles/default"
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
-        
+
     <genericsetup:registerProfile
         name="base"
         title="Flowplayer setup without types"
         directory="profiles/base"
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
-        
+
     <genericsetup:registerProfile
         name="uninstall"
         title="Flowplayer Uninstall"
         directory="profiles/uninstall"
         provides="Products.GenericSetup.interfaces.EXTENSION"
         description="Uninstall profile for collective.flowplayer"
+        />
+
+    <genericsetup:registerProfile
+        name="collection"
+        title="Flowplayer view registration for plone.app.collection"
+        directory="profiles/collection"
+        zcml:condition="installed plone.app.collection"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <genericsetup:registerProfile
+        name="collection"
+        title="Flowplayer view registration for Topic type"
+        directory="profiles/topic"
+        zcml:condition="not-installed plone.app.collection"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
 </configure>

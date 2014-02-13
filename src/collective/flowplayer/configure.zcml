@@ -44,45 +44,6 @@
         handler=".events.ChangeLinkView"
         />
 
-    <genericsetup:registerProfile
-        name="default"
-        title="Flowplayer"
-        directory="profiles/default"
-        provides="Products.GenericSetup.interfaces.EXTENSION"
-        />
-
-    <genericsetup:registerProfile
-        name="base"
-        title="Flowplayer setup without types"
-        directory="profiles/base"
-        provides="Products.GenericSetup.interfaces.EXTENSION"
-        />
-
-    <genericsetup:registerProfile
-        name="collection"
-        title="Flowplayer view registration for plone.app.collection"
-        directory="profiles/collection"
-        zcml:condition="installed plone.app.collection"
-        provides="Products.GenericSetup.interfaces.EXTENSION"
-        />
-
-    <genericsetup:registerProfile
-        name="collection"
-        title="Flowplayer view registration for Topic type"
-        directory="profiles/topic"
-        zcml:condition="not-installed plone.app.collection"
-        provides="Products.GenericSetup.interfaces.EXTENSION"
-        />
-
-    <genericsetup:registerProfile
-        name="uninstall"
-        title="Flowplayer Uninstall"
-        directory="profiles/uninstall"
-        provides="Products.GenericSetup.interfaces.EXTENSION"
-        description="Uninstall profile for collective.flowplayer"
-        />
-
-
     <genericsetup:upgradeStep
         title="Upgrade collective.flowplayer"
         description="Migrates flowplayer_properties to version 3.x"
