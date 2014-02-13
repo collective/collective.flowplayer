@@ -11,25 +11,30 @@ except ImportError:
     # python2.4
     import simplejson as json
 
+from zExceptions import Unauthorized
+from zope.component import getMultiAdapter
+
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
-from collective.flowplayer.utils import properties_to_dict, \
-                                        flash_properties_to_dict
+from collective.flowplayer.utils import (
+    properties_to_dict,
+    flash_properties_to_dict
+)
 
 from collective.flowplayer.interfaces import IFlowPlayable
 from collective.flowplayer.interfaces import IMediaInfo, IFlowPlayerView
+from collective.flowplayer import uninstall
 
 from plone.memoize.instance import memoize
 from plone.memoize import view
+
 
 class JavaScript(BrowserView):
 
     @view.memoize_contextless
     def portal_state(self):
-        """ returns
-            http://dev.plone.org/plone/browser/plone.app.layout/trunk/plone/app/layout/globals/portal.py
-        """
-        return component.getMultiAdapter((self.context, self.request), name=u"plone_portal_state")
+        return component.getMultiAdapter((self.context, self.request),
+                                         name=u"plone_portal_state")
 
     @property
     def flowplayer_properties(self):
@@ -44,7 +49,7 @@ class JavaScript(BrowserView):
                                   ignore=['title',
                                           'loop',
                                           'initialVolumePercentage',
-                                          'showPlaylist',])
+                                          'showPlaylist'])
 
     @property
     def flash_properties_as_dict(self):
@@ -53,14 +58,16 @@ class JavaScript(BrowserView):
                                         portal_url)
 
     def __call__(self, request=None, response=None):
-        """ Returns global configuration of the Flowplayer taken from portal_properties """
+        """ Returns global configuration of the Flowplayer taken from
+            portal_properties """
         self.request.response.setHeader("Content-type", "text/javascript")
         data = dict(
             config=self.flowplayer_properties_as_dict,
             params=self.flash_properties_as_dict,
             loop=bool(self.flowplayer_properties.getProperty('loop')),
             )
-        volume = self.flowplayer_properties.getProperty('initialVolumePercentage')
+        volume = self.flowplayer_properties.getProperty(
+            'initialVolumePercentage')
         if volume:
             data['initialVolumePercentage'] = int(volume)
         else:
@@ -78,10 +85,12 @@ class File(BrowserView):
 
         self.height = self.info is not None and self.info.height or None
         self.width = self.info is not None and self.info.width or None
-        self._audio_only = self.info is not None and self.info.audio_only or None
+        self._audio_only = self.info is not None and \
+            self.info.audio_only or None
 
         if self.height and self.width:
-            self._scale = "height: %dpx; width: %dpx;" % (self.height, self.width)
+            self._scale = "height: %dpx; width: %dpx;" % (self.height,
+                                                          self.width)
         else:
             self._scale = ""
 
@@ -104,7 +113,6 @@ class File(BrowserView):
         return context.getFilename()
 
     def href(self):
-        context = aq_inner(self.context)
         ext = ''
         url = self.context.absolute_url()
         filename = self.getFilename()
@@ -114,10 +122,12 @@ class File(BrowserView):
                 ext = "?e=%s" % extension
         return self.context.absolute_url()+ext
 
+
 class Link(File):
 
     def href(self):
         return self.context.getRemoteUrl()
+
 
 class Folder(BrowserView):
     interface.implements(IFlowPlayerView)
@@ -126,7 +136,8 @@ class Folder(BrowserView):
     def playlist_class(self):
         properties_tool = getToolByName(self.context, 'portal_properties')
         props = getattr(properties_tool, 'flowplayer_properties', None)
-        return props and props.getProperty('showPlaylist') and 'flowPlaylistVisible' or 'flowPlaylistHidden'
+        return props and props.getProperty('showPlaylist') \
+            and 'flowPlaylistVisible' or 'flowPlaylistHidden'
 
     @memoize
     def audio_only(self):
@@ -175,12 +186,29 @@ class Folder(BrowserView):
 
     def _query(self):
         catalog = getToolByName(self.context, 'portal_catalog')
-        return catalog(object_provides=IFlowPlayable.__identifier__,
-                       path = {'depth': 1, 'query': '/'.join(self.context.getPhysicalPath())},
-                       sort_on='getObjPositionInParent')
+        return catalog(
+            object_provides=IFlowPlayable.__identifier__,
+            path={'depth': 1,
+                  'query': '/'.join(self.context.getPhysicalPath())},
+            sort_on='getObjPositionInParent')
+
 
 class Topic(Folder):
     interface.implements(IFlowPlayerView)
 
     def _query(self):
         return self.context.queryCatalog()
+
+
+class Uninstall(BrowserView):
+
+    def __call__(self):
+        if self.request.REQUEST_METHOD == 'POST':
+            authenticator = getMultiAdapter((self.context, self.request),
+                                            name=u"authenticator")
+            if not authenticator.verify():
+                raise Unauthorized
+            uninstall.all(self.context)
+            self.request.response.write('successfully uninstalled flowplayer')
+            return
+        return self.index()

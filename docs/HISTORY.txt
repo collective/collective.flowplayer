@@ -4,7 +4,11 @@ Changelog
 4.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- fix profiles to not be defined twice
+  [vangheem]
+
+- provide a more complete uninstall
+  [vangheem]
 
 
 4.0 (2013-04-18)

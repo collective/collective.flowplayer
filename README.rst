@@ -68,6 +68,23 @@ Installation
    portal_quickinstaller in ZMI.
 
 
+Uninstall
+---------
+
+Previous versions of collective.flowplayer have been known to pollute your
+Plone site. Uninstalling the product has proven to be difficult.
+
+If this is the case for you, please upgrade to the latest version of
+collective.flowplayer and then uninstall this product.
+
+If you have already attempted to uninstall the product, a utility view
+has now been provided so you do not have to first reinstall it in order to
+uninstall it again on your site.
+
+Simply visit `http://yousite.com/@@uninstall-flowplayer` and follow the
+directions provided.
+
+
 Usage
 -----
 
