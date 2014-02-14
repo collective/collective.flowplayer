@@ -11,7 +11,7 @@
 <div metal:fill-slot="main">
     <tal:main-macro metal:define-macro="main">
       <h1>Uninstall collective.flowplayer</h1>
-      <p>Executing this will hopefully completely eradicate collective.flowplayer
+      Executing this will hopefully completely eradicate collective.flowplayer
          from your plone site. It will uninstall:
          <ul>
            <li>Javascript and css files</li>
@@ -20,7 +20,7 @@
            <li>Views that were set to flowplayer</li>
            <li>Marker interfaces of flowplayer set on your content</li>
           </ul>
-      </p>
+
       <form method="POST">
         <span tal:replace="structure context/@@authenticator/authenticator"/>
         <div class="formControls">
