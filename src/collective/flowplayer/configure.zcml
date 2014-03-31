@@ -12,7 +12,7 @@
     <include package=".browser" />
 
     <include zcml:condition="installed plone.dexterity" file="dexterity.zcml"/>
-    <include zcml:condition="installed Products.kupu" file="kupu.zcml"/>
+    <include zcml:condition="installed Products.kupu.config" file="kupu.zcml"/>
 
     <include file="profiles.zcml"/>
 
