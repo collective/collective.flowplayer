@@ -13,7 +13,7 @@
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
-        <h1 class="documentFirstHeading"> 
+        <h1 class="documentFirstHeading">
             <metal:field use-macro="python:context.widget('title', mode='view')">
             Title
             </metal:field>
@@ -29,7 +29,7 @@
 
         <div tal:replace="structure provider:plone.abovecontentbody" />
 
-        <div tal:condition="videos" 
+        <div tal:condition="videos"
              tal:define="audio view/audio_only"
              tal:attributes="class view/playlist_class">
 
@@ -37,7 +37,7 @@
                 If your video does not start playing shortly, please ensure
                 that you have JavaScript enabled and the latest version of
                 Adobe Flash Player (http://www.adobe.com/products/flashplayer/) installed.
-            </div>   
+            </div>
 
             <a tal:attributes="class python:audio and 'playListFlowPlayer audio' or 'playListFlowPlayer video';
                                  style string:display:none;;${view/scale};
@@ -46,7 +46,7 @@
 
             <div class="playlist_wrap">
                 <a class="prevPage"></a>
-                <div id="pl"> 
+                <div id="pl">
                     <div id="flowPlaylist">
                         <tal:block repeat="video videos">
                             <a tal:define="audio video/audio_only"
@@ -61,12 +61,12 @@
             </div>
             <div class="visualClear"><!-- --></div>
         </div>
-        
+
         <p tal:condition="not:videos" i18n:translate="no_videos">
             There are no videos in this folder. Add some video files here
             first.
         </p>
-    
+
         <div tal:replace="structure provider:plone.belowcontentbody" />
 
     </tal:main-macro>

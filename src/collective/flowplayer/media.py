@@ -11,7 +11,7 @@ from collective.flowplayer.interfaces import IVideo, IAudio, IMediaInfo
 class VideoInfo(Persistent):
     implements(IMediaInfo)
     adapts(IVideo)
-    
+
     def __init__(self):
         self.height = None
         self.width = None
@@ -22,7 +22,7 @@ VideoInfoAdapter = factory(VideoInfo)
 class AudioInfo(object):
     implements(IMediaInfo)
     adapts(IAudio)
-    
+
     def __init__(self, context):
         self.audio_only = True
         self.width = None

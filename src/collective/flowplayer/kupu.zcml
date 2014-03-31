@@ -7,7 +7,7 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="collective.flowplayer">
 
-        
+
     <genericsetup:importStep
         name="collective.flowplayer.kupu"
         title="Flowplayer support for kupu"

@@ -13,8 +13,8 @@ V30_PROPERTIES_MAPPING = {
 }
 
 V30_TO_DELETE = [
-    'usePlayOverlay', 
-    'useNativeFullScreen', 
+    'usePlayOverlay',
+    'useNativeFullScreen',
     'controlsOverVideo',
     'controlBarGloss',
 ]

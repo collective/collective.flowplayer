@@ -9,7 +9,7 @@
         </a>
         <span class="portletTopRight"></span>
     </dt>
-    
+
     <dd class="portletItem" tal:define="videos view/videos;
                                         audio  view/audio_only;">
         <div class='flowPlaylistHidden' tal:condition="videos">
@@ -17,7 +17,7 @@
                 If your video does not start playing shortly, please ensure
                 that you have JavaScript enabled and the latest version of
                 Adobe Flash Player (http://www.adobe.com/products/flashplayer/) installed.
-            </div>   
+            </div>
 
             <a tal:attributes="class python:audio and 'playListFlowPlayer audio' or 'playListFlowPlayer video minimal';
                                  href view/first_clip_url">
@@ -26,7 +26,7 @@
             <div class="visualClear"><!-- --></div>
             <div class="playlist_wrap">
                 <a class="prevPage"></a>
-                <div id="pl"> 
+                <div id="pl">
                     <div class="flowPlaylist-portlet-marker">
                         <tal:block repeat="video videos">
                             <a tal:define="audio video/audio_only"
@@ -42,7 +42,7 @@
 
         </div>
     </dd>
-    
+
     <dd class="portletFooter">
         <span class="portletBottomLeft"></span>
         <span>

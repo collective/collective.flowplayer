@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <object name="portal_css">
  <stylesheet title="" cacheable="True" compression="safe" cookable="True"
-    enabled="1" expression="" id="++resource++collective.flowplayer.css/flowplayer.css" 
+    enabled="1" expression="" id="++resource++collective.flowplayer.css/flowplayer.css"
     media="screen" rel="stylesheet" rendering="import"/>
  <stylesheet title="" cacheable="True" compression="safe" cookable="True"
-    enabled="1" expression="" id="++resource++collective.flowplayer.css/flowplayer-horizontal.css" 
+    enabled="1" expression="" id="++resource++collective.flowplayer.css/flowplayer-horizontal.css"
     media="screen" rel="stylesheet" rendering="import"/>
 </object>

@@ -16,7 +16,7 @@
             Adobe Flash Player (http://www.adobe.com/products/flashplayer/) installed.
         </span>
         <tal:comment tal:condition="nothing">
-         Do not put any text/image inside the following a tag. Flowplayer 
+         Do not put any text/image inside the following a tag. Flowplayer
          consider such text/image as a splash screen and does not display
          itself until clicked!
         </tal:comment>

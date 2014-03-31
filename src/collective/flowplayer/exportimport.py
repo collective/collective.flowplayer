@@ -18,40 +18,40 @@ _PROPERTIES = [
 ]
 
 def import_various(context):
-    
+
     if not context.readDataFile('collective.flowplayer.txt'):
         return
-        
+
     site = context.getSite()
-        
+
     # Define portal properties
     ptool = getToolByName(site, 'portal_properties')
     props = ptool.flowplayer_properties
 
-    # We don't want to migrate contents of 'player' property. Check if there is 
+    # We don't want to migrate contents of 'player' property. Check if there is
     # 'plugins/controls/url' property (which indicates we migrated to new version
     # already) and if there is not one, remove 'player' property to force new
     # version of this property
     if not props.hasProperty('plugins/controls/url'):
         if props.hasProperty('player'):
             props.manage_delProperties(['player'])
-    
+
     for prop in _PROPERTIES:
         if not props.hasProperty(prop['name']):
             props.manage_addProperty(prop['name'], prop['value'], prop['type_'])
 
 
 def setup_kupu(context):
-    
+
     if not context.readDataFile('collective.flowplayer.kupu.txt'):
         return
-        
+
     site = context.getSite()
     kupu = getToolByName(site, 'kupu_library_tool', None)
-    
+
     if kupu is not None:
         paragraph_styles = list(kupu.getParagraphStyles())
-    
+
         new_styles = [('autoFlowPlayer video', 'Video|div'),
                       ('autoFlowPlayer video image-left', 'Video (left)|div'),
                       ('autoFlowPlayer video image-right', 'Video (right)|div'),
@@ -59,7 +59,7 @@ def setup_kupu(context):
                       ('autoFlowPlayer audio image-left', 'Audio (left)|div'),
                       ('autoFlowPlayer audio image-right', 'Audio (right)|div')]
         to_add = dict(new_styles)
-    
+
         for style in paragraph_styles:
             css_class = style.split('|')[-1]
             if css_class in to_add:

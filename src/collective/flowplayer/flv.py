@@ -3,7 +3,7 @@
 
 #########################################################
 ## Class that parses file header for FLV (Flash Videos)
-## 
+##
 ## Specification described here: http://osflash.org/flv
 ##
 #########################################################
@@ -28,62 +28,62 @@ class FLVHeaderError(Exception):
     pass
 
 class FLVHeader:
-    
+
     def __init__(self):
         self.height = None
         self.width = None
-        
+
     def analyse(self, data):
         metatags = self.analyseContent(data)
         self.height = metatags.get("height",None)
         self.width = metatags.get("width",None)
         return metatags
-    
+
     def bin2float(self, buffer):
         f = unpack(">d",buffer)
         return f[0]
-    
+
     def getHeight(self):
         if self.height:
             return int(self.height)
         else:
             return None
-    
+
     def getWidth(self):
         if self.width:
             return int(self.width)
         else:
             return None
-    
+
     def getFlag(self, flag):
         if FLAGS.has_key(flag):
             return FLAGS[flag]
         else:
             return None
-    
+
     def getTagType(self, tag):
         if TAG_TYPES.has_key(tag):
             return TAG_TYPES[tag]
         else:
             return None
-        
+
     def getAmfType(self, amf_type):
         if AMF_TYPES.has_key(amf_type):
             return AMF_TYPES[amf_type]
         else:
             raise FLVHeaderError, "Unknown AMF Type %s"%amf_type
-        
+
     def analyseContent(self,data):
         """
         """
         signature = data[:3] #always FLV
         if len(data)<=(8+17):
-            raise FLVHeaderError,"Data size too small"    
+            raise FLVHeaderError,"Data size too small"
         if not str(signature) == 'FLV':
             raise FLVHeaderError, "This does not appear to be an FLV file"
         metatags = {}
         version = ord(data[3]) #Currently 1 for known FLV files
-        flag = ord(data[4]) # 5 - audio+video, 4 audio, 1 video 
+        flag = ord(data[4]) # 5 - audio+video, 4 audio, 1 video
         offset = ord(data[5])*(256**3) + ord(data[6])*(256)**2 + ord(data[7])*256 + ord(data[8]) #Total size of header (always 9 for known FLV files)
         header = {'signature':signature,
                   'version':version,
@@ -141,18 +141,18 @@ class FLVHeader:
             element_len = ord(body[array_start])*256 + ord(body[array_start+1])
             #print "element_len: ",element_len
             element_name = body[array_start+2:array_start+2+element_len]
-            #print "element_name: ",element_name            
+            #print "element_name: ",element_name
             value_type = hex(ord(body[array_start+element_len+2]))
             #print "value_type",value_type
             value_type = AMF_TYPES[value_type]
             #print "element_val_type",value_type
-            if value_type == 'number':                
+            if value_type == 'number':
                 element_val = body[array_start+element_len+2:array_start+element_len+2+9]
                 value_value = element_val[1:] #8 bit double
                 value_value = self.bin2float(value_value)
                 #print "value_value",value_value
                 array_start = array_start+element_len+2+9
-            elif value_type == 'string':            
+            elif value_type == 'string':
                 value_len = ord(body[array_start+element_len+3])*256 + ord(body[array_start+element_len+4])
                 #print "value_len: ",value_len
                 value_value = str(body[array_start+element_len+5:array_start+element_len+5+value_len])
@@ -160,13 +160,13 @@ class FLVHeader:
                 array_start = array_start+element_len+5+value_len
             elif value_type == 'date':
                 #I dont need that
-                #Date is represented as 0x0B, then a double, then an int. 
+                #Date is represented as 0x0B, then a double, then an int.
                 value_value = None
                 array_start = array_start+3+element_len+8+2
             else:
                 break
             metatags[element_name] = value_value
-            
+
         if hex(ord(body[array_start])) == '0x0' and\
            hex(ord(body[array_start+1])) == '0x0' and\
            hex(ord(body[array_start+2])) == '0x9':
