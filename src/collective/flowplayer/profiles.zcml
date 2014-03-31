@@ -43,4 +43,12 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
+    <genericsetup:importStep
+        name="collective.flowplayer.various"
+        title="Flowplayer configuration various"
+        description="Configures Kupu paragraph styles for the flow player"
+        handler="collective.flowplayer.exportimport.import_various">
+        <depends name="propertiestool" />
+    </genericsetup:importStep>
+
 </configure>

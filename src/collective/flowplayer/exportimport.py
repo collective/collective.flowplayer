@@ -23,6 +23,30 @@ def import_various(context):
         return
         
     site = context.getSite()
+        
+    # Define portal properties
+    ptool = getToolByName(site, 'portal_properties')
+    props = ptool.flowplayer_properties
+
+    # We don't want to migrate contents of 'player' property. Check if there is 
+    # 'plugins/controls/url' property (which indicates we migrated to new version
+    # already) and if there is not one, remove 'player' property to force new
+    # version of this property
+    if not props.hasProperty('plugins/controls/url'):
+        if props.hasProperty('player'):
+            props.manage_delProperties(['player'])
+    
+    for prop in _PROPERTIES:
+        if not props.hasProperty(prop['name']):
+            props.manage_addProperty(prop['name'], prop['value'], prop['type_'])
+
+
+def setup_kupu(context):
+    
+    if not context.readDataFile('collective.flowplayer.kupu.txt'):
+        return
+        
+    site = context.getSite()
     kupu = getToolByName(site, 'kupu_library_tool', None)
     
     if kupu is not None:
@@ -44,19 +68,3 @@ def import_various(context):
         if to_add:
             paragraph_styles += ['%s|%s' % (v, k) for k,v in new_styles if k in to_add]
             kupu.configure_kupu(parastyles=paragraph_styles)
-        
-    # Define portal properties
-    ptool = getToolByName(site, 'portal_properties')
-    props = ptool.flowplayer_properties
-
-    # We don't want to migrate contents of 'player' property. Check if there is 
-    # 'plugins/controls/url' property (which indicates we migrated to new version
-    # already) and if there is not one, remove 'player' property to force new
-    # version of this property
-    if not props.hasProperty('plugins/controls/url'):
-        if props.hasProperty('player'):
-            props.manage_delProperties(['player'])
-    
-    for prop in _PROPERTIES:
-        if not props.hasProperty(prop['name']):
-            props.manage_addProperty(prop['name'], prop['value'], prop['type_'])

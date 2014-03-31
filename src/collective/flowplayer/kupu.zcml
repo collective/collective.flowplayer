@@ -9,12 +9,11 @@
 
         
     <genericsetup:importStep
-        name="collective.flowplayer"
-        title="Flowplayer configuration"
+        name="collective.flowplayer.kupu"
+        title="Flowplayer support for kupu"
         description="Configures Kupu paragraph styles for the flow player"
-        handler="collective.flowplayer.exportimport.import_various">
+        handler="collective.flowplayer.exportimport.setup_kupu">
         <depends name="kupu-setup" />
-        <depends name="propertiestool" /> 
     </genericsetup:importStep>
 
 </configure>
