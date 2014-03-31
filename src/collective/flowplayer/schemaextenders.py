@@ -2,11 +2,11 @@ from zope.component import adapts
 from zope.interface import implements
 from archetypes.schemaextender.interfaces import IOrderableSchemaExtender
 from archetypes.schemaextender.field import ExtensionField
-from Products.Archetypes.public import IntegerField, IntegerWidget, IntegerField, IntegerWidget
+from Products.Archetypes.public import IntegerField, IntegerWidget
 from collective.flowplayer.interfaces import IVideo
 from collective.flowplayer import MessageFactory as _
-from Products.Archetypes.atapi import AttributeStorage
 from collective.flowplayer.interfaces import IMediaInfo
+
 
 class _ExtensionWidthField(ExtensionField, IntegerField):
     def getAccessor(self, instance):
@@ -28,6 +28,7 @@ class _ExtensionWidthField(ExtensionField, IntegerField):
             IMediaInfo(instance).width = value
         return mutator
 
+
 class _ExtensionHeightField(ExtensionField, IntegerField):
     def getAccessor(self, instance):
         def accessor(**kw):
@@ -47,6 +48,7 @@ class _ExtensionHeightField(ExtensionField, IntegerField):
                 value = None
             IMediaInfo(instance).height = value
         return mutator
+
 
 class VideoParameters(object):
     adapts(IVideo)

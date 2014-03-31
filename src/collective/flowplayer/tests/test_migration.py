@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from collective.flowplayer.utils import properties_to_dict
-from collective.flowplayer.utils import flash_properties_to_dict
+#from collective.flowplayer.utils import properties_to_dict
+#from collective.flowplayer.utils import flash_properties_to_dict
 from collective.flowplayer.testing import \
     COLLECTIVE_FLOWPLAYER_INTEGRATION_TESTING
 
@@ -45,4 +45,3 @@ class TestMigration30(unittest.TestCase):
         # Those are deleted because not migrated at all
         self.failIf(self.props.hasProperty('controlBarGloss'))
         self.failIf(self.props.hasProperty('useNativeFullScreen'))
-

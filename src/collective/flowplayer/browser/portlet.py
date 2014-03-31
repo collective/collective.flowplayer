@@ -21,7 +21,6 @@ from collective.flowplayer.interfaces import IFlowPlayable
 from collective.flowplayer.interfaces import IFlowPlayerView
 from collective.flowplayer import MessageFactory as _
 
-from Products.CMFCore.utils import getToolByName
 
 class IVideoPortlet(IPortletDataProvider):
     """A portlet which can display videos
@@ -121,7 +120,6 @@ class Renderer(base.Renderer):
     def videos(self):
 
         target = self.target()
-        catalog = getToolByName(self.context, 'portal_catalog')
 
         if target is None:
             return []
