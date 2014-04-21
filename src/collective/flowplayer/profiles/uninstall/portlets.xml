@@ -1,7 +1,4 @@
 <?xml version="1.0"?>
 <portlets>
-   <portlet
-     addview="collective.flowplayer.Player"
-     remove="True"
-   />
+  <portlet remove="True" addview="collective.flowplayer.Player"/>
 </portlets>

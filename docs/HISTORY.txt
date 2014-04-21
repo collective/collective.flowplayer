@@ -4,6 +4,9 @@ Changelog
 4.2 (unreleased)
 ----------------
 
+- Complete uninstall profile.
+  [thet]
+
 - Set our properties on install, also when kupu is not available.  Fix
   the zcml condition for loading kupu.zcml.
   [maurits]
