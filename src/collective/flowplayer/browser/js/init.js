@@ -109,8 +109,5 @@
 
         });
     };
-
-    $(function() {
-        initFlowplayer();
-    });
+    $(window).load(initFlowplayer);
 }(jQuery));
