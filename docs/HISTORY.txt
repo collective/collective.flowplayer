@@ -10,6 +10,10 @@ Changelog
 - Set our properties on install, also when kupu is not available.  Fix
   the zcml condition for loading kupu.zcml.
   [maurits]
+  
+- Load Javascript later, so that slow image loading does not result in
+  too small flowplayer windows.
+  [do3cc]
 
 
 4.1 (2014-03-20)
