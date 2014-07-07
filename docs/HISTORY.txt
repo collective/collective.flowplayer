@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.2 (unreleased)
-----------------
+4.2.0 (2014-07-07)
+------------------
 
 - Complete uninstall profile.
   [thet]
