@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.2.1 (unreleased)
+4.2.1 (2014-07-07)
 ------------------
 
 - Brown bag release, late javascript loading was broken and did not
