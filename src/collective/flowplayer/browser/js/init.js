@@ -109,5 +109,7 @@
 
         });
     };
-    $(window).load(initFlowplayer);
+    $(window).load(function(){
+        initFlowplayer();
+    });
 }(jQuery));
