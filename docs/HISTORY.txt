@@ -4,7 +4,8 @@ Changelog
 4.2.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Brown bag release, late javascript loading was broken and did not
+  load flowplayer at all. [do3cc]
 
 
 4.2.0 (2014-07-07)
