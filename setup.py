@@ -8,7 +8,7 @@ import sys
 def read(*paths):
     return open(os.path.join(os.path.dirname(__file__), *paths), 'r').read()
 
-version = '4.2.0'
+version = '4.2.1.dev0'
 
 install_requires = [
     'setuptools',
