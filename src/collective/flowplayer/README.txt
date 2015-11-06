@@ -53,7 +53,7 @@ been set to the flowplayer view.
     >>> contents = browser.contents
     >>> '++resource++collective.flowplayer/flowplayer.min.js">' in contents
     True
-    >>> '++resource++collective.flowplayer.css/flowplayer.css)' in contents
+    >>> '++resource++collective.flowplayer.css/flowplayer.css' in contents
     True
     >>> 'href="http://nohost/plone/test-folder/foo.flv"' in contents
     True
@@ -116,7 +116,7 @@ file that the link points to.
     >>> contents = browser.contents
     >>> '++resource++collective.flowplayer/flowplayer.min.js">' in contents
     True
-    >>> '++resource++collective.flowplayer.css/flowplayer.css)' in contents
+    >>> '++resource++collective.flowplayer.css/flowplayer.css' in contents
     True
     >>> 'href="http://nohost/plone/test-folder/foo.flv"' in contents
     True
