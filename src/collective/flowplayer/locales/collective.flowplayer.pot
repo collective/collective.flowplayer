@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-09-10 14:10+0000\n"
+"POT-Creation-Date: 2015-11-06 12:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,81 +17,81 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.flowplayer\n"
 
-#: ../browser/portlet.py:191
+#: ../browser/portlet.py:189
 msgid "Add Video Portlet"
 msgstr ""
 
-#: ../browser/portlet.py:43
+#: ../browser/portlet.py:42
 msgid "An image file to use as a splash image"
 msgstr ""
 
-#: ../browser/portlet.py:202
+#: ../browser/portlet.py:200
 msgid "Edit Video Portlet"
 msgstr ""
 
-#: ../browser/portlet.py:49
+#: ../browser/portlet.py:48
 msgid "Enter a number greater than 0 to limit the number of items displayed"
 msgstr ""
 
 #: ../interfaces.py:44
-#: ../schemaextenders.py:69
+#: ../schemaextenders.py:71
 msgid "Height"
 msgstr ""
 
-#: ../browser/portlet.py:58
+#: ../browser/portlet.py:57
 msgid "If enabled, a more... link will appear in the footer of the portlet, linking to the underlying data."
 msgstr ""
 
-#: ../browser/portlet.py:53
+#: ../browser/portlet.py:52
 msgid "If enabled, a random video from the selection will be played."
 msgstr ""
 
-#: ../browser/portlet.py:48
+#: ../browser/portlet.py:47
 msgid "Number of videos to show"
 msgstr ""
 
-#: ../browser/portlet.py:30
+#: ../browser/portlet.py:29
 msgid "Portlet header"
 msgstr ""
 
-#: ../browser/portlet.py:52
+#: ../browser/portlet.py:51
 msgid "Randomise the playlist"
 msgstr ""
 
-#: ../browser/portlet.py:57
+#: ../browser/portlet.py:56
 msgid "Show more... link"
 msgstr ""
 
-#: ../browser/portlet.py:42
+#: ../browser/portlet.py:41
 msgid "Splash image"
 msgstr ""
 
-#: ../browser/portlet.py:34
+#: ../browser/portlet.py:33
 msgid "Target object"
 msgstr ""
 
-#: ../browser/portlet.py:35
+#: ../browser/portlet.py:34
 msgid "This can be a file containing an FLV file, or a folder or collection containing FLV files"
 msgstr ""
 
-#: ../browser/portlet.py:192
+#: ../browser/portlet.py:190
 msgid "This portlet display a Flash Video"
 msgstr ""
 
-#: ../browser/portlet.py:31
+#: ../browser/portlet.py:30
 msgid "Title of the rendered portlet"
 msgstr ""
 
 #: ../interfaces.py:43
-#: ../schemaextenders.py:60
+#: ../schemaextenders.py:62
 msgid "Width"
 msgstr ""
 
-#: ../schemaextenders.py:70
+#: ../schemaextenders.py:72
 msgid "You can override video height detected in video metadata. Leave empty to retreive height from metadata."
 msgstr ""
 
-#: ../schemaextenders.py:61
+#: ../schemaextenders.py:63
 msgid "You can override video width detected in video metadata. Leave empty to retreive width from metadata."
 msgstr ""
 
