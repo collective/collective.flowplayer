@@ -24,8 +24,6 @@ tests_require = [
     'plone.app.testing >= 4.2.2',
 ]
 
-if sys.version_info < (2, 6):
-    install_requires.append('simplejson')
 if sys.version_info < (2, 7):
     tests_require.append('unittest2')
 
