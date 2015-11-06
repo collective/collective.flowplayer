@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 import os
 import time
-import unittest
+try:
+    # Python 2.6
+    import unittest2 as unittest
+except ImportError:
+    # Python 2.7 has unittest2 integrated in unittest
+    import unittest
 
 testfile_home = os.path.join(os.path.dirname(__file__))
 file_handle = open(testfile_home + '/barsandtone.flv', 'rb')

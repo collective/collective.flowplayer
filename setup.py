@@ -20,8 +20,14 @@ install_requires = [
     'archetypes.schemaextender',
 ]
 
+tests_require = [
+    'plone.app.testing >= 4.2.2',
+]
+
 if sys.version_info < (2, 6):
     install_requires.append('simplejson')
+if sys.version_info < (2, 7):
+    tests_require.append('unittest2')
 
 setup(name='collective.flowplayer',
       version=version,
@@ -36,7 +42,13 @@ setup(name='collective.flowplayer',
       # http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
           "Framework :: Plone",
+          "Framework :: Plone :: 4.0",
+          "Framework :: Plone :: 4.1",
+          "Framework :: Plone :: 4.2",
+          "Framework :: Plone :: 4.3",
           "Programming Language :: Python",
+          "Programming Language :: Python :: 2.6",
+          "Programming Language :: Python :: 2.7",
           "Topic :: Software Development :: Libraries :: Python Modules",
       ],
       keywords='flv flash video plone',
@@ -51,9 +63,7 @@ setup(name='collective.flowplayer',
       zip_safe=False,
       install_requires=install_requires,
       extras_require={
-          'test': [
-              'plone.app.testing >= 4.2.2',
-          ],
+          'test': tests_require,
       },
       entry_points="""
       [z3c.autoinclude.plugin]

@@ -5,8 +5,12 @@ from collective.flowplayer.utils import properties_to_dict
 from collective.flowplayer.utils import flash_properties_to_dict
 from collective.flowplayer.testing import \
     COLLECTIVE_FLOWPLAYER_INTEGRATION_TESTING
-
-import unittest2 as unittest
+try:
+    # Python 2.6
+    import unittest2 as unittest
+except ImportError:
+    # Python 2.7 has unittest2 integrated in unittest
+    import unittest
 
 
 class TestUtils(unittest.TestCase):

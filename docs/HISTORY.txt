@@ -4,6 +4,10 @@ Changelog
 4.2.2 (unreleased)
 ------------------
 
+- Added unittest2 as test dependency on Python 2.6.
+  Use standard unittest on Pyton 2.7, as this includes unittest2.
+  [maurits]
+
 - Render CSS as link, no css-import. This allows cooking with other
   link rendered css and gives better asynchronous download behavior.
   [thet]
@@ -25,7 +29,7 @@ Changelog
 - Set our properties on install, also when kupu is not available.  Fix
   the zcml condition for loading kupu.zcml.
   [maurits]
-  
+
 - Load Javascript later, so that slow image loading does not result in
   too small flowplayer windows.
   [do3cc]
@@ -331,4 +335,3 @@ Changelog
 ------------------------------------
 
 * Initial release
-

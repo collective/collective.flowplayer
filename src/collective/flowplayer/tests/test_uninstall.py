@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 from collective.flowplayer.testing import \
     COLLECTIVE_FLOWPLAYER_INTEGRATION_TESTING
-
-import unittest2 as unittest
+try:
+    # Python 2.6
+    import unittest2 as unittest
+except ImportError:
+    # Python 2.7 has unittest2 integrated in unittest
+    import unittest
 from zope.interface.interfaces import IInterface
 from zope.component import getSiteManager
 
