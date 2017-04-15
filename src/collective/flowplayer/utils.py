@@ -17,6 +17,7 @@ def flash_properties_to_dict(propertysheet, portal_url):
                 new_value = value
             # key name is param/src - there must be 'src' only in result dict
             items[key[6:]] = new_value
+    items['wmode']='transparent'
     return items
 
 
