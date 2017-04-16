@@ -49,8 +49,10 @@
                     // Clip is probably linked as image, so autoplay the clip after image is clicked
                     config.clip.autoPlay = true;
                     // If we know there is splash image, we could at least try to match this size
-                    $(this).css("width", $self.find('img').width());
-                    $(this).css("height", $self.find('img').height());
+                    $(window).load(function(){
+                        $self.css("width", $self.find('img').width());
+                        $self.css("height", $self.find('img').height());
+                    });
                 }
             }
             flowplayer(this, window.collective_flowplayer.params, config).onLoad(initialVolume).onBeforeFinish(loop);
