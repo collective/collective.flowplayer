@@ -4,6 +4,9 @@ Changelog
 4.2.2 (unreleased)
 ------------------
 
+- Extend uninstall profile and uninstall also properties tool entries.
+  [thet]
+
 - No longer add simplejson to the install_requires in Python 2.5, as
   we do not support Python 2.5.
   [maurits]
